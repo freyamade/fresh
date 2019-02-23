@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+    <Nav v-bind:has-drop-down="false" />
 
     <main>
       <slot/> <!-- Page content inserted here -->
@@ -24,6 +24,7 @@ export default {
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body, html {
@@ -54,7 +55,7 @@ a {
 }
 
 main {
-  height: 92.2vh;
+  height: 89.5vh;
   overflow-x: hidden;
   overflow-y: auto;
   text-align: center;
@@ -67,5 +68,12 @@ p:not(:last-child) {
 // Accessibility
 .sr-only {
   display: none;
+}
+
+// Desktop
+@media only screen and (min-width: 768px) {
+  main {
+    height: 92.2vh;
+  }
 }
 </style>

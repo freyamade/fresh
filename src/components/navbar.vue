@@ -72,10 +72,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 nav {
   flex-shrink: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border-bottom: 2px solid transparent;
@@ -83,7 +84,7 @@ nav {
   border-image-slice: 1;
   user-select: none;
   background-color: #1d1e22;
-  height: 7.6vh;
+  height: 10.5vh;
 
   & a {
     text-decoration: none;
@@ -93,14 +94,9 @@ nav {
 .brand {
   color: #fff;
   font-size: 200%;
-  margin-top: 0.4em;
-  margin-bottom: 0.4em;
 }
 
 .subnav {
-  padding: 0.3em;
-  margin-top: 0.5em;
-
   & > span {
     color: #aaacb6;
     text-decoration: underline solid #d7004b88;
@@ -118,7 +114,7 @@ nav {
 }
 
 .dropdown-content {
-  padding: 0.3em;
+  // padding: 0.3em;
   display: none;
   position: absolute;
   background-color: #151619;
@@ -138,5 +134,23 @@ nav {
 
 .svg-inline--fa path {
   fill: #aaacb6;
+}
+
+// Desktop stuff
+@media only screen and (min-width: 768px) {
+  nav {
+    flex-direction: row;
+    height: 7.6vh;
+  }
+
+  .subnav {
+    padding: 0.3em;
+    margin-top: 0.5em;
+  }
+
+  .brand {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+  }
 }
 </style>
