@@ -73,9 +73,9 @@
     </div>
 
     <!-- to top -->
-    <div id="to-top">
+    <!-- <div id="to-top">
       <a><fa-icon icon="chevron-up" /></a>
-    </div>
+    </div> -->
   </layout>
 </template>
 
@@ -182,24 +182,24 @@ li:nth-child(4n+3)::before {
   color: #ff206e;
 }
 
-#to-top {
-  display: none;
-  position: absolute;
-  right: 2%;
-  bottom: 2%;
-  background-color: #17181b;
-  display: block;
-  border: 1px solid transparent;
-  border-image: linear-gradient(to right, #0046cc, #ff206e);
-  border-image-slice: 1;
+// #to-top {
+//   display: none;
+//   position: absolute;
+//   right: 2%;
+//   bottom: 2%;
+//   background-color: #17181b;
+//   display: block;
+//   border: 1px solid transparent;
+//   border-image: linear-gradient(to right, #0046cc, #ff206e);
+//   border-image-slice: 1;
 
-  & path {
-    color: white;
-  }
+//   & path {
+//     color: white;
+//   }
 
-  & a {
-    display: block;
-    padding: 0.5vh;
-  }
-}
+//   & a {
+//     display: block;
+//     padding: 0.5vh;
+//   }
+// }
 </style>
