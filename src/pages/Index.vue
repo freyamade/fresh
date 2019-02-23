@@ -33,11 +33,11 @@
         <h2>what i've made</h2>
         <p>here's a list of things that i've made / i am currently making;</p>
         <ul>
-          <li><a href="https://github.com/freyamade/github-user-languages">github user languages</a> - browser extension to show user languages in a pie chart on github</li>
-          <li><a href="http://freyamade.netsoc.co">freyamade.netsoc.co</a> - various techtalks given at ucc netsoc in 2018 / 2019</li>
-          <li><a href="https://github.com/freyamade/natural-void">natural void</a> - podcast hosting site made using go in the backend</li>
-          <li><a href="https://github.com/freyamade/nocturne">nocturne</a> - village building management application for one of my d&d campaigns, made with crystal and vue.js</li>
-          <li><a href="https://github.com/drizzle-lang/drizzle">drizzle</a> - an interpreted programming language of my own design being built in crystal</li>
+          <li><a href="https://github.com/freyamade/github-user-languages" target="_blank">github user languages</a> - browser extension to show user languages in a pie chart on github</li>
+          <li><a href="http://freyamade.netsoc.co" target="_blank">freyamade.netsoc.co</a> - various techtalks given at ucc netsoc in 2018 / 2019</li>
+          <li><a href="https://github.com/freyamade/natural-void" target="_blank">natural void</a> - podcast hosting site made using go in the backend</li>
+          <li><a href="https://github.com/freyamade/nocturne" target="_blank">nocturne</a> - village building management application for one of my d&d campaigns, made with crystal and vue.js</li>
+          <li><a href="https://github.com/drizzle-lang/drizzle" target="_blank">drizzle</a> - an interpreted programming language of my own design being built in crystal</li>
         </ul>
       </div>
       <div class="block-footer">
@@ -49,12 +49,12 @@
     <div class="block">
       <div class="block-content">
         <h2>what i like</h2>
-        <p>here's a list of things that i personally like to use;</p>
+        <p>here's a list of tools / languages that i personally like to use;</p>
         <ul>
-          <li><a href="https://crystal-lang.org">crystal</a></li>
-          <li><a href="https://www.typescriptlang.org/">typescript</a></li>
-          <li><a href="https://www.python.org/">python</a></li>
-          <li><a href="https://vuejs.org">vue.js</a></li>
+          <li><a href="https://crystal-lang.org"target="_blank">crystal</a></li>
+          <li><a href="https://www.typescriptlang.org/"target="_blank">typescript</a></li>
+          <li><a href="https://www.python.org/"target="_blank">python</a></li>
+          <li><a href="https://vuejs.org"target="_blank">vue.js</a></li>
         </ul>
       </div>
       <div class="block-footer">
@@ -71,6 +71,11 @@
         <p class="contact">contact (at) freyama (dot) de</p>
       </div>
     </div>
+
+    <!-- to top -->
+    <div id="to-top">
+      <a><fa-icon icon="chevron-up" /></a>
+    </div>
   </layout>
 </template>
 
@@ -85,7 +90,7 @@ export default {
       { name: 'author', content: 'freyamade' },
       { name: 'description', content: 'homepage of freya madeline broderick, full stack web developer, devops engineer, composer, lover of dungeons and dragons and developing software' },
     ],
-  }
+  },
 }
 </script>
 
@@ -175,5 +180,26 @@ li:nth-child(4n+3)::before {
 
 .contact {
   color: #ff206e;
+}
+
+#to-top {
+  display: none;
+  position: absolute;
+  right: 2%;
+  bottom: 2%;
+  background-color: #17181b;
+  display: block;
+  border: 1px solid transparent;
+  border-image: linear-gradient(to right, #0046cc, #ff206e);
+  border-image-slice: 1;
+
+  & path {
+    color: white;
+  }
+
+  & a {
+    display: block;
+    padding: 0.5vh;
+  }
 }
 </style>

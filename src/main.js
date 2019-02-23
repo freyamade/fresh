@@ -3,10 +3,10 @@
 
 // FontAwesome setup
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faChevronDown)
+library.add(faChevronDown, faChevronUp)
 
 import defaultLayout from '~/layouts/default.vue'
 
