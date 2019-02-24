@@ -164,6 +164,7 @@ p:not(:last-child) {
 ul {
   list-style-position: outside;
   list-style: none;
+  text-align: left;
 }
 
 li::before {
