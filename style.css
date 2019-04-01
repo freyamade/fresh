@@ -164,9 +164,10 @@ p:not(:last-child) {
 ul {
   list-style-position: outside;
   list-style: none;
+  text-align: left;
 }
 
-li::before {
+ul:not(.horizontal) li::before {
   font-weight: bold;
   content: "\2053";
   font-size: 1em;
@@ -175,20 +176,25 @@ li::before {
   top: 0em;
 }
 
-li:nth-child(even)::before {
+ul:not(.horizontal) li:nth-child(even)::before {
   color: #80339D;
 }
 
-li:nth-child(odd)::before {
+ul:not(.horizontal) li:nth-child(odd)::before {
   color: #0046cc;
 }
 
-li:nth-child(4n+3)::before {
+ul:not(.horizontal) li:nth-child(4n+3)::before {
   color: #ff206e;
 }
 
-.contact {
-  color: #ff206e;
+ul.horizontal li {
+  display: inline;
+  padding: 1em;
+}
+
+.extra-spacing a {
+  padding: 1em;
 }
 
 
