@@ -1,0 +1,25 @@
+{
+  "name": "freyamade.github.io",
+  "version": "1.0.0",
+  "description": "My website c:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freyamade/freyamade.github.io.git"
+  },
+  "keywords": [
+    "xterm"
+  ],
+  "author": "freyamade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freyamade/freyamade.github.io/issues"
+  },
+  "homepage": "https://github.com/freyamade/freyamade.github.io#readme",
+  "dependencies": {
+    "xterm": "^3.14.5"
+  }
+}

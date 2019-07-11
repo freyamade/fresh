@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <script src="node_modules/xterm/dist/xterm.js"></script>
+    <script src="node_modules/xterm/dist/addons/fit/fit.js"></script>
+    <style> *{margin: 0; padding: 0;} html, body { width: 100vw; height: 100vh; background-color: #18191c; overflow: hidden;} #terminal {height: calc(100% - 4px); width: calc(100% - 10px); padding: 2px 5px;}</style>
+  </head>
+  <body>
+    <div id="terminal"></div>
+    <script>
+      Terminal.applyAddon(fit);
+      let term = new Terminal({fontFamily: 'Source Code Pro', fontSize: '16', theme: {background: '#18191c', foreground: '#fff'}});
+      term.open(document.getElementById('terminal'));
+      term.fit();
+      term.rows++
+      let prompt = '/freyama.de > '
+      let command = ''
+      term.line = () => {term.write('\r\n')}
+      term.prompt = () => {term.write('\033[1m' + prompt + '\033[0m')}
+      term.execute = (cmd) => {
+        switch (cmd) {
+          case 'ls':
+            term.write('projects/')
+            term.line()
+            break
+        }
+      }
+      term.prompt()
+      term.on('key', function(key, ev) {
+        const printable = !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey;
+
+        if (ev.keyCode === 13) {
+            // Go to next line, then execute the command.
+            // Probably a bad way of doing it but for now it will do until I can start structuring it out a bit better
+            term.line()
+            term.execute(command)
+            command = ''
+            term.prompt();
+        } else if (ev.keyCode === 8) {
+            // Do not delete the prompt
+            if (term._core.buffer.x > prompt.length) {
+                term.write('\b \b');
+            }
+        } else if (printable) {
+            command += key
+            term.write(key);
+        }
+      });
+
+      window.addEventListener('resize', () => { term.fit() }, false)
+    </script>
+  </body>
+</html>
