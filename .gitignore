@@ -3,3 +3,5 @@
 
 # Lighthouse reports
 *.report.html
+
+node_modules
