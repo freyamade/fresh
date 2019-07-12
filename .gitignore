@@ -4,4 +4,8 @@
 # Lighthouse reports
 *.report.html
 
+# node modules
 node_modules
+
+# built js
+static/js/*.js
