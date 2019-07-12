@@ -100,7 +100,7 @@ export default class Fresh extends Terminal {
         break
       default:
         this.newline()
-        this.write(`fresh: Unknown command '${command}'`)
+        this.write(`\x1b[31mfresh: Unknown command '${command}'\x1b[0m`)
         this.newline()
     }
   }
