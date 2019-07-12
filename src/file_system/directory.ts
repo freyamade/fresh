@@ -15,19 +15,18 @@ export class Directory extends Node {
    * Handle the cd command by recursively traversing the `path` parameter and ensuring that the path is valid.
    * Return a flag stating whether or not the cd requst is valid.
    */
-  cd(path: string): boolean {
-    // Extra checking for leading / character
+  cd(path: string): string | null {
+    // Extra checking for leading / character, only for root node
     if (this.name === '/' && path[0] === '/') {
       path = path.substr(1)
     }
     let split = path.split('/')
-    console.log(`Directory.cd: ${path} - ${split}`)
     let child = split.shift()
     let further = split.join('/')
 
-    // If the `further` value is empty, we've reached the end
-    if (further === '') {
-      return true
+    // If the `child` value is empty, we've reached the end
+    if (child === '') {
+      return this.getPath()
     }
 
     // Check the child for special paths
@@ -38,21 +37,21 @@ export class Directory extends Node {
     else if (child === '..') {
       // Call the `cd` method on the parent node
       if (this.parent === null) {
-        return false
+        return null
       }
       return this.parent.cd(further)
     }
 
     // Check for the child node in this node's children
-    let valid = false
+    let change = null
     this.children.forEach(childNode => {
       if (childNode.name === child) {
-        valid = childNode.cd(further)
+        change = childNode.cd(further)
       }
     })
 
     // If we make it here, it's an invalid request
-    return valid
+    return change
   }
   // abstract ls(term: Fresh)
 }

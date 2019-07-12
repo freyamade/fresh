@@ -75,19 +75,15 @@ export class Fresh extends Terminal {
    */
   changeDir(path: string) {
     // Determine relative or absolute path
-    let newDir: string
-    if (path[0] === '/') {
-      // Absolute directory
-      newDir = path
+    if (path[0] !== '/') {
+      // Relative dir, add on the cwd
+      path = `${this.cwd}/${path}`
     }
-    else {
-      // Relative directory
-      newDir = `${this.cwd}/${path}`
-    }
-    const valid = FileSystem.cd(newDir)
-    if (valid) {
+    const newPath = FileSystem.cd(path)
+    console.log(`changeDir: newPath = '${newPath}'`)
+    if (newPath !== null) {
       this.newline()
-      this.cwd = newDir
+      this.cwd = newPath
     }
     else {
       this.logError(`cd: invalid path '${path}'`)

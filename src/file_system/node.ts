@@ -14,10 +14,23 @@ export abstract class Node {
     this.parent = node
   }
 
+  getPath(): string {
+    if (this.parent === null) {
+      return this.name
+    }
+    let parentPath = this.parent.getPath()
+    if (parentPath === '/') {
+      return `${parentPath}${this.name}`
+    }
+    else {
+      return `${parentPath}/${this.name}`
+    }
+  }
+
   // Methods handling expanding the file system
   abstract add(node: Node): void
 
   // Methods that handle given commands
-  abstract cd(path: string): boolean
+  abstract cd(path: string): string | null
   // abstract ls(term: Fresh)
 }
