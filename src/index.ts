@@ -1,1 +1,4 @@
-console.log('hello world')
+import Fresh from './fresh'
+
+let term = new Fresh();
+term.writePrompt()
