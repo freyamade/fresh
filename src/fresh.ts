@@ -3,6 +3,7 @@ import { fit } from 'xterm/lib/addons/fit/fit'
 import { settings } from './settings'
 
 export default class Fresh extends Terminal {
+  private header = '\x1b[35mfreyama.de\x1b[0m - \x1b[34mv2019.07.12\x1b[0m'
   /**
    * Create a new Fresh instance, which supplies the default parameters to the super constructor
    */
@@ -16,6 +17,10 @@ export default class Fresh extends Terminal {
 
     // Also add an event listener to resize the terminal if the window is resized
     window.addEventListener('resize', () => { fit(this) }, false)
+
+    // Write out the header line and prepare the prompt
+    this.writeln(this.header)
+    this.writePrompt()
   }
   /**
    * Retrieves the string used for the prompt for the shell
@@ -43,14 +48,13 @@ export default class Fresh extends Terminal {
       case 13:
         // Enter Key, try and run commands
         this.execute()
-        this.newline()
         this.writePrompt()
         break
       case 8:
         // Backspace, delete a character (ensuring not to delete the prompt)
         // the `as any` is a workaround because right now the `x` and `y` fields are not in the typings file
         if (this.x > this.prompt.length) {
-          this.write('\b \b');
+          this.backspace();
         }
         break
       // TODO - Add other keys, like arrow key handling
@@ -66,7 +70,7 @@ export default class Fresh extends Terminal {
    * Write out the prompt with some extra formatting to the terminal
    */
   writePrompt() {
-    this.write(`\x1B[1m${this.prompt}\x1B[0m`)
+    this.write(`\r\x1B[1m${this.prompt}\x1B[0m`)
   }
 
   /**
@@ -74,9 +78,51 @@ export default class Fresh extends Terminal {
    */
   execute() {
     let command = this.getCommand()
-    this.newline()
-    this.write(`execute("${command}")`)
-    // Remove the prompt from the command, then pass it into the radix tree (TODO)
+    // Pass command to radix tree and remove these temporary commands
+    switch (command) {
+      case 'ls':
+        this.newline()
+        this.write('\x1b[34mprojects\x1b[0m/')
+        this.newline()
+        break
+      case 'ls projects':
+        this.newline()
+        this.write('crcophony  \x1b[34mdrizzle\x1b[0m/  freyama.de  github-user-languages')
+        this.newline()
+        break
+      case 'cat projects/freyama.de':
+        this.newline()
+        this.write('This website, upgraded. Coming soon.')
+        this.newline()
+        break
+      case 'clear':
+        this.clear()
+        break
+      default:
+        this.newline()
+        this.write(`fresh: Unknown command '${command}'`)
+        this.newline()
+    }
+  }
+
+  /**
+   * Method that inserts a backspace
+   */
+  backspace() {
+    this.write('\b \b')
+  }
+
+  /**
+   * Temporary clear method
+   */
+  clear() {
+    // Firstly, run the normal clear method
+    super.clear()
+    // Now, while the line is longer than the prompt, go back one character
+    const backspaces = this.x - this.prompt.length
+    for (let i = 0; i < backspaces; i++) {
+      this.backspace()
+    }
   }
 
   /**

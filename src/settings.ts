@@ -1,6 +1,8 @@
 const theme = {
   background: '#18191c',
-  foreground: '#fff'
+  foreground: '#fff',
+  blue: '#75a5ff',
+  magenta: '#ff7aa9',
 }
 
 export const settings = {
