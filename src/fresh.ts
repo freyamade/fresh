@@ -2,12 +2,13 @@
 import { Terminal } from 'xterm'
 import { fit } from 'xterm/lib/addons/fit/fit'
 // local
-import { FileSystem } from './file_system/file_system'
+import { FileSystem, Home } from './file_system/file_system'
+import { Directory } from './file_system/directory'
 import { Settings } from './settings'
 
 export class Fresh extends Terminal {
   private header = '\x1b[35mfreyama.de\x1b[0m - \x1b[34mv2019.07.12\x1b[0m'
-  private cwd = '/freyama.de'
+  private cwd: Directory = Home
   /**
    * Create a new Fresh instance, which supplies the default parameters to the super constructor
    */
@@ -30,7 +31,7 @@ export class Fresh extends Terminal {
    * Retrieves the string used for the prompt for the shell
    */
   get prompt(): string {
-    return `${this.cwd} > `
+    return `${this.cwd.toString()} > `
   }
 
   /**
@@ -79,11 +80,10 @@ export class Fresh extends Terminal {
       // Relative dir, add on the cwd
       path = `${this.cwd}/${path}`
     }
-    const newPath = FileSystem.cd(path)
-    console.log(`changeDir: newPath = '${newPath}'`)
-    if (newPath !== null) {
+    const newDir = FileSystem.cd(path)
+    if (newDir !== null) {
       this.newline()
-      this.cwd = newPath
+      this.cwd = newDir
     }
     else {
       this.logError(`cd: invalid path '${path}'`)
@@ -130,6 +130,11 @@ export class Fresh extends Terminal {
         break
       case 'clear':
         this.clear()
+        break
+      case 'pwd':
+        this.newline()
+        this.write(this.cwd.toString())
+        this.newline()
         break
       default:
         if (/cd (\/?[a-zA-Z.\/]+)/.test(command)) {

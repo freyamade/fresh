@@ -13,7 +13,7 @@ export class File extends Node {
   /**
    * Handle a cd command by returning false, you cannot cd into a file
    */
-  cd(path: string): string | null {
+  cd(path: string): Node | null {
     return null
   }
   // abstract ls(term: Fresh)

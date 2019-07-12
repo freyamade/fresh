@@ -15,7 +15,7 @@ export class Directory extends Node {
    * Handle the cd command by recursively traversing the `path` parameter and ensuring that the path is valid.
    * Return a flag stating whether or not the cd requst is valid.
    */
-  cd(path: string): string | null {
+  cd(path: string): Node | null {
     // Extra checking for leading / character, only for root node
     if (this.name === '/' && path[0] === '/') {
       path = path.substr(1)
@@ -26,7 +26,7 @@ export class Directory extends Node {
 
     // If the `child` value is empty, we've reached the end
     if (child === '') {
-      return this.getPath()
+      return this
     }
 
     // Check the child for special paths

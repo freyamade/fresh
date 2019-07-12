@@ -6,7 +6,7 @@ import { File } from './file'
 export const FileSystem = new Directory('/')
 
 // Directories
-const home = new Directory('freyama.de')
+export const Home = new Directory('freyama.de')
 const projects = new Directory('projects')
 const drizzle = new Directory('drizzle')
 
@@ -16,8 +16,8 @@ const website = new File('freyama.de')
 const extension = new File('github-user-languages')
 
 // Sort out the structure
-FileSystem.add(home)
-home.add(projects)
+FileSystem.add(Home)
+Home.add(projects)
 projects.add(drizzle)
 projects.add(crcophony)
 projects.add(website)
