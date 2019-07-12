@@ -1,13 +1,13 @@
 import { Terminal } from 'xterm'
-import { IBuffer } from 'xterm/src/Types'
 import { fit } from 'xterm/lib/addons/fit/fit'
+import { settings } from './settings'
 
 export default class Fresh extends Terminal {
   /**
    * Create a new Fresh instance, which supplies the default parameters to the super constructor
    */
   constructor() {
-    super({fontFamily: 'Source Code Pro', fontSize: 16, theme: {background: '#18191c', foreground: '#fff'}})
+    super(settings)
     this.open(document.getElementById('terminal')!);
     fit(this);
 
@@ -88,12 +88,12 @@ export default class Fresh extends Terminal {
     let line = ''
     while (y >= 0 && (line = this.buffer.getLine(y)!.translateToString()).indexOf(this.prompt) === -1) {
       // Add line on in front of the command since we're going backwards
-      command = line + command
+      command = `${line}${command}`
       y--
     }
     // `line` still contains the line with the prompt in it, so we need to add that line to the command
     // Remove the prompt from the line before adding it
-    command = line.replace(this.prompt, '') + command
+    command = `${line.replace(this.prompt, '')}${command}`
     // Trim whitespace from the string and return it
     return command.trim()
   }
