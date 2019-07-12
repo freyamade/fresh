@@ -1,14 +1,18 @@
+// lib
 import { Terminal } from 'xterm'
 import { fit } from 'xterm/lib/addons/fit/fit'
-import { settings } from './settings'
+// local
+import { FileSystem } from './file_system/file_system'
+import { Settings } from './settings'
 
-export default class Fresh extends Terminal {
+export class Fresh extends Terminal {
   private header = '\x1b[35mfreyama.de\x1b[0m - \x1b[34mv2019.07.12\x1b[0m'
+  private cwd = '/freyama.de'
   /**
    * Create a new Fresh instance, which supplies the default parameters to the super constructor
    */
   constructor() {
-    super(settings)
+    super(Settings)
     this.open(document.getElementById('terminal')!);
     fit(this);
 
@@ -26,7 +30,7 @@ export default class Fresh extends Terminal {
    * Retrieves the string used for the prompt for the shell
    */
   get prompt(): string {
-    return '/freyama.de > '
+    return `${this.cwd} > `
   }
 
   /**
@@ -67,6 +71,39 @@ export default class Fresh extends Terminal {
   }
 
   /**
+   * Function to handle changing directory to a new path
+   */
+  changeDir(path: string) {
+    // Determine relative or absolute path
+    let newDir: string
+    if (path[0] === '/') {
+      // Absolute directory
+      newDir = path
+    }
+    else {
+      // Relative directory
+      newDir = `${this.cwd}/${path}`
+    }
+    const valid = FileSystem.cd(newDir)
+    if (valid) {
+      this.newline()
+      this.cwd = newDir
+    }
+    else {
+      this.logError(`cd: invalid path '${path}'`)
+    }
+  }
+
+  /**
+   * Helper method for logging error messages
+   */
+  logError(message: string) {
+    this.newline()
+    this.write(`\x1b[31m${message}\x1b[0m`)
+    this.newline()
+  }
+
+  /**
    * Write out the prompt with some extra formatting to the terminal
    */
   writePrompt() {
@@ -99,9 +136,12 @@ export default class Fresh extends Terminal {
         this.clear()
         break
       default:
-        this.newline()
-        this.write(`\x1b[31mfresh: Unknown command '${command}'\x1b[0m`)
-        this.newline()
+        if (/cd (\/?[a-zA-Z.\/]+)/.test(command)) {
+          this.changeDir(command.split(' ')[1])
+        }
+        else {
+          this.logError(`fresh: Unknown command '${command}'`)
+        }
     }
   }
 

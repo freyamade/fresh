@@ -12,7 +12,7 @@ const theme = {
   white: '#eeeee9',
 }
 
-export const settings = {
+export const Settings = {
   cursorBlink: true,
   fontFamily: 'Source Code Pro',
   fontSize: 16,
