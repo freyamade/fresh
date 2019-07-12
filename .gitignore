@@ -7,5 +7,6 @@
 # node modules
 node_modules
 
-# built js
+# built files
 static/js/*.js
+static/css/*.css

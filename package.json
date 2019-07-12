@@ -4,8 +4,10 @@
   "description": "fresh - freyamade a shell for her website and it's pretty cool",
   "private": true,
   "scripts": {
-    "build": "webpack",
-    "watch": "webpack --watch"
+    "build": "npm run build:js && npm run build:css",
+    "build:css": "node-sass scss/ -o static/css --output-style compressed",
+    "build:js": "webpack",
+    "watch:js": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
     "xterm": "^3.14.5"
   },
   "devDependencies": {
+    "node-sass": "^4.12.0",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
     "webpack": "^4.35.3",
