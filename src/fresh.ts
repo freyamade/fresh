@@ -74,7 +74,11 @@ export class Fresh extends Terminal {
   /**
    * Function to handle changing directory to a new path
    */
-  changeDir(path: string) {
+  cd(path: string) {
+    if (path === '') {
+      // Change to the homeDir
+      this.cwd = Home
+    }
     // Determine relative or absolute path
     if (path[0] !== '/') {
       // Relative dir, add on the cwd
@@ -87,6 +91,30 @@ export class Fresh extends Terminal {
     }
     else {
       this.logError(`cd: invalid path '${path}'`)
+    }
+  }
+
+  /**
+   * Function to handle listing the contents of a directory
+   */
+  ls(path: string) {
+    if (path === '') {
+      // List the current directory contents
+      path = this.cwd.toString()
+    }
+    // Determine relative or absolute path
+    if (path[0] !== '/') {
+      // Relative dir, add on the cwd
+      path = `${this.cwd}/${path}`
+    }
+    const output = FileSystem.ls(path)
+    if (output !== null && output !== '') {
+      this.newline()
+      this.write(output)
+      this.newline()
+    }
+    else {
+      this.logError(`ls: invalid path '${path}'`)
     }
   }
 
@@ -114,31 +142,17 @@ export class Fresh extends Terminal {
     // Pass command to radix tree and remove these temporary commands
     switch (command) {
       case 'ls':
-        this.newline()
-        this.write('\x1b[34mprojects\x1b[0m/')
-        this.newline()
+        this.ls('')
         break
-      case 'ls projects':
-        this.newline()
-        this.write('crcophony  \x1b[34mdrizzle\x1b[0m/  freyama.de  github-user-languages')
-        this.newline()
-        break
-      case 'cat projects/freyama.de':
-        this.newline()
-        this.write('This website, upgraded. Coming soon.')
-        this.newline()
-        break
-      case 'clear':
-        this.clear()
-        break
-      case 'pwd':
-        this.newline()
-        this.write(this.cwd.toString())
-        this.newline()
+      case 'cd':
+        this.cd('')
         break
       default:
         if (/cd (\/?[a-zA-Z.\/]+)/.test(command)) {
-          this.changeDir(command.split(' ')[1])
+          this.cd(command.split(' ')[1])
+        }
+        else if (/ls (\/?[a-zA-Z.\/]+)/.test(command)) {
+          this.ls(command.split(' ')[1])
         }
         else {
           this.logError(`fresh: Unknown command '${command}'`)

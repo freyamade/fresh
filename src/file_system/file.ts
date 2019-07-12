@@ -11,10 +11,19 @@ export class File extends Node {
   }
 
   /**
-   * Handle a cd command by returning false, you cannot cd into a file
+   * Handle a cd command by returning null, you cannot cd into a file
    */
   cd(path: string): Node | null {
     return null
   }
-  // abstract ls(term: Fresh)
+
+  /**
+   * Handle ls calls by checking that this is the end node of the supplied path
+   */
+  ls(path: string): string | null {
+    if (path.split('/').length !== 1) {
+      return null
+    }
+    return this.toString()
+  }
 }

@@ -32,5 +32,5 @@ export abstract class Node {
 
   // Methods that handle given commands
   abstract cd(path: string): Node | null
-  // abstract ls(term: Fresh)
+  abstract ls(path: string): string | null
 }
