@@ -69,7 +69,4 @@ export abstract class Node {
 
   // Methods handling expanding the file system
   abstract add(node: Node): void
-
-  // Methods that handle given commands
-  abstract ls(path: string): string | null
 }

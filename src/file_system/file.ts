@@ -9,14 +9,4 @@ export class File extends Node {
   add(node: Node) {
     throw new Error('Cannot add children to File node')
   }
-
-  /**
-   * Handle ls calls by checking that this is the end node of the supplied path
-   */
-  ls(path: string): string | null {
-    if (path.split('/').length !== 1) {
-      return null
-    }
-    return this.toString()
-  }
 }

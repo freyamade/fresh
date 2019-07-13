@@ -1,8 +1,9 @@
 import { Command } from './command'
-import { Fresh } from '../fresh'
-import { FileSystem, Home } from '../file_system/file_system'
-import { File } from '../file_system/file'
 import { Directory } from '../file_system/directory'
+import { File } from '../file_system/file'
+import { Fresh } from '../fresh'
+import { Home } from '../file_system/file_system'
+import { Node } from '../file_system/node'
 
 export class CD extends Command {
   readonly name: string = 'cd'
@@ -27,66 +28,41 @@ export class CD extends Command {
     const path = args[0]
 
     // Check if the path is relative or absolute
+    let node: Node | null
     if (path[0] === '/') {
-      this.absolute(term, path)
+      node = this.absolute(term, path)
     }
     else {
-      this.relative(term, path)
+      node = this.relative(term, path)
     }
+    if (node === null) {
+      // The traverse function already logged the error, return out of here
+      return
+    }
+    // Check that the returned node is also a directory, very important
+    if (!(node instanceof Directory)) {
+      term.logError(`cd: '${path}' is not a directory.`)
+      return
+    }
+
+    // Update the cwd of the terminal
+    term.cwd = node as Directory
   }
 
   /**
    * Change directory using an absolute path
    */
-  private absolute(term: Fresh, path: string) {
+  private absolute(term: Fresh, path: string): Node | null {
     // Find the node to change to. If the return value is null, there was an error so we don't do anything
-    // Remove the starting / as it will mess everything up
-    const newNode = this.cd(term, FileSystem, path.substr(1))
-    if (newNode === null) {
-      return
-    }
-    // Update the terminal's cwd value
-    term.cwd = newNode
+    // Use traverse_absolute instead of traverse
+    return this.traverse_absolute(term, path)
   }
 
   /**
    * Change directory using a relative path
    */
-  private relative(term: Fresh, path: string) {
+  private relative(term: Fresh, path: string): Node | null {
     // Find the node to change to. If the return value is null, there was an error so we don't do anything
-    const newNode = this.cd(term, term.cwd, path)
-    if (newNode === null) {
-      return
-    }
-    // Update the terminal's cwd value
-    term.cwd = newNode
-  }
-
-  /**
-   * Handle the actual changing of the directory, given a path and a starting node
-   */
-  private cd(term: Fresh, node: Directory, path: string): Directory | null {
-    // Split the string on /
-    const traversals = path.split('/')
-    // Iterate through the traversals array, updating the node pointer as necessary
-    let index = 0
-    while (index < traversals.length) {
-      // At each step, check that the node has a child with the given name
-      // If so, make sure it's a Directory before continuing
-      let child = node.getChild(traversals[index])
-      if (child === null) {
-        term.logError(`cd: The directory '${path}' does not exist.`)
-        return null
-      }
-      if (!(child instanceof Directory)) {
-        term.logError(`cd: '${path}' is not a directory.`)
-        return null
-      }
-
-      // If we made it through, update the node and index variables
-      node = child
-      index++
-    }
-    return node
+    return this.traverse(term, term.cwd, path)
   }
 }

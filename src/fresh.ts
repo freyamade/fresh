@@ -7,6 +7,8 @@ import { FileSystem, Home } from './file_system/file_system'
 import { Directory } from './file_system/directory'
 import { Settings } from './settings'
 
+const HOME_PATH = Home.toString()
+
 export class Fresh extends Terminal {
   private header = '\x1b[35mfreyama.de\x1b[0m - \x1b[34mv2019.07.12\x1b[0m'
   private _cwd: Directory = Home
@@ -33,7 +35,7 @@ export class Fresh extends Terminal {
    * Retrieves the string used for the prompt for the shell
    */
   get prompt(): string {
-    return `${this._cwd.toString()} > `
+    return `${this._cwd.toString().replace(HOME_PATH, '~')} > `
   }
 
   get cwd(): Directory {
@@ -85,30 +87,6 @@ export class Fresh extends Terminal {
         if (printable) {
           this.write(key)
         }
-    }
-  }
-
-  /**
-   * Function to handle listing the contents of a directory
-   */
-  ls(path: string) {
-    if (path === '') {
-      // List the current directory contents
-      path = this._cwd.toString()
-    }
-    // Determine relative or absolute path
-    if (path[0] !== '/') {
-      // Relative dir, add on the _cwd
-      path = `${this._cwd}/${path}`
-    }
-    const output = FileSystem.ls(path)
-    if (output !== null && output !== '') {
-      this.newline()
-      this.write(output)
-      this.newline()
-    }
-    else {
-      this.logError(`ls: invalid path '${path}'`)
     }
   }
 
