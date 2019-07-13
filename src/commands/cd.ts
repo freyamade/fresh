@@ -4,7 +4,7 @@ import { FileSystem, Home } from '../file_system/file_system'
 import { File } from '../file_system/file'
 import { Directory } from '../file_system/directory'
 
-export class CD {
+export class CD extends Command {
   readonly name: string = 'cd'
 
   /**
@@ -19,7 +19,7 @@ export class CD {
 
     // If there are no args, change dir to the home dir
     if (args.length === 0) {
-      console.log('cd.home')
+      term.cwd = Home
       return
     }
 
