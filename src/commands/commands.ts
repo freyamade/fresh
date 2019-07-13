@@ -2,8 +2,11 @@
 import { CD } from './cd'
 import { Command } from './command'
 import { LS } from './ls'
+import { Help, Summary } from './help'
 
 export const Commands: Array<Command> = [
+  new Summary(),
   new CD(),
+  new Help(),
   new LS(),
 ]

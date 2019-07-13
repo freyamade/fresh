@@ -7,6 +7,7 @@ import { Node } from '../file_system/node'
 
 export class CD extends Command {
   readonly name: string = 'cd'
+  readonly summary: string = 'Change the current working directory of the terminal session.'
 
   /**
    * Given a params containing a `path` key, change the terminal's current directory

@@ -4,6 +4,7 @@ import { Fresh } from '../fresh'
 
 export class LS extends Command {
   readonly name: string = 'ls'
+  readonly summary: string = 'List the contents of the specified path(s).'
 
   /**
    * Given an array of arguments, list the children of each path in the supplied list
