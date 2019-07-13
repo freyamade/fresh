@@ -1,5 +1,4 @@
 // File nodes represent Files in the file system
-import { Fresh } from '../fresh'
 import { Node } from './node'
 
 export class File extends Node {

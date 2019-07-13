@@ -115,6 +115,11 @@ export class Fresh extends Terminal {
   execute() {
     let argv = this.getCommand().split(' ')
     let command = argv.shift()
+    if (command === '') {
+      return
+    }
+
+    // Try and find the right command to run
     let found = false
     Commands.forEach((cmd) => {
       if (command === cmd.name) {

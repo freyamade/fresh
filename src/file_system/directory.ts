@@ -1,5 +1,4 @@
 // Directory nodes represent Directories in the file system
-import { Fresh } from '../fresh'
 import { Node } from './node'
 
 export class Directory extends Node {
