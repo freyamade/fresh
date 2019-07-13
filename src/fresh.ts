@@ -2,13 +2,14 @@
 import { Terminal } from 'xterm'
 import { fit } from 'xterm/lib/addons/fit/fit'
 // local
+import { Commands } from './commands/commands'
 import { FileSystem, Home } from './file_system/file_system'
 import { Directory } from './file_system/directory'
 import { Settings } from './settings'
 
 export class Fresh extends Terminal {
   private header = '\x1b[35mfreyama.de\x1b[0m - \x1b[34mv2019.07.12\x1b[0m'
-  private cwd: Directory = Home
+  private _cwd: Directory = Home
   /**
    * Create a new Fresh instance, which supplies the default parameters to the super constructor
    */
@@ -26,12 +27,23 @@ export class Fresh extends Terminal {
     // Write out the header line and prepare the prompt
     this.writeln(this.header)
     this.writePrompt()
+    this.focus()
   }
   /**
    * Retrieves the string used for the prompt for the shell
    */
   get prompt(): string {
-    return `${this.cwd.toString()} > `
+    return `${this._cwd.toString()} > `
+  }
+
+  get cwd(): Directory {
+    return this._cwd
+  }
+
+  set cwd(dir: Directory) {
+    // When changing dir, write a newline
+    this.newline()
+    this._cwd = dir
   }
 
   /**
@@ -62,7 +74,12 @@ export class Fresh extends Terminal {
           this.backspace();
         }
         break
-      // TODO - Add other keys, like arrow key handling
+      case 37: // Left
+      case 38: // Up
+      case 39: // Right
+      case 40: // Down
+        // For now, disable arrow key use
+        break
       default:
         // If the key pressed was printable, print it
         if (printable) {
@@ -72,40 +89,17 @@ export class Fresh extends Terminal {
   }
 
   /**
-   * Function to handle changing directory to a new path
-   */
-  cd(path: string) {
-    if (path === '') {
-      // Change to the homeDir
-      this.cwd = Home
-    }
-    // Determine relative or absolute path
-    if (path[0] !== '/') {
-      // Relative dir, add on the cwd
-      path = `${this.cwd}/${path}`
-    }
-    const newDir = FileSystem.cd(path)
-    if (newDir !== null) {
-      this.newline()
-      this.cwd = newDir
-    }
-    else {
-      this.logError(`cd: invalid path '${path}'`)
-    }
-  }
-
-  /**
    * Function to handle listing the contents of a directory
    */
   ls(path: string) {
     if (path === '') {
       // List the current directory contents
-      path = this.cwd.toString()
+      path = this._cwd.toString()
     }
     // Determine relative or absolute path
     if (path[0] !== '/') {
-      // Relative dir, add on the cwd
-      path = `${this.cwd}/${path}`
+      // Relative dir, add on the _cwd
+      path = `${this._cwd}/${path}`
     }
     const output = FileSystem.ls(path)
     if (output !== null && output !== '') {
@@ -138,25 +132,18 @@ export class Fresh extends Terminal {
    * Execute the current line as a command
    */
   execute() {
-    let command = this.getCommand()
-    // Pass command to radix tree and remove these temporary commands
-    switch (command) {
-      case 'ls':
-        this.ls('')
-        break
-      case 'cd':
-        this.cd('')
-        break
-      default:
-        if (/cd (\/?[a-zA-Z.\/]+)/.test(command)) {
-          this.cd(command.split(' ')[1])
-        }
-        else if (/ls (\/?[a-zA-Z.\/]+)/.test(command)) {
-          this.ls(command.split(' ')[1])
-        }
-        else {
-          this.logError(`fresh: Unknown command '${command}'`)
-        }
+    let argv = this.getCommand().split(' ')
+    let command = argv.shift()
+    let found = false
+    Commands.forEach((cmd) => {
+      if (command === cmd.name) {
+        cmd.execute(this, argv)
+        found = true
+        return
+      }
+    })
+    if (!found) {
+      this.logError(`fresh: Invalid command '${command}'`)
     }
   }
 

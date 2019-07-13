@@ -11,13 +11,6 @@ export class File extends Node {
   }
 
   /**
-   * Handle a cd command by returning null, you cannot cd into a file
-   */
-  cd(path: string): Node | null {
-    return null
-  }
-
-  /**
    * Handle ls calls by checking that this is the end node of the supplied path
    */
   ls(path: string): string | null {
