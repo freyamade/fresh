@@ -116,6 +116,7 @@ export class Fresh extends Terminal {
     let argv = this.getCommand().split(' ')
     let command = argv.shift()
     if (command === '') {
+      this.newline()
       return
     }
 
