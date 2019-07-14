@@ -36,13 +36,7 @@ export class CD extends Command {
     const path = args[0]
 
     // Check if the path is relative or absolute
-    let node: Node | null
-    if (path[0] === '/') {
-      node = this.absolute(term, path)
-    }
-    else {
-      node = this.relative(term, path)
-    }
+    let node: Node | null = this.traverse(term, term.cwd, path)
     if (node === null) {
       // The traverse function already logged the error, return out of here
       return
@@ -55,22 +49,5 @@ export class CD extends Command {
 
     // Update the cwd of the terminal
     term.cwd = node as Directory
-  }
-
-  /**
-   * Change directory using an absolute path
-   */
-  private absolute(term: Fresh, path: string): Node | null {
-    // Find the node to change to. If the return value is null, there was an error so we don't do anything
-    // Use traverse_absolute instead of traverse
-    return this.traverse_absolute(term, path)
-  }
-
-  /**
-   * Change directory using a relative path
-   */
-  private relative(term: Fresh, path: string): Node | null {
-    // Find the node to change to. If the return value is null, there was an error so we don't do anything
-    return this.traverse(term, term.cwd, path)
   }
 }

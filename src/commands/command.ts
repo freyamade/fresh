@@ -17,6 +17,18 @@ export abstract class Command {
   // Helper methods
 
   /**
+   * Wrapper method around the traverse_* methods that does all the hard work
+   */
+  traverse(term: Fresh, relDir: Directory, path: string): Node | null {
+    if (path[0] === '/') {
+      return this.traverse_absolute(term, path)
+    }
+    else {
+      return this.traverse_relative(term, relDir, path)
+    }
+  }
+
+  /**
    * Attempt to traverse a given absolute path, returning the child node reached, if any
    */
   traverse_absolute(term: Fresh, path: string): Node | null {
@@ -27,9 +39,9 @@ export abstract class Command {
   }
 
   /**
-   * Attempt to traverse a given path, starting from a given Directory, and return the child node reached, if any
+   * Attempt to traverse a given relative path, starting from a given Directory, and return the child node reached, if any
    */
-  traverse(term: Fresh, node: Directory, path: string): Node | null {
+  traverse_relative(term: Fresh, node: Directory, path: string): Node | null {
     // Replace any '~' characters with the Home path and split the string on /
     const traversals = path.split('/')
     // Iterate through the traversals array, updating the node pointer as necessary

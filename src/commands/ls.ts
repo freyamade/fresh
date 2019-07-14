@@ -45,13 +45,7 @@ export class LS extends Command {
    * Given a path to a node, find the node and run the `ls` command on it
    */
   private ls(term: Fresh, path: string) {
-    let node
-    if (path[0] === '/') {
-      node = this.traverse_absolute(term, path)
-    }
-    else {
-      node = this.traverse(term, term.cwd, path)
-    }
+    let node = this.traverse(term, term.cwd, path)
     if (node === null) {
       return
     }
