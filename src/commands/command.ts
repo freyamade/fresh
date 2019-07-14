@@ -65,4 +65,14 @@ export abstract class Command {
     }
     return node
   }
+
+  /**
+  * Justify a string to the specified width
+  */
+  leftJustify(str: string, width: number): string {
+    while (str.length < width) {
+      str = `${str} `
+    }
+    return str
+  }
 }

@@ -3,17 +3,6 @@ import { Command } from './command'
 import { Commands, getCommand } from './commands'
 import { Fresh } from '../fresh'
 
-// Helper methods
-/**
-* Justify a string to the specified width
-*/
-function leftJustify(str: string, width: number): string {
-  while (str.length < width) {
-    str = `${str} `
-  }
-  return str
-}
-
 // Summary lists all commands in the system by name and prints out the summaries
 export class Summary extends Command {
   readonly name: string = '?'
@@ -28,7 +17,7 @@ export class Summary extends Command {
     term.writeNewline()
     term.writeln('\x1b[35mfreyama.de\x1b[0m currently supports the following commands:')
     Commands.forEach(cmd => {
-      term.writeln(`    \x1b[33m${leftJustify(cmd.name, 6)}\x1b[0m - ${cmd.summary}`)
+      term.writeln(`    \x1b[33m${this.leftJustify(cmd.name, 6)}\x1b[0m - ${cmd.summary}`)
     })
     term.writeln('Run \x1b[33m`help command`\x1b[0m for more information on the specified command')
   }
