@@ -10,8 +10,8 @@ import { Settings } from './settings'
 const HOME_PATH = Home.toString()
 
 export class Fresh extends Terminal {
-  private header = '\x1b[35mfreyama.de\x1b[0m - \x1b[34mv2019.07.12\x1b[0m'
-  private intro = 'Run \x1b[33m`?`\x1b[0m for a list of available commands.'
+  private header: string = `\x1b[35mfreyama.de\x1b[0m - \x1b[34mv2019.07.12\x1b[0m
+  \rRun \x1b[33m'?'\x1b[0m for a list of available commands, or \x1b[33m'help'\x1b[0m for a brief introduction.`
   private _cwd: Directory = Home
   /**
    * Create a new Fresh instance, which supplies the default parameters to the super constructor
@@ -30,7 +30,6 @@ export class Fresh extends Terminal {
 
     // Write out the header line and prepare the prompt
     this.writeln(this.header)
-    this.writeln(this.intro)
     this.writeNewline()
     this.writePrompt()
     this.focus()
