@@ -22,7 +22,8 @@ export class Fresh extends Terminal {
     fit(this);
 
     // Add a key listener to handle button presses
-    this.on('key', (key: string, event: KeyboardEvent) => { this.handleKeypress(key, event) });
+    this.on('key', (key: string, event: KeyboardEvent) => { this.handleKeypress(key, event) })
+    this.on('paste', (data: string) => { this.write(data) })
 
     // Also add an event listener to resize the terminal if the window is resized
     window.addEventListener('resize', () => { fit(this) }, false)
