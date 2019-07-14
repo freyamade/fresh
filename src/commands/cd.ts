@@ -22,7 +22,7 @@ export class CD extends Command {
   execute(term: Fresh, args: string[]) {
     // Ensure that the number of arguments is less than 2
     if (args.length >= 2) {
-      term.logError(`cd: Too many arguments (${args.length}). Expected 0 or 1.`)
+      term.writeError(`cd: Too many arguments (${args.length}). Expected 0 or 1.`)
       return
     }
 
@@ -43,7 +43,7 @@ export class CD extends Command {
     }
     // Check that the returned node is also a directory, very important
     if (!(node instanceof Directory)) {
-      term.logError(`cd: '${path}' is not a directory.`)
+      term.writeError(`cd: '${path}' is not a directory.`)
       return
     }
 

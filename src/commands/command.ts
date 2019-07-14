@@ -51,11 +51,11 @@ export abstract class Command {
       // If so, make sure it's a Directory before continuing
       let child = node.getChild(traversals[index])
       if (child === null) {
-        term.logError(`${this.name}: The file or directory '${path}' does not exist.`)
+        term.writeError(`${this.name}: The file or directory '${path}' does not exist.`)
         return null
       }
       if (!(child instanceof Directory) && index < traversals.length - 1) {
-        term.logError(`${this.name}: '${path}' is not a directory.`)
+        term.writeError(`${this.name}: '${path}' is not a directory.`)
         return null
       }
 

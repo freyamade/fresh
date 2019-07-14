@@ -30,33 +30,97 @@ export class Fresh extends Terminal {
     // Write out the header line and prepare the prompt
     this.writeln(this.header)
     this.writeln(this.intro)
-    this.newline()
+    this.writeNewline()
     this.writePrompt()
     this.focus()
   }
+
+  // Getters and Setters
   /**
-   * Retrieves the string used for the prompt for the shell
+   * Generates the text for the prompt
    */
   get prompt(): string {
     return `${this._cwd.toString().replace(HOME_PATH, '~')} > `
   }
 
+  /**
+   * Access the current working directory (cwd) of the terminal instance
+   */
   get cwd(): Directory {
     return this._cwd
   }
 
+  /**
+   * Update the current working directory (cwd) of the terminal instance
+   * Used by the `cd` command to change the terminal's directory.
+   * Prints out a newline before changing the directory so the prompts display properly
+   */
   set cwd(dir: Directory) {
     // When changing dir, write a newline
-    this.newline()
+    this.writeNewline()
     this._cwd = dir
   }
 
+  // Terminal writing helper methods
+
   /**
-   * Helper method for adding a new line to the terminal
+   * Write newline to the terminal
    */
-  newline() {
+  writeNewline() {
     this.write('\r\n')
   }
+
+  /**
+   * Write out the prompt with some extra formatting to the terminal
+   */
+  writePrompt() {
+    this.write(`\r\x1B[1m${this.prompt}\x1B[0m`)
+  }
+
+  // Helper methods for writing messages at different levels
+
+  // Normal level (no colour)
+  writeMessage(message: string) {
+    this.writeNewline()
+    this.writeln(message)
+  }
+
+  // INFO level - blue colour
+  writeInfo(message: string) {
+    this.writeMessage(`\x1b[34m${message}\x1b[0m`)
+  }
+
+  // WARN level - yellow colour
+  writeWarn(message: string) {
+    this.writeMessage(`\x1b[33m${message}\x1b[0m`)
+  }
+
+  // ERROR level - red colour
+  writeError(message: string) {
+    this.writeMessage(`\x1b[31m${message}\x1b[0m`)
+  }
+
+  /**
+   * Method that inserts a backspace
+   */
+  writeBackspace() {
+    this.write('\b \b')
+  }
+
+  /**
+   * Temporary clear method
+   */
+  clear() {
+    // Firstly, run the normal clear method
+    super.clear()
+    // Now, while the line is longer than the prompt, go back one character
+    const backspaces = this.x - this.prompt.length
+    for (let i = 0; i < backspaces; i++) {
+      this.writeBackspace()
+    }
+  }
+
+  // Event Handling
 
   /**
    * Handle incoming keypresses
@@ -76,7 +140,7 @@ export class Fresh extends Terminal {
         // Backspace, delete a character (ensuring not to delete the prompt)
         // the `as any` is a workaround because right now the `x` and `y` fields are not in the typings file
         if (this.x > this.prompt.length) {
-          this.backspace();
+          this.writeBackspace();
         }
         break
       case 37: // Left
@@ -94,65 +158,31 @@ export class Fresh extends Terminal {
   }
 
   /**
-   * Helper method for logging error messages
-   */
-  logError(message: string) {
-    this.newline()
-    this.write(`\x1b[31m${message}\x1b[0m`)
-    this.newline()
-  }
-
-  /**
-   * Write out the prompt with some extra formatting to the terminal
-   */
-  writePrompt() {
-    this.write(`\r\x1B[1m${this.prompt}\x1B[0m`)
-  }
-
-  /**
    * Execute the current line as a command
    */
   execute() {
-    let argv = this.getCommand().split(' ')
+    let argv = this.getInput().split(' ')
     let command = argv.shift()!
     if (command === '') {
-      this.newline()
+      this.writeNewline()
       return
     }
 
     // Try and find the right command to run
     const cmd = getCommand(command)
     if (cmd === null) {
-      this.logError(`fresh: Invalid command '${command}'`)
+      this.writeError(`fresh: Invalid command '${command}'`)
       return
     }
     cmd.execute(this, argv)
   }
 
-  /**
-   * Method that inserts a backspace
-   */
-  backspace() {
-    this.write('\b \b')
-  }
-
-  /**
-   * Temporary clear method
-   */
-  clear() {
-    // Firstly, run the normal clear method
-    super.clear()
-    // Now, while the line is longer than the prompt, go back one character
-    const backspaces = this.x - this.prompt.length
-    for (let i = 0; i < backspaces; i++) {
-      this.backspace()
-    }
-  }
+  // Methods for interacting with xterm
 
   /**
    * Parse the terminal window for the command by going back up through the lines until we find the prompt
    */
-  private getCommand(): string {
+  private getInput(): string {
     let y = this.y
     let command = ''
     let line = ''

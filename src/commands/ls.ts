@@ -24,17 +24,16 @@ export class LS extends Command {
     switch (args.length) {
       case 0:
         // Print out a list of the children of the current directory
-        term.newline()
-        this.listDir(term, term.cwd)
-        term.newline()
+        term.writeMessage(this.listDir(term, term.cwd))
         break
       case 1:
+        term.writeNewline()
         this.ls(term, args[0])
         break
       default:
         // Loop through the supplied paths and attempt to run `ls` on each
         args.forEach(path => {
-          term.newline()
+          term.writeNewline()
           term.write(`${path}:`)
           this.ls(term, path)
         })
@@ -49,21 +48,18 @@ export class LS extends Command {
     if (node === null) {
       return
     }
-    term.newline()
     if (node instanceof Directory) {
-      this.listDir(term, node)
+      term.writeln(this.listDir(term, node))
     }
     else {
-      term.write(path)
+      term.writeln(path)
     }
-    term.newline()
   }
 
   /**
-   * Given a Directory node, print out its contents.
-   * This method will do no newline management given the variety in the usecases
+   * Given a Directory node, generate a string containing its contents and return it
    */
-  private listDir(term: Fresh, dir: Directory) {
+  private listDir(term: Fresh, dir: Directory): string {
     // First, generate the output by doing a quick mapping of the directory's children
     const output = dir.children.map(node => {
       if (node instanceof Directory) {
@@ -71,6 +67,6 @@ export class LS extends Command {
       }
       return node.name
     }).join('  ')
-    term.write(output)
+    return output
   }
 }

@@ -25,7 +25,7 @@ export class Summary extends Command {
 
   execute(term: Fresh, args: string[]) {
     // Loop through the list of commands, and print them out
-    term.newline()
+    term.writeNewline()
     term.writeln('\x1b[35mfreyama.de\x1b[0m currently supports the following commands:')
     Commands.forEach(cmd => {
       term.writeln(`    \x1b[33m${leftJustify(cmd.name, 6)}\x1b[0m - ${cmd.summary}`)
@@ -53,26 +53,22 @@ export class Help extends Command {
   execute(term: Fresh, args: string[]) {
     // Ensure only 0 or 1 arguments are passed
     if (args.length >= 2) {
-      term.logError(`help: Too many arguments (${args.length}). Expected 0 or 1.`)
+      term.writeError(`help: Too many arguments (${args.length}). Expected 0 or 1.`)
     }
 
     // If 0, write out a help message for the system
     if (args.length === 0) {
-      term.newline()
-      term.write(this.intro)
-      term.newline()
+      term.writeMessage(this.intro)
     }
     // If 1, find the command whose name is the same as the passed argument, and print out its help message
     else {
       // Find the corresponding command and return its help message
       const cmd = getCommand(args[0])
       if (cmd === null) {
-        term.logError(`help: '${args[0]}' is not a valid command`)
+        term.writeError(`help: '${args[0]}' is not a valid command`)
         return
       }
-      term.newline()
-      term.write(cmd.help)
-      term.newline()
+      term.writeMessage(cmd.help)
     }
   }
 }
