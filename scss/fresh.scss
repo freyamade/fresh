@@ -20,30 +20,33 @@ html, body {
 
   // Add styling for the noJS version of the website
   font-family: "Source Code Pro";
-  font-size: "16px";
+  font-size: 16px;
   color: #eeeee9;
   overflow-y: auto;
 
   // Text Styling
-  & .red {
+  .red {
     color: #ff7e70;
   }
-  & .green {
+  .green {
     color: #a9ff7a;
   }
-  & .yellow {
+  .yellow {
     color: #fff475;
   }
-  & .blue {
+  .blue {
     color: #75a5ff;
   }
-  & .magenta {
+  .magenta {
     color: #ff7aa9;
   }
-  & .cyan {
+  .cyan {
     color: #75ffcf;
   }
-  & .underline {
+  .underline {
     text-decoration: underline;
+  }
+  p {
+    margin: 2px;
   }
 }
