@@ -18,8 +18,10 @@ export class Fresh extends Terminal {
    */
   constructor() {
     super(Settings)
-    this.open(document.getElementById('terminal')!);
-    fit(this);
+    const element = document.getElementById('terminal')!
+    element.innerHTML = ''
+    this.open(element)
+    fit(this)
 
     // Add a key listener to handle button presses
     this.on('key', (key: string, event: KeyboardEvent) => { this.handleKeypress(key, event) })
