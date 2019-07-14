@@ -43,9 +43,8 @@ export abstract class Command {
    */
   traverse_relative(term: Fresh, node: Directory, path: string): Node | null {
     // Remove leading and trailing slashes before splitting
-    path = path.replace(/(^\/)|(\/$)/g, '')
-    // Replace any '~' characters with the Home path and split the string on /
-    const traversals = path.split('/')
+    let usedPath = path.replace(/(^\/)|(\/$)/g, '')
+    const traversals = usedPath.split('/')
     // Iterate through the traversals array, updating the node pointer as necessary
     let index = 0
     while (index < traversals.length) {
