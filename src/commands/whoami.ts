@@ -12,9 +12,9 @@ export class WhoAmI extends Command {
   \r\t\x1b[33mwhoami\x1b[0m`
 
   readonly details: string = `\x1b[35mfreya madeline broderick\x1b[0m
-  \r\t\x1b[32memail   - \x1b[4mhello@freyama.de\x1b[0m
-  \r\t\x1b[34mgithub  - \x1b[4mhttps://github.com/freyamade\x1b[0m
-  \r\t\x1b[36mkeybase - \x1b[4mhttps://keybase.io/freyamade\x1b[0m`
+  \r    \x1b[32memail   - \x1b[4mhello@freyama.de\x1b[0m
+  \r    \x1b[34mgithub  - \x1b[4mhttps://github.com/freyamade\x1b[0m
+  \r    \x1b[36mkeybase - \x1b[4mhttps://keybase.io/freyamade\x1b[0m`
 
   execute(term: Fresh, args: string[]) {
     // Ensure only 0 or 1 arguments are passed
