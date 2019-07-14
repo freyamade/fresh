@@ -3,20 +3,20 @@
 # Fail out on first error
 set -e
 
-# Set the NODE_ENV value for this script
-NODE_ENV=production
-
 # Checkout gh-pages and pull master into it
 git checkout gh-pages
 git fetch origin
-git rebase master
+git pull origin master
 
 # Before running the build, take the latest commit and insert it into the code
 COMMIT=$(git rev-parse --short HEAD)
 sed -i "s/{VERSION}/$COMMIT/" src/fresh.ts
 
 # Build the static files on this branch first
-npm run build
+NODE_ENV=production npm run build
+
+# Remove the change to fresh.ts
+git checkout -- src/fresh.ts
 
 # Add the necessary files for the gh-pages branch and commit them
 git add static/ CNAME index.html favicon.png
