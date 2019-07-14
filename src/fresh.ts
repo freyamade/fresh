@@ -10,7 +10,7 @@ import { Settings } from './settings'
 const HOME_PATH = Home.toString()
 
 export class Fresh extends Terminal {
-  private header: string = `\x1b[35mfreyama.de\x1b[0m - \x1b[34mv{VERSION}\x1b[0m
+  private header: string = `\x1b[35mfreyama.de\x1b[0m - \x1b[34m{VERSION}\x1b[0m
   \rRun \x1b[33m'?'\x1b[0m for a list of available commands, or \x1b[33m'help'\x1b[0m for a brief introduction.`
   private _cwd: Directory = Home
   /**
