@@ -1,6 +1,6 @@
 // Two command classes that involve helping the user
 import { Command } from './command'
-import { Commands } from './commands'
+import { Commands, getCommand } from './commands'
 import { Fresh } from '../fresh'
 
 // Helper methods
@@ -64,21 +64,15 @@ export class Help extends Command {
     }
     // If 1, find the command whose name is the same as the passed argument, and print out its help message
     else {
-      const cmdName = args[0]
-      // Output the correct message
-      let found = false
-      Commands.forEach(cmd => {
-        if(cmd.name === cmdName) {
-          found = true
-          term.newline()
-          term.write(cmd.help)
-          term.newline()
-          return
-        }
-      })
-      if (!found) {
-        term.logError(`help: '${cmdName}' is not a valid command`)
+      // Find the corresponding command and return its help message
+      const cmd = getCommand(args[0])
+      if (cmd === null) {
+        term.logError(`help: '${args[0]}' is not a valid command`)
+        return
       }
+      term.newline()
+      term.write(cmd.help)
+      term.newline()
     }
   }
 }

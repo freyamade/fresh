@@ -10,3 +10,16 @@ export const Commands: Array<Command> = [
   new Help(),
   new LS(),
 ]
+
+/**
+ * Return the command that has the given name, or null if the name is invalid
+ */
+export function getCommand(name: string): Command | null {
+  // TODO - When the commands array gets bigger, switch this to binary search instead of linear
+  for(const cmd of Commands) {
+    if (cmd.name === name) {
+      return cmd
+    }
+  }
+  return null
+}

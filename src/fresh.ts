@@ -1,10 +1,10 @@
 // lib
-import { Terminal } from 'xterm'
 import { fit } from 'xterm/lib/addons/fit/fit'
+import { Terminal } from 'xterm'
 // local
-import { Commands } from './commands/commands'
-import { FileSystem, Home } from './file_system/file_system'
 import { Directory } from './file_system/directory'
+import { FileSystem, Home } from './file_system/file_system'
+import { getCommand } from './commands/commands'
 import { Settings } from './settings'
 
 const HOME_PATH = Home.toString()
@@ -114,24 +114,19 @@ export class Fresh extends Terminal {
    */
   execute() {
     let argv = this.getCommand().split(' ')
-    let command = argv.shift()
+    let command = argv.shift()!
     if (command === '') {
       this.newline()
       return
     }
 
     // Try and find the right command to run
-    let found = false
-    Commands.forEach((cmd) => {
-      if (command === cmd.name) {
-        cmd.execute(this, argv)
-        found = true
-        return
-      }
-    })
-    if (!found) {
+    const cmd = getCommand(command)
+    if (cmd === null) {
       this.logError(`fresh: Invalid command '${command}'`)
+      return
     }
+    cmd.execute(this, argv)
   }
 
   /**
