@@ -35,13 +35,15 @@ export abstract class Command {
     if (path === '/') {
       return FileSystem
     }
-    return this.traverse(term, FileSystem, path.substr(1))
+    return this.traverse_relative(term, FileSystem, path)
   }
 
   /**
    * Attempt to traverse a given relative path, starting from a given Directory, and return the child node reached, if any
    */
   traverse_relative(term: Fresh, node: Directory, path: string): Node | null {
+    // Remove leading and trailing slashes before splitting
+    path = path.replace(/(^\/)|(\/$)/g, '')
     // Replace any '~' characters with the Home path and split the string on /
     const traversals = path.split('/')
     // Iterate through the traversals array, updating the node pointer as necessary
