@@ -7,11 +7,11 @@ export class LS extends Command {
   readonly summary: string = 'List the contents of the specified path(s).'
   readonly help: string = `\x1b[32mls - List contents of specfied paths.\x1b[0m
 
-\rUsage:
-\r\t\x1b[33mls [path]...\x1b[0m
+  \rUsage:
+  \r\t\x1b[33mls [path]...\x1b[0m
 
-\rMultiple \x1b[33m'path'\x1b[0m values can be given, separated by spaces.
-\r\x1b[33m'path'\x1b[0m may also be omitted, in which case the command will list the contents of the current working directory.`
+  \rMultiple \x1b[33m'path'\x1b[0m values can be given, separated by spaces.
+  \r\x1b[33m'path'\x1b[0m may also be omitted, in which case the command will list the contents of the current working directory.`
 
   /**
    * Given an array of arguments, list the children of each path in the supplied list

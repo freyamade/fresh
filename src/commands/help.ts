@@ -9,8 +9,8 @@ export class Summary extends Command {
   readonly summary: string = 'Print out this list of available commands.'
   readonly help: string = `\x1b[32m? - Print out a list of available commands.\x1b[0m
 
-\rUsage:
-\r\t\x1b[33m?\x1b[0m`
+  \rUsage:
+  \r\t\x1b[33m?\x1b[0m`
 
   execute(term: Fresh, args: string[]) {
     // Loop through the list of commands, and print them out
@@ -29,16 +29,16 @@ export class Help extends Command {
   readonly summary: string = 'Get help and usage instructions for the commands in this website.'
   readonly help: string = `\x1b[32mhelp - Get instructions for commands.\x1b[0m
 
-\rUsage:
-\r\t\x1b[33mhelp [command_name]\x1b[0m
+  \rUsage:
+  \r\t\x1b[33mhelp [command_name]\x1b[0m
 
-\r\x1b[33m'command_name'\x1b[0m can be the name of a command in the system.
-\r\x1b[33m'command_name'\x1b[0m may also be omitted, in which case an introductory message will be printed instead.`
+  \r\x1b[33m'command_name'\x1b[0m can be the name of a command in the system.
+  \r\x1b[33m'command_name'\x1b[0m may also be omitted, in which case an introductory message will be printed instead.`
   private intro: string = `\x1b[35mfreyama.de\x1b[0m - The homepage of Freya Madeline Broderick.
 
-\rBuilt to resemble a terminal, it is fully interactive and contains all of the usual things a personal website would contain, plus maybe some easter eggs!
-\rFor a list of available commands, run \x1b[33m'?'.\x1b[0m
-\rGitHub project: \x1b[4mhttps://github.com/freyamade/fresh.\x1b[0m`
+  \rBuilt to resemble a terminal, it is fully interactive and contains all of the usual things a personal website would contain, plus maybe some easter eggs!
+  \rFor a list of available commands, run \x1b[33m'?'.\x1b[0m
+  \rGitHub project: \x1b[4mhttps://github.com/freyamade/fresh.\x1b[0m`
 
   execute(term: Fresh, args: string[]) {
     // Ensure only 0 or 1 arguments are passed

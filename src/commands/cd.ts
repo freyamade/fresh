@@ -10,11 +10,11 @@ export class CD extends Command {
   readonly summary: string = 'Change the current working directory of the terminal session.'
   readonly help: string = `\x1b[32mcd - Change the working directory.\x1b[0m
 
-\rUsage:
-\r\t\x1b[33mcd [path]\x1b[0m
+  \rUsage:
+  \r\t\x1b[33mcd [path]\x1b[0m
 
-\r\x1b[33m'path'\x1b[0m may be a relative or absolute path to another directory in the file system.
-\r\x1b[33m'path'\x1b[0m may also be omitted, in which case the command will return the user to the home directory.`
+  \r\x1b[33m'path'\x1b[0m may be a relative or absolute path to another directory in the file system.
+  \r\x1b[33m'path'\x1b[0m may also be omitted, in which case the command will return the user to the home directory.`
 
   /**
    * Given a params containing a `path` key, change the terminal's current directory
