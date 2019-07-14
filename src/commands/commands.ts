@@ -3,12 +3,14 @@ import { CD } from './cd'
 import { Command } from './command'
 import { LS } from './ls'
 import { Help, Summary } from './help'
+import { WhoAmI } from './whoami'
 
 export const Commands: Array<Command> = [
   new Summary(),
   new CD(),
   new Help(),
   new LS(),
+  new WhoAmI(),
 ]
 
 /**
