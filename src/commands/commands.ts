@@ -1,8 +1,9 @@
 // Compile all of the commands into an Array that will be used by the system
 import { CD } from './cd'
 import { Command } from './command'
-import { LS } from './ls'
 import { Help, Summary } from './help'
+import { LS } from './ls'
+import { PWD } from './pwd'
 import { WhoAmI } from './whoami'
 
 export const Commands: Array<Command> = [
@@ -10,6 +11,7 @@ export const Commands: Array<Command> = [
   new CD(),
   new Help(),
   new LS(),
+  new PWD(),
   new WhoAmI(),
 ]
 
