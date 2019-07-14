@@ -37,8 +37,8 @@ export class Help extends Command {
   private intro: string = `\x1b[35mfreyama.de\x1b[0m - The homepage of Freya Madeline Broderick.
 
 \rBuilt to resemble a terminal, it is fully interactive and contains all of the usual things a personal website would contain, plus maybe some easter eggs!
-\rFor a list of available commands, run \x1b[33m'?'\x1b[0m
-\rGitHub project: \x1b[4mhttps://github.com/freyamade/fresh\x1b[0m`
+\rFor a list of available commands, run \x1b[33m'?'.\x1b[0m
+\rGitHub project: \x1b[4mhttps://github.com/freyamade/fresh.\x1b[0m`
 
   execute(term: Fresh, args: string[]) {
     // Ensure only 0 or 1 arguments are passed
