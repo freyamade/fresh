@@ -1,0 +1,35 @@
+{
+  "name": "freyamade.github.io",
+  "version": "1.0.0",
+  "description": "fresh - freyamade a shell for her website and it's pretty cool",
+  "private": true,
+  "scripts": {
+    "build": "npm run build:js && npm run build:css",
+    "build:css": "node-sass scss/ -o static/css --output-style compressed",
+    "build:js": "webpack",
+    "watch:js": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freyamade/freyamade.github.io.git"
+  },
+  "keywords": [
+    "xterm"
+  ],
+  "author": "freyamade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freyamade/freyamade.github.io/issues"
+  },
+  "homepage": "https://github.com/freyamade/freyamade.github.io#readme",
+  "dependencies": {
+    "xterm": "^3.14.5"
+  },
+  "devDependencies": {
+    "node-sass": "^4.12.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5"
+  }
+}

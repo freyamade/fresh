@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap');
+@import 'node_modules/xterm/dist/xterm';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #18191c;
+  overflow: hidden;
+}
+
+#terminal {
+  height: calc(100% - 4px);
+  width: calc(100% - 10px);
+  padding: 2px 5px;
+
+  // Add styling for the noJS version of the website
+  font-family: "Source Code Pro";
+  font-size: "16px";
+  color: #eeeee9;
+  overflow-y: auto;
+
+  // Text Styling
+  & .red {
+    color: #ff7e70;
+  }
+  & .green {
+    color: #a9ff7a;
+  }
+  & .yellow {
+    color: #fff475;
+  }
+  & .blue {
+    color: #75a5ff;
+  }
+  & .magenta {
+    color: #ff7aa9;
+  }
+  & .cyan {
+    color: #75ffcf;
+  }
+  & .underline {
+    text-decoration: underline;
+  }
+}

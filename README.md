@@ -1,18 +1,14 @@
 # freyama.de
-The personal website that I'm definitely going to actually maintain this time... >.>
-Currently staticly built with HTML, I could change this to use a jekyll theme but I don't know if I'll bother
+Now powered by `fresh`, my own little terminal clone.
 
-## Roadmap
-- [x] Navigation
-- [x] Design (sorta)
-    - [x] Desktop
-    - [x] Mobile
-- [x] Homepage
-- [ ] Default layout for other pages
-- [ ] Music (gotta make a new soundcloud again oh boy)
-- [ ] Blog
-- [ ] other stuff later I guess /shrug
+There's still quite a lot to do with the interactive version, but I'm really enjoying working on this website.
 
-### Music
-- Pull latest soundcloud release(s)
-- Show albums with name, release date, description, album art and links to stream / buy
+This is very much a WIP, but it's coming along quite quickly.
+
+## Plans
+- Probably my biggest plan for this website is to install a drizzle REPL into it, when I get drizzle to the stage of having a WASM playground.
+
+## TODOs
+- Tab autocompletion
+- `*` expansion
+- More commands

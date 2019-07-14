@@ -3,3 +3,11 @@
 
 # Lighthouse reports
 *.report.html
+
+# node modules
+node_modules
+
+# built files
+static/js/*.js
+static/js/*.map
+# static/css/*.css  # Uncomment for now as I'm going to deploy the noJS version without CI
