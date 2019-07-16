@@ -12,6 +12,8 @@ const HOME_PATH = Home.toString()
 export class Fresh extends Terminal {
   private header: string = `\x1b[35mfreyama.de\x1b[0m - \x1b[34m{VERSION}\x1b[0m
   \rRun \x1b[33m'?'\x1b[0m for a list of available commands, or \x1b[33m'help'\x1b[0m for a brief introduction.`
+  private mobileWarning: string = `\nWARNING: Touchscreen support is fairly bad here at the moment, but I'm working on it, I promise!
+  \rGo to \x1b[35m/noJS.html\x1b[0m for a plain text version of the site!`
   private _cwd: Directory = Home
   /**
    * Create a new Fresh instance, which supplies the default parameters to the super constructor
@@ -32,6 +34,10 @@ export class Fresh extends Terminal {
 
     // Write out the header line and prepare the prompt
     this.writeln(this.header)
+    // If the document supports the `ontouchstart` event, warn users about on-screen keyboard support.
+    if ('ontouchstart' in document.documentElement) {
+      this.writeln(this.mobileWarning)
+    }
     this.writeNewline()
     this.writePrompt()
     this.focus()
