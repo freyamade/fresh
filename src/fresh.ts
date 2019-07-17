@@ -1,6 +1,7 @@
 // lib
 import { Emulator, EmulatorState, OutputType } from 'javascript-terminal'
 // local
+import { Commands } from './commands'
 import { Env } from './env'
 import { FileSystem } from './file_system'
 
@@ -25,8 +26,9 @@ export class Fresh {
     // Create the terminal and the state
     this.terminal = new Emulator()
     this.state = new EmulatorState.create({
-      fs: FileSystem,
+      commandMapping: Commands,
       environmentVariables: Env,
+      fs: FileSystem,
     })
 
     // Fetch the necessary elements from the DOM
