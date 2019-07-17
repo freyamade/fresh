@@ -9,6 +9,17 @@ $blue: #75a5ff;
 $magenta: #ff7aa9;
 $cyan: #75ffcf;
 $white: #eeeee9;
+// Define the palette as a map to help clean up this source code
+$palette: (
+  'black': $black,
+  'red': $red,
+  'green': $green,
+  'yellow': $yellow,
+  'blue': $blue,
+  'magenta': $magenta,
+  'cyan': $cyan,
+  'white': $white,
+);
 // Other variables
 $font-family: "Source Code Pro", monospace;
 $font-size: 16px;
@@ -16,6 +27,7 @@ $font-size: 16px;
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html, body {
@@ -23,6 +35,37 @@ html, body {
   height: 100vh;
   background-color: $black;
   overflow: hidden;
+}
+
+input {
+  background-color: $black;
+  color: $white;
+  border: 0;
+  outline: none;
+  flex-grow: 2;
+
+  font-family: $font-family;
+  font-size: $font-size;
+}
+
+a {
+  // Try to make the links as visible and different as possible
+  text-decoration: none;
+  border-bottom: 1px dotted $white;
+  display: inline-block;
+  color: inherit;
+
+  // Add coloured, dotted underlines to differentiate the links from regular underlined text.
+  // Add the colour palette
+  @each $name, $colour in $palette {
+    // Allow for two different ways; the link inside a coloured span, and the link with a colour class
+    .#{$name} & {
+      border-color: #{$colour};
+    }
+    &.#{$name} {
+      border-color: #{$colour};
+    }
+  }
 }
 
 #terminal {
@@ -40,40 +83,18 @@ html, body {
   flex-direction: column;
 
   // Spans for styling output text
-  .red {
-    color: $red;
-  }
-  .green {
-    color: $green;
-  }
-  .yellow {
-    color: $yellow;
-  }
-  .blue {
-    color: $blue;
-  }
-  .magenta {
-    color: $magenta;
-  }
-  .cyan {
-    color: $cyan;
-  }
   .underline {
     text-decoration: underline;
+  }
+
+  // Add the colour palette
+  @each $name, $colour in $palette {
+    & .#{$name} {
+      color: #{$colour};
+    }
   }
 }
 
 .input-wrapper, .output-wrapper {
   display: flex;
-}
-
-#input {
-  background-color: $black;
-  color: $white;
-  border: 0;
-  outline: none;
-  flex-grow: 2;
-
-  font-family: $font-family;
-  font-size: $font-size;
 }
