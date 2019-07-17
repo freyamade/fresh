@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap');
-@import 'node_modules/xterm/dist/xterm';
 
 // Define our colour palette
 $black: #18191c;
@@ -10,6 +9,9 @@ $blue: #75a5ff;
 $magenta: #ff7aa9;
 $cyan: #75ffcf;
 $white: #eeeee9;
+// Other variables
+$font-family: "Source Code Pro", monospace;
+$font-size: 16px;
 
 * {
   margin: 0;
@@ -30,8 +32,8 @@ html, body {
   overflow-x: hidden;
   overflow-y: auto;
 
-  font-family: "Source Code Pro";
-  font-size: 16px;
+  font-family: $font-family;
+  font-size: $font-size;
   color: $white;
 
   display: flex;
@@ -72,6 +74,6 @@ html, body {
   outline: none;
   flex-grow: 2;
 
-  font-family: "Source Code Pro";
-  font-size: 16px;
+  font-family: $font-family;
+  font-size: $font-size;
 }
