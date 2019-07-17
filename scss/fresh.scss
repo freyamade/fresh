@@ -23,6 +23,12 @@ html, body {
   font-size: 16px;
   color: #eeeee9;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  .input-wrapper, .output-wrapper {
+    display: flex;
+  }
 
   // Text Styling
   .red {
@@ -48,5 +54,14 @@ html, body {
   }
   p {
     margin: 2px;
+  }
+  #input {
+    background-color: #18191c;
+    color: #eeeee9;
+    border: 0;
+    flex-grow: 2;
+    font-family: "Source Code Pro";
+    font-size: 16px;
+    outline: none;
   }
 }
