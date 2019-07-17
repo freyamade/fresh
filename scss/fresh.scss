@@ -1,6 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap');
 @import 'node_modules/xterm/dist/xterm';
 
+// Define our colour palette
+$black: #18191c;
+$red: #ff7e70;
+$green: #a9ff7a;
+$yellow: #fff475;
+$blue: #75a5ff;
+$magenta: #ff7aa9;
+$cyan: #75ffcf;
+$white: #eeeee9;
+
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +19,7 @@
 html, body {
   width: 100vw;
   height: 100vh;
-  background-color: #18191c;
+  background-color: $black;
   overflow: hidden;
 }
 
@@ -17,51 +27,51 @@ html, body {
   height: calc(100% - 4px);
   width: calc(100% - 10px);
   padding: 2px 5px;
+  overflow-x: hidden;
+  overflow-y: auto;
 
-  // Add styling for the noJS version of the website
   font-family: "Source Code Pro";
   font-size: 16px;
-  color: #eeeee9;
-  overflow-y: auto;
+  color: $white;
+
   display: flex;
   flex-direction: column;
 
-  .input-wrapper, .output-wrapper {
-    display: flex;
-  }
-
-  // Text Styling
+  // Spans for styling output text
   .red {
-    color: #ff7e70;
+    color: $red;
   }
   .green {
-    color: #a9ff7a;
+    color: $green;
   }
   .yellow {
-    color: #fff475;
+    color: $yellow;
   }
   .blue {
-    color: #75a5ff;
+    color: $blue;
   }
   .magenta {
-    color: #ff7aa9;
+    color: $magenta;
   }
   .cyan {
-    color: #75ffcf;
+    color: $cyan;
   }
   .underline {
     text-decoration: underline;
   }
-  p {
-    margin: 2px;
-  }
-  #input {
-    background-color: #18191c;
-    color: #eeeee9;
-    border: 0;
-    flex-grow: 2;
-    font-family: "Source Code Pro";
-    font-size: 16px;
-    outline: none;
-  }
+}
+
+.input-wrapper, .output-wrapper {
+  display: flex;
+}
+
+#input {
+  background-color: $black;
+  color: $white;
+  border: 0;
+  outline: none;
+  flex-grow: 2;
+
+  font-family: "Source Code Pro";
+  font-size: 16px;
 }
