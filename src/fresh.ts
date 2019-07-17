@@ -110,6 +110,9 @@ export class Fresh {
     if (output.type === OutputType.HEADER_OUTPUT_TYPE) {
       div.innerHTML = `${this.getPrompt(output.content.cwd)}${output.content.command}`
     }
+    else if (output.type === OutputType.ERROR_OUTPUT_TYPE) {
+      div.innerHTML = `<div class="red">${output.content}</div>`
+    }
     else {
       // In the case of errors, the message will (hopefully) already be coloured.
       div.innerHTML = output.content

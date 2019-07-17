@@ -1,14 +1,12 @@
 // Set up a command mapping, from our command classes to commands as they work in the terminal library
-
+// lib
 import { CommandMapping, OutputFactory } from 'javascript-terminal'
+// local
+import { Help } from './help'
+import { Summary } from './summary'
 
+// This is not automatically ordered, need to keep track of ordering myself
 export const Commands = CommandMapping.create({
-  'test': {
-    'function': (state, opts) => {
-      console.log(state.getCommandMapping().valueSeq().get(0).get('help'))
-      return {output: OutputFactory.makeTextOutput('test')}
-    },
-    optDef: {},
-    help: 'This is the help message for the test function.'
-  }
+  '?': Summary,
+  'help': Help,
 })

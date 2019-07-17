@@ -98,3 +98,24 @@ a {
 .input-wrapper, .output-wrapper {
   display: flex;
 }
+
+.summary-table {
+  // Table for the output of the summary command
+  th {
+    font-weight: inherit;
+    text-align: left;
+  }
+
+  td:first-child {
+    color: $yellow;
+    text-align: right;
+
+    &::before {
+      content: '\00a0\00a0\00a0\00a0';
+    }
+    &::after {
+      content: '\00a0-\00a0';
+      color: $white;
+    }
+  }
+}
