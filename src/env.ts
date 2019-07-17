@@ -4,4 +4,6 @@ import { EnvironmentVariables } from 'javascript-terminal'
 export const Env = EnvironmentVariables.create({
   cwd: '/freyama.de',
   home: '/freyama.de',
+  user: 'freya',
+  shell: '/bin/fresh',
 })
