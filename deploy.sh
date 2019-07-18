@@ -19,7 +19,7 @@ NODE_ENV=production npm run build
 git checkout -- src/index.ts
 
 # Add the necessary files for the gh-pages branch and commit them
-git add static/ CNAME index.html favicon.png
+git add static/
 git commit -m "Deploying version $COMMIT to gh-pages"
 git push origin gh-pages
 
