@@ -2,11 +2,13 @@
 // lib
 import { CommandMapping, OutputFactory } from 'javascript-terminal'
 // local
+import { Cat } from './cat'
 import { Help } from './help'
 import { Summary } from './summary'
 
 // This is not automatically ordered, need to keep track of ordering myself
 export const Commands = CommandMapping.create({
-  '?': Summary,
+  '?':    Summary,
+  'cat':  Cat,
   'help': Help,
 })
