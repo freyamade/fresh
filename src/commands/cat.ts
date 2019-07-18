@@ -11,8 +11,9 @@ const help: string = `<p class="green">cat - Concatenate files and print on the 
 <br />
 <p>Usage:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">cat path [path...]</span></p>
+<br />
 <p>Where each <span class="yellow">path</span> is a valid path to a file in the system.</p>
-<p>The version of cat without a parameter is not available in this system currently.</p>`
+<p>The version of cat without a parameter is not currently supported.</p>`
 
 const optDef = _defaultDefinition.optDef
 
