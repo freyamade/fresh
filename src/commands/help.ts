@@ -4,10 +4,11 @@
 import { EmulatorState, OutputFactory } from 'javascript-terminal'
 
 // Define necessary constants.
-const help: string = `<p class="yellow">? - Print out a list of available commands in the system.</p>
+const help: string = `<p class="yellow">help - Get help about the commands in the system.</p>
 <br />
 <p>Usage:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="green">?</span></p>`
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="green">help [command_name]</span></p>
+<p>But you knew that, didn't you? 👀</p>`
 
 const optDef = {}
 
