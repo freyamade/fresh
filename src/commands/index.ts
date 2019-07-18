@@ -3,6 +3,7 @@
 import { CommandMapping, OutputFactory } from 'javascript-terminal'
 // local
 import { Cat } from './cat'
+import { CD } from './cd'
 import { Help } from './help'
 import { Summary } from './summary'
 
@@ -10,5 +11,6 @@ import { Summary } from './summary'
 export const Commands = CommandMapping.create({
   '?':    Summary,
   'cat':  Cat,
+  'cd': CD,
   'help': Help,
 })
