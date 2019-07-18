@@ -1,5 +1,5 @@
 // lib
-import { Emulator, EmulatorState, OutputType } from 'javascript-terminal'
+import { Emulator, EmulatorState, HistoryKeyboardPlugin, OutputType } from 'javascript-terminal'
 // local
 import { Commands } from './commands'
 import { Env } from './env'
@@ -10,10 +10,10 @@ const HOME_PATH = Env.get('home')
 export class Fresh {
   // Fresh is a class that handles the terminal stuff in a nice, neat way
 
+  // Keep track of the history object being used in the terminal
+  private history: HistoryKeyboardPlugin
   // Keep track of the instance's terminal emulator
   private terminal: Emulator
-  // Maintain an array of plugins to use in the terminal
-  private plugins = []
   // Also keep track of the changing state
   private state: EmulatorState
 
@@ -30,6 +30,7 @@ export class Fresh {
       environmentVariables: Env,
       fs: FileSystem,
     })
+    this.history = new HistoryKeyboardPlugin(this.state)
 
     // Fetch the necessary elements from the DOM
     this.inputElement = document.getElementById('input')! as HTMLInputElement
@@ -51,7 +52,7 @@ export class Fresh {
 
     // Create a keypress listener on the input element for certain keys
     // Enter - Run command, Tab - Autocomplete, Up - History up, Down - History down
-    this.inputElement.addEventListener('keypress', e => {
+    this.inputElement.addEventListener('keydown', e => {
       switch (e.key) {
         case 'Enter':
           // Attempt to run the supplied command
@@ -59,7 +60,19 @@ export class Fresh {
           break
         case 'Tab':
           // Update the current value of the input element
-          // this.tabComplete()
+          this.tabComplete()
+          // Prevent focus from being lost
+          e.preventDefault()
+          break
+        case 'ArrowUp':
+          // Scroll up through history
+          this.input = this.history.completeUp()
+          // Prevent the normal action of the up arrow to keep the cursor at the end of the line
+          e.preventDefault()
+          break
+        case 'ArrowDown':
+          // Scroll down through history
+          this.input = this.history.completeDown()
           break
       }
     })
@@ -81,18 +94,32 @@ export class Fresh {
   }
 
   /**
+   * Set the input
+   */
+  set input(value: string) {
+    this.inputElement.value = value
+  }
+
+  /**
+   * Get the current input value
+   */
+  get input(): string {
+    return this.inputElement.value
+  }
+
+  /**
    * Execute the given command and display the output by rendering the outputs in the wrapper and clearing the prompt
    */
   private execute() {
     // Retrieve the command and clear the prompt
-    const command = this.inputElement.value
-    this.inputElement.value = ''
+    const command = this.input
+    this.input = ''
 
     // Also clear the output container
     this.outputContainer.innerHTML = ''
 
     // Execute the command and update the state value
-    this.state = this.terminal.execute(this.state, command, this.plugins)
+    this.state = this.terminal.execute(this.state, command, [this.history])
 
     // Render each item in the outputs array, using map because for some reason it's the only thing that works
     this.state.getOutputs().map(output => this.render(output))
@@ -102,6 +129,13 @@ export class Fresh {
 
     // Lastly, scroll to the end of the page
     document.body.scrollTo(0, document.body.scrollHeight)
+  }
+
+  /**
+   * Handle tab completion by attempting to autocomplete the current input
+   */
+  private tabComplete() {
+    this.input = this.terminal.autocomplete(this.state, this.input)
   }
 
   /**
