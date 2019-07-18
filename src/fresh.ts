@@ -5,7 +5,7 @@ import { Commands } from './commands'
 import { Env } from './env'
 import { FileSystem } from './file_system'
 
-const HOME_PATH = '/freyama.de'
+const HOME_PATH = Env.get('home')
 
 export class Fresh {
   // Fresh is a class that handles the terminal stuff in a nice, neat way
@@ -111,7 +111,7 @@ export class Fresh {
       div.innerHTML = `${this.getPrompt(output.content.cwd)}${output.content.command}`
     }
     else if (output.type === OutputType.TEXT_ERROR_OUTPUT_TYPE) {
-      div.innerHTML = `<div class="red">${output.content}</div>`
+      div.innerHTML = `<div class="red">${output.content.replace('emulator:', 'fresh:')}</div>`
     }
     else {
       div.innerHTML = output.content
