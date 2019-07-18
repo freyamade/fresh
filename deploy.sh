@@ -10,13 +10,13 @@ git pull origin master
 
 # Before running the build, take the latest commit and insert it into the code
 COMMIT=$(git rev-parse --short HEAD)
-sed -i "s/{VERSION}/$COMMIT/" src/fresh.ts
+sed -i "s/{VERSION}/$COMMIT/" src/index.ts
 
 # Build the static files on this branch first
 NODE_ENV=production npm run build
 
-# Remove the change to fresh.ts
-git checkout -- src/fresh.ts
+# Remove the change to index.ts
+git checkout -- src/index.ts
 
 # Add the necessary files for the gh-pages branch and commit them
 git add static/ CNAME index.html favicon.png
