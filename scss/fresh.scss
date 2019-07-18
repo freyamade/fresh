@@ -34,7 +34,8 @@ html, body {
   width: 100vw;
   height: 100vh;
   background-color: $black;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 input {
@@ -72,8 +73,6 @@ a {
   height: calc(100% - 4px);
   width: calc(100% - 10px);
   padding: 2px 5px;
-  overflow-x: hidden;
-  overflow-y: auto;
 
   font-family: $font-family;
   font-size: $font-size;

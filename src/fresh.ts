@@ -97,8 +97,11 @@ export class Fresh {
     // Render each item in the outputs array, using map because for some reason it's the only thing that works
     this.state.getOutputs().map(output => this.render(output))
 
-    // Lastly, update the prompt to the new cwd
+    // Update the prompt to the new cwd
     this.setPrompt()
+
+    // Lastly, scroll to the end of the page
+    document.body.scrollTo(0, document.body.scrollHeight)
   }
 
   /**
