@@ -8,15 +8,17 @@ import { Clear } from './clear'
 import { Help } from './help'
 import { History } from './history'
 import { LS } from './ls'
+import { PrintEnv } from './print_env'
 import { Summary } from './summary'
 
 // This is not automatically ordered, need to keep track of ordering myself
 export const Commands = CommandMapping.create({
-  '?':       Summary,
-  'cat':     Cat,
-  'cd':      CD,
-  'clear':   Clear,
-  'help':    Help,
-  'history': History,
-  'ls':      LS,
+  '?':        Summary,
+  'cat':      Cat,
+  'cd':       CD,
+  'clear':    Clear,
+  'help':     Help,
+  'history':  History,
+  'ls':       LS,
+  'printenv': PrintEnv,
 })
