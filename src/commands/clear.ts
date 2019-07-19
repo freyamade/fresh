@@ -1,7 +1,7 @@
 /**
  * Clear the screen.
  */
-import { defaultCommandMapping, EmulatorState, OutputFactory, OutputType } from 'javascript-terminal'
+import { defaultCommandMapping } from 'javascript-terminal'
 
 // Define necessary constants
 const _defaultDefinition = defaultCommandMapping.clear
