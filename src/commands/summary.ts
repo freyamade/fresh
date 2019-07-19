@@ -4,14 +4,14 @@
 import { EmulatorState, OutputFactory } from 'javascript-terminal'
 
 // Define necessary constants
-const help: string = `<p class="green">? - Print out a list of available commands in the system.</p>
+const summary: string = 'Print out a list of available commands in the system.'
+
+const help: string = `<p class="green">? - ${summary}</p>
 <br />
 <p>Usage:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">?</span></p>`
 
 const optDef = {}
-
-const summary: string = 'Print out the list of available commands in the system.'
 
 // Define the function
 function execute(state: EmulatorState, args: string[]): any {

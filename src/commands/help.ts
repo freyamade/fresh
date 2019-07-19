@@ -4,7 +4,9 @@
 import { EmulatorState, OutputFactory } from 'javascript-terminal'
 
 // Define necessary constants.
-const help: string = `<p class="yellow">help - Get help about the commands in the system.</p>
+const summary: string = 'Get help and usage instructions for the commands in this website.'
+
+const help: string = `<p class="yellow">help - ${summary}</p>
 <br />
 <p>Usage:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="green">help [command_name]</span></p>
@@ -16,8 +18,6 @@ const siteHelp = `<p><span class="magenta">freyama.de</span> - The homepage of F
   <p>Built to resemble a terminal, it is fully interactive and contains all of the usual things a personal website would contain, plus maybe some easter eggs!</p>
   <p>For a list of available commands, run <span class="yellow">'?'</span>.</p>
   <p><span class="green">GitHub - <a href="https://github.com/freyamade/fresh">https://github.com/freyamade/fresh</a></span></p>`
-
-const summary: string = 'Get help and usage instructions for the commands in this website.'
 
 // Define the function
 function execute(state: EmulatorState, args: string[]): any {

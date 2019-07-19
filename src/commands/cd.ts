@@ -6,7 +6,9 @@ import { defaultCommandMapping, EmulatorState, OutputFactory, OutputType } from 
 // Define necessary constants
 const _defaultDefinition = defaultCommandMapping.cd
 
-const help: string = `<p class="green">cd - Change the working directory of the terminal session.</p>
+const summary: string = 'Change the working directory of the terminal session.'
+
+const help: string = `<p class="green">cd - ${summary}</p>
 <br />
 <p>Usage:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">cd [path]</span></p>
@@ -15,8 +17,6 @@ const help: string = `<p class="green">cd - Change the working directory of the 
 <p><span class="yellow">path</span> may also be omitted, in which case the command will return to the home directory.</p>`
 
 const optDef = _defaultDefinition.optDef
-
-const summary: string = 'Change the working directory of the terminal session.'
 
 // Define the function
 function execute(state: EmulatorState, args: string[]): any {

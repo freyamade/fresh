@@ -6,7 +6,9 @@ import { defaultCommandMapping, EmulatorState } from 'javascript-terminal'
 // Define necessary constants
 const _defaultDefinition = defaultCommandMapping.ls
 
-const help: string = `<p class="green">ls - List directory contents.</p>
+const summary: string = 'List directory contents.'
+
+const help: string = `<p class="green">ls - ${summary}</p>
 <br />
 <p>Usage:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">ls [options] [path]</span></p>
@@ -21,8 +23,6 @@ const help: string = `<p class="green">ls - List directory contents.</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do not list implied . and ..</p>`
 
 const optDef = _defaultDefinition.optDef
-
-const summary: string = 'List directory contents.'
 
 // Define the function
 // Small wrapper around the default that replaces \n with <br /> tags

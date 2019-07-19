@@ -7,7 +7,9 @@ import { defaultCommandMapping, EmulatorState, OutputFactory, OutputType } from 
 // Define necessary constants
 const _defaultDefinition = defaultCommandMapping.cat
 
-const help: string = `<p class="green">cat - Concatenate files and print on the standard output.</p>
+const summary: string = 'Concatenate files and print on the standard output.'
+
+const help: string = `<p class="green">cat - ${summary}</p>
 <br />
 <p>Usage:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">cat path [path...]</span></p>
@@ -16,8 +18,6 @@ const help: string = `<p class="green">cat - Concatenate files and print on the 
 <p>The version of cat without a parameter is not currently supported.</p>`
 
 const optDef = _defaultDefinition.optDef
-
-const summary: string = 'Concatenate files and print on the standard output.'
 
 // Define the function
 function execute(state: EmulatorState, args: string[]): any {

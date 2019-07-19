@@ -6,7 +6,9 @@ import { defaultCommandMapping, EmulatorState } from 'javascript-terminal'
 // Define necessary constants
 const _defaultDefinition = defaultCommandMapping.printenv
 
-const help: string = `<p class="green">printenv - Print all or part of environment.</p>
+const summary: string = 'Print all or part of environment.'
+
+const help: string = `<p class="green">printenv - ${summary}</p>
 <br />
 <p>Usage:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">printenv [var]</span></p>
@@ -15,8 +17,6 @@ const help: string = `<p class="green">printenv - Print all or part of environme
 <p>Otherwise, print the values of all variables in the environment.</p>`
 
 const optDef = _defaultDefinition.optDef
-
-const summary: string = 'Print all or part of environment.'
 
 // Define the function
 // Small wrapper around the default that replaces \n with <br /> tags

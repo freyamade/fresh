@@ -6,7 +6,9 @@ import { defaultCommandMapping, EmulatorState } from 'javascript-terminal'
 // Define necessary constants
 const _defaultDefinition = defaultCommandMapping.history
 
-const help: string = `<p class="green">history - Manipulate the history list.</p>
+const summary: string = 'Manipulate the history list.'
+
+const help: string = `<p class="green">history - ${summary}</p>
 <br />
 <p>Usage:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">history [-c|--clear]</span></p>
@@ -15,8 +17,6 @@ const help: string = `<p class="green">history - Manipulate the history list.</p
 <p>If run with the <span class="yellow">-c</span> flag, this command will erase the current history of the session.</p>`
 
 const optDef = _defaultDefinition.optDef
-
-const summary: string = 'Manipulate the history list.'
 
 // Define the function
 // Small wrapper around the default that replaces \n with <br /> tags
