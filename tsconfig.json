@@ -4,7 +4,6 @@
         "sourceMap": true,
         "strict": true,
         "noImplicitReturns": true,
-        "noImplicitAny": false,
         "module": "es2015",
         "moduleResolution": "node",
         "target": "es5"
