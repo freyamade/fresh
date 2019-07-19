@@ -1,5 +1,5 @@
 /**
- * Check or clear the terminal history.
+ * Print out one or all of the variables in the environment.
  */
 import { defaultCommandMapping, EmulatorState } from 'javascript-terminal'
 

@@ -1,5 +1,5 @@
 /**
- * Check or clear the terminal history.
+ * List contents of directories.
  */
 import { defaultCommandMapping, EmulatorState } from 'javascript-terminal'
 
@@ -9,9 +9,9 @@ const _defaultDefinition = defaultCommandMapping.ls
 const help: string = `<p class="green">ls - List directory contents.</p>
 <br />
 <p>Usage:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">ls [options] [path...]</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">ls [options] [path]</span></p>
 <br />
-<p>Each <span class="yellow">path</span> is a valid path to a directory in the system.</p>
+<p><span class="yellow">path</span> must be a valid path to a directory in the system.</p>
 <p><span class="yellow">path</span> may also be omitted, in which case the command will list the current working directory.</p>
 <br />
 <p>Options:</p>
