@@ -9,6 +9,7 @@ import { Help } from './help'
 import { History } from './history'
 import { LS } from './ls'
 import { PrintEnv } from './print_env'
+import { PWD } from './pwd'
 import { Summary } from './summary'
 
 // This is not automatically ordered, need to keep track of ordering myself
@@ -21,4 +22,5 @@ export const Commands = CommandMapping.create({
   'history':  History,
   'ls':       LS,
   'printenv': PrintEnv,
+  'pwd':      PWD,
 })
