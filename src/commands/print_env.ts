@@ -18,11 +18,19 @@ const help: string = `<p class="green">printenv - ${summary}</p>
 
 const optDef = _defaultDefinition.optDef
 
+// Cache the result for a given run, as no new variables can be added by a user
+let result: any | null = null
+
 // Define the function
 // Small wrapper around the default that replaces \n with <br /> tags
 function execute(state: EmulatorState, args: string[]): any {
+  // Check if we have a cached
+  if (result !== null) {
+    return result
+  }
+
   // Run the default command, and reformat the output if it exists
-  let result = _defaultDefinition['function'](state, args)
+  result = _defaultDefinition['function'](state, args)
   // The cd command, if successful, only returns `output` if there's an error
   if (result.hasOwnProperty('output')) {
     // Currently, the output is a string split by \n, but we need to turn thse into <br /> tags
