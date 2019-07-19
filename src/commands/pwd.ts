@@ -1,22 +1,27 @@
-// Two command classes that involve helping the user
-import { Command } from './command'
-import { Fresh } from '../fresh'
+/**
+ * Clear the screen.
+ */
+import { defaultCommandMapping } from 'javascript-terminal'
 
-// pwd prints the full path of the current working directory
-export class PWD extends Command {
-  readonly name: string = 'pwd'
-  readonly summary: string = 'Print the current working directory.'
-  readonly help: string = `\x1b[32mpwd - Print the current working directory.\x1b[0m
+// Define necessary constants
+const _defaultDefinition = defaultCommandMapping.pwd
 
-  \rUsage:
-  \r\t\x1b[33mpwd\x1b[0m`
+const summary: string = 'Print name of current/working directory.'
 
-  execute(term: Fresh, args: string[]) {
-    // Ensure only 0 or 1 arguments are passed
-    if (args.length !== 0) {
-      term.writeError(`pwd: Too many arguments (${args.length}). Expected 0.`)
-    }
+const help: string = `<p class="green">pwd - ${summary}</p>
+<br />
+<p>Usage:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">pwd</span></p>`
 
-    term.writeMessage(term.cwd.toString())
-  }
+const optDef = _defaultDefinition.optDef
+
+// Define the function
+const execute = _defaultDefinition['function']
+
+// Export the function definition
+export const PWD = {
+  'function': execute,
+  optDef: optDef,
+  help: help,
+  summary: summary,
 }

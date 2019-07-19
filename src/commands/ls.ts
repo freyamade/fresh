@@ -1,72 +1,56 @@
-import { Command } from './command'
-import { Directory } from '../file_system/directory'
-import { Fresh } from '../fresh'
+/**
+ * List contents of directories.
+ */
+import { defaultCommandMapping, EmulatorState } from 'javascript-terminal'
 
-export class LS extends Command {
-  readonly name: string = 'ls'
-  readonly summary: string = 'List the contents of the specified path(s).'
-  readonly help: string = `\x1b[32mls - List contents of specfied paths.\x1b[0m
+// Define necessary constants
+const _defaultDefinition = defaultCommandMapping.ls
 
-  \rUsage:
-  \r\t\x1b[33mls [path]...\x1b[0m
+const summary: string = 'List directory contents.'
 
-  \rMultiple \x1b[33m'path'\x1b[0m values can be given, separated by spaces.
-  \r\x1b[33m'path'\x1b[0m may also be omitted, in which case the command will list the contents of the current working directory.`
+const help: string = `<p class="green">ls - ${summary}</p>
+<br />
+<p>Usage:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">ls [options] [path]</span></p>
+<br />
+<p><span class="yellow">path</span> must be a valid path to a directory in the system.</p>
+<p><span class="yellow">path</span> may also be omitted, in which case the command will list the current working directory.</p>
+<br />
+<p>Options:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">-a</span>, <span class="blue">--all</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do not exclude listings starting with .</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">-A</span>, <span class="blue">--almost-all</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Do not list implied . and ..</p>`
 
-  /**
-   * Given an array of arguments, list the children of each path in the supplied list
-   */
-  execute(term: Fresh, args: string[]) {
-    // Firstly, we need to check if the list of arguments is 0, 1, or more than 1.
-    // If 0, list the current working directory
-    // If 1, list the node at the specified path
-    // If more than 1, iterate through the array and list the contents of each path, with some extra printing around it
-    switch (args.length) {
-      case 0:
-        // Print out a list of the children of the current directory
-        term.writeMessage(this.listDir(term, term.cwd))
-        break
-      case 1:
-        term.writeNewline()
-        this.ls(term, args[0])
-        break
-      default:
-        // Loop through the supplied paths and attempt to run `ls` on each
-        args.forEach(path => {
-          term.writeNewline()
-          term.write(`${path}:`)
-          this.ls(term, path)
-        })
-    }
+const optDef = _defaultDefinition.optDef
+
+// Define the function
+// Small wrapper around the default that replaces \n with <br /> tags
+function execute(state: EmulatorState, args: string[]): any {
+  // Run the default command, and reformat the output if it exists
+  let result = _defaultDefinition['function'](state, args)
+  // The cd command, if successful, only returns `output` if there's an error
+  if (result.hasOwnProperty('output')) {
+    // Currently, the output is a string split by \n, but we need to turn thse into <br /> tags
+    // I also want to make directories coloured, like fish
+    result.output = result.output.set(
+      'content',
+      result.output.content.split('\n').map((name: string) => {
+        name = name.trim()
+        if (name.substr(-1) === '/') {
+          return `<span class="blue">${name}</span>`
+        }
+        return name
+      }).join('<br />'),
+    )
   }
+  return result
+}
 
-  /**
-   * Given a path to a node, find the node and run the `ls` command on it
-   */
-  private ls(term: Fresh, path: string) {
-    let node = this.traverse(term, term.cwd, path)
-    if (node === null) {
-      return
-    }
-    if (node instanceof Directory) {
-      term.writeln(this.listDir(term, node))
-    }
-    else {
-      term.writeln(path)
-    }
-  }
-
-  /**
-   * Given a Directory node, generate a string containing its contents and return it
-   */
-  private listDir(term: Fresh, dir: Directory): string {
-    // First, generate the output by doing a quick mapping of the directory's children
-    const output = dir.children.map(node => {
-      if (node instanceof Directory) {
-        return `\x1b[34m${node.name}\x1b[0m/`
-      }
-      return node.name
-    }).join('  ')
-    return output
-  }
+// Export the function definition
+export const LS = {
+  'function': execute,
+  optDef: optDef,
+  help: help,
+  summary: summary,
 }

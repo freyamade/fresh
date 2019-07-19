@@ -1,224 +1,159 @@
 // lib
-import { fit } from 'xterm/lib/addons/fit/fit'
-import { Terminal } from 'xterm'
+import { Emulator, EmulatorState, HistoryKeyboardPlugin, OutputType } from 'javascript-terminal'
 // local
-import { Directory } from './file_system/directory'
-import { FileSystem, Home } from './file_system/file_system'
-import { getCommand } from './commands/commands'
-import { Settings } from './settings'
+import { Commands } from './commands'
+import { Env } from './env'
+import { FileSystem } from './file_system'
 
-const HOME_PATH = Home.toString()
+const HOME_PATH = Env.get('home')
 
-export class Fresh extends Terminal {
-  private header: string = `\x1b[35mfreyama.de\x1b[0m - \x1b[34m{VERSION}\x1b[0m
-  \rRun \x1b[33m'?'\x1b[0m for a list of available commands, or \x1b[33m'help'\x1b[0m for a brief introduction.`
-  private mobileWarning: string = `\nWARNING: Touchscreen support is fairly bad here at the moment, but I'm working on it, I promise!
-  \rGo to \x1b[35m/noJS.html\x1b[0m for a plain text version of the site!`
-  private _cwd: Directory = Home
-  /**
-   * Create a new Fresh instance, which supplies the default parameters to the super constructor
-   */
+export class Fresh {
+  // Fresh is a class that handles the terminal stuff in a nice, neat way
+
+  // Keep track of the history object being used in the terminal
+  private history: HistoryKeyboardPlugin
+  // Keep track of the instance's terminal emulator
+  private terminal: Emulator
+  // Also keep track of the changing state
+  private state: EmulatorState
+
+  // In terms of HTML elements, keep track of the necessary elements
+  private inputElement: HTMLInputElement
+  private outputContainer: HTMLElement
+  private promptContainer: HTMLElement
+
   constructor() {
-    super(Settings)
-    const element = document.getElementById('terminal')!
-    element.innerHTML = ''
-    this.open(element)
-    fit(this)
+    // Create the terminal and the state
+    this.terminal = new Emulator()
+    this.state = EmulatorState.create({
+      commandMapping: Commands,
+      environmentVariables: Env,
+      fs: FileSystem,
+    })
+    this.history = new HistoryKeyboardPlugin(this.state)
 
-    // Add a key listener to handle button presses
-    this.on('key', (key: string, event: KeyboardEvent) => { this.handleKeypress(key, event) })
-    this.on('paste', (data: string) => { this.write(data) })
+    // Fetch the necessary elements from the DOM
+    this.inputElement = document.getElementById('input')! as HTMLInputElement
+    this.outputContainer = document.getElementById('output-wrapper')!
+    this.promptContainer = document.getElementById('prompt')!
 
-    // Also add an event listener to resize the terminal if the window is resized
-    window.addEventListener('resize', () => { fit(this) }, false)
+    // Set up event listeners for the class
+    this.setupListeners()
+  }
 
-    // Write out the header line and prepare the prompt
-    this.writeln(this.header)
-    // If the document supports the `ontouchstart` event, warn users about on-screen keyboard support.
-    if ('ontouchstart' in document.documentElement) {
-      this.writeln(this.mobileWarning)
+  /**
+   * Setup all of the necessary event listeners for the system
+   */
+  private setupListeners() {
+    // Catch-all event listeners to catches clicks and taps on the screen and focus the input element
+    // Still bubble up so we don't break anything
+    window.addEventListener('click', () => { this.inputElement.focus() })
+    window.addEventListener('touch', () => { this.inputElement.focus() })
+
+    // Create a keypress listener on the input element for certain keys
+    // Enter - Run command, Tab - Autocomplete, Up - History up, Down - History down
+    this.inputElement.addEventListener('keydown', e => {
+      switch (e.key) {
+        case 'Enter':
+          // Attempt to run the supplied command
+          this.execute()
+          break
+        case 'Tab':
+          // Update the current value of the input element
+          this.tabComplete()
+          // Prevent focus from being lost
+          e.preventDefault()
+          break
+        case 'ArrowUp':
+          // Scroll up through history
+          this.input = this.history.completeUp()
+          // Prevent the normal action of the up arrow to keep the cursor at the end of the line
+          e.preventDefault()
+          break
+        case 'ArrowDown':
+          // Scroll down through history
+          this.input = this.history.completeDown()
+          break
+      }
+    })
+  }
+
+  /**
+   * Generate a prompt for the given working directory
+   */
+  private getPrompt(cwd: string): string {
+    cwd = cwd.replace(HOME_PATH, '~')
+    return `${cwd}&nbsp;>&nbsp;`
+  }
+
+  /**
+   * Set the prompt to the current working directory, replacing the home path with the '~' sign
+   */
+  private setPrompt() {
+    this.promptContainer.innerHTML = this.getPrompt(this.state.getEnvVariables().get('cwd'))
+  }
+
+  /**
+   * Set the input
+   */
+  set input(value: string) {
+    this.inputElement.value = value
+  }
+
+  /**
+   * Get the current input value
+   */
+  get input(): string {
+    return this.inputElement.value
+  }
+
+  /**
+   * Execute the given command and display the output by rendering the outputs in the wrapper and clearing the prompt
+   */
+  private execute() {
+    // Retrieve the command and clear the prompt
+    const command = this.input
+    this.input = ''
+
+    // Also clear the output container
+    this.outputContainer.innerHTML = ''
+
+    // Execute the command and update the state value
+    this.state = this.terminal.execute(this.state, command, [this.history])
+
+    // Render each item in the outputs array, using map because for some reason it's the only thing that works
+    this.state.getOutputs().map(output => this.render(output))
+
+    // Update the prompt to the new cwd
+    this.setPrompt()
+
+    // Lastly, scroll to the end of the page
+    document.body.scrollTo(0, document.body.scrollHeight)
+  }
+
+  /**
+   * Handle tab completion by attempting to autocomplete the current input
+   */
+  private tabComplete() {
+    // TODO - At a later stage, set up suggestions `this.terminal.suggest(this.state, this.input): string[]`
+    this.input = this.terminal.autocomplete(this.state, this.input)
+  }
+
+  /**
+   * Render a given output into the output container
+   */
+  private render(output: any) {
+    const div = document.createElement('div')
+    // If the output type is a HEADER_OUTPUT_TYPE, then it is a copy of our prompt
+    if (output.type === OutputType.HEADER_OUTPUT_TYPE) {
+      div.innerHTML = `${this.getPrompt(output.content.cwd)}${output.content.command}`
     }
-    this.writeNewline()
-    this.writePrompt()
-    this.focus()
-  }
-
-  // Getters and Setters
-  /**
-   * Generates the text for the prompt
-   */
-  get prompt(): string {
-    return `${this._cwd.toString().replace(HOME_PATH, '~')} > `
-  }
-
-  /**
-   * Access the current working directory (cwd) of the terminal instance
-   */
-  get cwd(): Directory {
-    return this._cwd
-  }
-
-  /**
-   * Update the current working directory (cwd) of the terminal instance
-   * Used by the `cd` command to change the terminal's directory.
-   * Prints out a newline before changing the directory so the prompts display properly
-   */
-  set cwd(dir: Directory) {
-    // When changing dir, write a newline
-    this.writeNewline()
-    this._cwd = dir
-  }
-
-  // Terminal writing helper methods
-
-  /**
-   * Write newline to the terminal
-   */
-  writeNewline() {
-    this.write('\r\n')
-  }
-
-  /**
-   * Write out the prompt with some extra formatting to the terminal
-   */
-  writePrompt() {
-    this.write(`\r\x1B[1m${this.prompt}\x1B[0m`)
-  }
-
-  // Helper methods for writing messages at different levels
-
-  // Normal level (no colour)
-  writeMessage(message: string) {
-    this.writeNewline()
-    this.writeln(message)
-  }
-
-  // INFO level - blue colour
-  writeInfo(message: string) {
-    this.writeMessage(`\x1b[34m${message}\x1b[0m`)
-  }
-
-  // WARN level - yellow colour
-  writeWarn(message: string) {
-    this.writeMessage(`\x1b[33m${message}\x1b[0m`)
-  }
-
-  // ERROR level - red colour
-  writeError(message: string) {
-    this.writeMessage(`\x1b[31m${message}\x1b[0m`)
-  }
-
-  /**
-   * Method that inserts a backspace
-   */
-  writeBackspace() {
-    this.write('\b \b')
-  }
-
-  /**
-   * Temporary clear method
-   */
-  clear() {
-    // Firstly, run the normal clear method
-    super.clear()
-    // Now, while the line is longer than the prompt, go back one character
-    const backspaces = this.x - this.prompt.length
-    for (let i = 0; i < backspaces; i++) {
-      this.writeBackspace()
+    else if (output.type === OutputType.TEXT_ERROR_OUTPUT_TYPE) {
+      div.innerHTML = `<div class="red">${output.content.replace('emulator:', 'fresh:')}</div>`
     }
-  }
-
-  // Event Handling
-
-  /**
-   * Handle incoming keypresses
-   */
-  handleKeypress(key: string, event: KeyboardEvent) {
-    // Determine if the button pressed is printable
-    const printable = !event.altKey && !event.ctrlKey && !event.metaKey
-
-    // Handle different events depending on the keycode of the button pressed
-    switch (event.keyCode) {
-      case 13:
-        // Enter Key, try and run commands
-        this.execute()
-        this.writePrompt()
-        break
-      case 8:
-        // Backspace, delete a character (ensuring not to delete the prompt)
-        // the `as any` is a workaround because right now the `x` and `y` fields are not in the typings file
-        if (this.x > this.prompt.length) {
-          this.writeBackspace();
-        }
-        break
-      case 37: // Left
-      case 38: // Up
-      case 39: // Right
-      case 40: // Down
-        // For now, disable arrow key use
-        break
-      default:
-        // If the key pressed was printable, print it
-        if (printable) {
-          this.write(key)
-        }
+    else {
+      div.innerHTML = output.content
     }
-  }
-
-  /**
-   * Execute the current line as a command
-   */
-  execute() {
-    let argv = this.getInput().split(' ')
-    let command = argv.shift()!
-    if (command === '') {
-      this.writeNewline()
-      return
-    }
-
-    // Try and find the right command to run
-    const cmd = getCommand(command)
-    if (cmd === null) {
-      this.writeError(`fresh: Invalid command '${command}'`)
-      return
-    }
-    cmd.execute(this, argv)
-  }
-
-  // Methods for interacting with xterm
-
-  /**
-   * Parse the terminal window for the command by going back up through the lines until we find the prompt
-   */
-  private getInput(): string {
-    let y = this.y
-    let command = ''
-    let line = ''
-    while (y >= 0 && (line = this.buffer.getLine(y)!.translateToString()).indexOf(this.prompt) === -1) {
-      // Add line on in front of the command since we're going backwards
-      command = `${line}${command}`
-      y--
-    }
-    // `line` still contains the line with the prompt in it, so we need to add that line to the command
-    // Remove the prompt from the line before adding it
-    command = `${line.replace(this.prompt, '')}${command}`
-    // Trim whitespace from the string and return it
-    return command.trim()
-  }
-
-  /**
-   * A sadly necessary workaround to access the current x position of the buffer.
-   * I have no idea why this isn't accessible through the Terminal class or something
-   */
-  private get x(): number {
-    return (this.buffer as any)._buffer.x
-  }
-
-  /**
-   * A sadly necessary workaround to access the current y position of the buffer.
-   * I have no idea why this isn't accessible through the Terminal class or something
-   */
-  private get y(): number {
-    return (this.buffer as any)._buffer.y
+    this.outputContainer.append(div)
   }
 }

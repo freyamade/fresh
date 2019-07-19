@@ -1,53 +1,43 @@
-import { Command } from './command'
-import { Directory } from '../file_system/directory'
-import { File } from '../file_system/file'
-import { Fresh } from '../fresh'
-import { Home } from '../file_system/file_system'
-import { Node } from '../file_system/node'
+/**
+ * Change the current directory of the system.
+ */
+import { defaultCommandMapping, EmulatorState, OutputFactory, OutputType } from 'javascript-terminal'
 
-export class CD extends Command {
-  readonly name: string = 'cd'
-  readonly summary: string = 'Change the current working directory of the terminal session.'
-  readonly help: string = `\x1b[32mcd - Change the working directory.\x1b[0m
+// Define necessary constants
+const _defaultDefinition = defaultCommandMapping.cd
 
-  \rUsage:
-  \r\t\x1b[33mcd [path]\x1b[0m
+const summary: string = 'Change the working directory of the terminal session.'
 
-  \r\x1b[33m'path'\x1b[0m may be a relative or absolute path to another directory in the file system.
-  \r\x1b[33m'path'\x1b[0m may also be omitted, in which case the command will return the user to the home directory.`
+const help: string = `<p class="green">cd - ${summary}</p>
+<br />
+<p>Usage:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">cd [path]</span></p>
+<br />
+<p><span class="yellow">path</span> is a valid path to a directory in the system.</p>
+<p><span class="yellow">path</span> may also be omitted, in which case the command will return to the home directory.</p>`
 
-  /**
-   * Given a params containing a `path` key, change the terminal's current directory
-   */
-  execute(term: Fresh, args: string[]) {
-    // Ensure that the number of arguments is less than 2
-    if (args.length >= 2) {
-      term.writeError(`cd: Too many arguments (${args.length}). Expected 0 or 1.`)
-      return
-    }
+const optDef = _defaultDefinition.optDef
 
-    // If there are no args, change dir to the home dir
-    if (args.length === 0) {
-      term.cwd = Home
-      return
-    }
-
-    // Get the path from the params
-    const path = args[0]
-
-    // Check if the path is relative or absolute
-    let node: Node | null = this.traverse(term, term.cwd, path)
-    if (node === null) {
-      // The traverse function already logged the error, return out of here
-      return
-    }
-    // Check that the returned node is also a directory, very important
-    if (!(node instanceof Directory)) {
-      term.writeError(`cd: '${path}' is not a directory.`)
-      return
-    }
-
-    // Update the cwd of the terminal
-    term.cwd = node as Directory
+// Define the function
+function execute(state: EmulatorState, args: string[]): any {
+  // If no args are sent, the default command returns to '/', so fix that
+  if (args.length === 0) {
+    args = [state.getEnvVariables().get('home')]
   }
+  // Run the default command, and if any errors occur replace the `fs` in the text with `cd`.
+  let result = _defaultDefinition['function'](state, args)
+  // The cd command, if successful, only returns `output` if there's an error
+  if (result.hasOwnProperty('output')) {
+    // Replace the `fs` in the error message with `cd`
+    result.output = result.output.set('content', result.output.content.replace('fs:', 'cd:'))
+  }
+  return result
+}
+
+// Export the function definition
+export const CD = {
+  'function': execute,
+  optDef: optDef,
+  help: help,
+  summary: summary,
 }

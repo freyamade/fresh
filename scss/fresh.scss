@@ -1,16 +1,72 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap');
-@import 'node_modules/xterm/dist/xterm';
+
+// Define our colour palette
+$black: #18191c;
+$red: #ff7e70;
+$green: #a9ff7a;
+$yellow: #fff475;
+$blue: #75a5ff;
+$magenta: #ff7aa9;
+$cyan: #75ffcf;
+$white: #eeeee9;
+// Define the palette as a map to help clean up this source code
+$palette: (
+  'black': $black,
+  'red': $red,
+  'green': $green,
+  'yellow': $yellow,
+  'blue': $blue,
+  'magenta': $magenta,
+  'cyan': $cyan,
+  'white': $white,
+);
+// Other variables
+$font-family: "Source Code Pro", monospace;
+$font-size: 16px;
 
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html, body {
   width: 100vw;
   height: 100vh;
-  background-color: #18191c;
-  overflow: hidden;
+  background-color: $black;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+input {
+  background-color: $black;
+  color: $white;
+  border: 0;
+  outline: none;
+  flex-grow: 2;
+
+  font-family: $font-family;
+  font-size: $font-size;
+}
+
+a {
+  // Try to make the links as visible and different as possible
+  text-decoration: none;
+  border-bottom: 1px dotted $white;
+  display: inline-block;
+  color: inherit;
+
+  // Add coloured, dotted underlines to differentiate the links from regular underlined text.
+  // Add the colour palette
+  @each $name, $colour in $palette {
+    // Allow for two different ways; the link inside a coloured span, and the link with a colour class
+    .#{$name} & {
+      border-color: #{$colour};
+    }
+    &.#{$name} {
+      border-color: #{$colour};
+    }
+  }
 }
 
 #terminal {
@@ -18,35 +74,47 @@ html, body {
   width: calc(100% - 10px);
   padding: 2px 5px;
 
-  // Add styling for the noJS version of the website
-  font-family: "Source Code Pro";
-  font-size: 16px;
-  color: #eeeee9;
-  overflow-y: auto;
+  font-family: $font-family;
+  font-size: $font-size;
+  color: $white;
 
-  // Text Styling
-  .red {
-    color: #ff7e70;
-  }
-  .green {
-    color: #a9ff7a;
-  }
-  .yellow {
-    color: #fff475;
-  }
-  .blue {
-    color: #75a5ff;
-  }
-  .magenta {
-    color: #ff7aa9;
-  }
-  .cyan {
-    color: #75ffcf;
-  }
+  display: flex;
+  flex-direction: column;
+
+  // Spans for styling output text
   .underline {
     text-decoration: underline;
   }
-  p {
-    margin: 2px;
+
+  // Add the colour palette
+  @each $name, $colour in $palette {
+    & .#{$name} {
+      color: #{$colour};
+    }
+  }
+}
+
+.input-wrapper, .output-wrapper {
+  display: flex;
+}
+
+.summary-table {
+  // Table for the output of the summary command
+  th {
+    font-weight: inherit;
+    text-align: left;
+  }
+
+  td:first-child {
+    color: $yellow;
+    text-align: right;
+
+    &::before {
+      content: '\00a0\00a0\00a0\00a0';
+    }
+    &::after {
+      content: '\00a0-\00a0';
+      color: $white;
+    }
   }
 }
