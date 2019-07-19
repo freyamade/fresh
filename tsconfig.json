@@ -4,6 +4,8 @@
         "sourceMap": true,
         "strict": true,
         "noImplicitReturns": true,
+        // I can't figure out type definitions for the library...
+        "noImplicitAny": false,
         "module": "es2015",
         "moduleResolution": "node",
         "target": "es5"
