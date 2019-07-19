@@ -11,6 +11,7 @@ import { LS } from './ls'
 import { PrintEnv } from './print_env'
 import { PWD } from './pwd'
 import { Summary } from './summary'
+import { WhoAmI } from './whoami'
 
 // This is not automatically ordered, need to keep track of ordering myself
 export const Commands = CommandMapping.create({
@@ -23,4 +24,5 @@ export const Commands = CommandMapping.create({
   'ls':       LS,
   'printenv': PrintEnv,
   'pwd':      PWD,
+  'whoami':   WhoAmI,
 })
