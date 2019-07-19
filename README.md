@@ -9,6 +9,5 @@ This is very much a WIP, but it's coming along quite quickly.
 - Probably my biggest plan for this website is to install a drizzle REPL into it, when I get drizzle to the stage of having a WASM playground.
 
 ## TODOs
-- Tab autocompletion
 - `*` expansion
 - More commands
