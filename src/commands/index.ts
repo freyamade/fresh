@@ -6,13 +6,15 @@ import { Cat } from './cat'
 import { CD } from './cd'
 import { Clear } from './clear'
 import { Help } from './help'
+import { History } from './history'
 import { Summary } from './summary'
 
 // This is not automatically ordered, need to keep track of ordering myself
 export const Commands = CommandMapping.create({
-  '?':     Summary,
-  'cat':   Cat,
-  'cd':    CD,
-  'clear': Clear,
-  'help':  Help,
+  '?':       Summary,
+  'cat':     Cat,
+  'cd':      CD,
+  'clear':   Clear,
+  'help':    Help,
+  'history': History,
 })
