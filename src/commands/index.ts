@@ -7,6 +7,7 @@ import { CD } from './cd'
 import { Clear } from './clear'
 import { Help } from './help'
 import { History } from './history'
+import { LS } from './ls'
 import { Summary } from './summary'
 
 // This is not automatically ordered, need to keep track of ordering myself
@@ -17,4 +18,5 @@ export const Commands = CommandMapping.create({
   'clear':   Clear,
   'help':    Help,
   'history': History,
+  'ls':      LS,
 })
