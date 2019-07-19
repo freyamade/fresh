@@ -25,7 +25,7 @@ export class Fresh {
   constructor() {
     // Create the terminal and the state
     this.terminal = new Emulator()
-    this.state = new EmulatorState.create({
+    this.state = EmulatorState.create({
       commandMapping: Commands,
       environmentVariables: Env,
       fs: FileSystem,
