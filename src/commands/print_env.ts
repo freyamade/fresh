@@ -26,8 +26,8 @@ function execute(state: EmulatorState, args: string[]): any {
   // The cd command, if successful, only returns `output` if there's an error
   if (result.hasOwnProperty('output')) {
     // Currently, the output is a string split by \n, but we need to turn thse into <br /> tags
-    // The history output is also in reverse order
-    result.output = result.output.set('content', result.output.content.split('\n').join('<br />'))
+    // Also explicitly sort the result
+    result.output = result.output.set('content', result.output.content.split('\n').sort().join('<br />'))
   }
   return result
 }
