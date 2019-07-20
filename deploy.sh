@@ -21,9 +21,9 @@ NODE_ENV=production npm run build
 git checkout -- src/index.ts
 
 # Add the necessary files for the gh-pages branch and commit them
-git add --all
-git commit -m "Deploying version $COMMIT to gh-pages"
-git push origin gh-pages
+# git add --all
+# git commit -m "Deploying version $COMMIT to gh-pages"
+# git push origin gh-pages
 
-# Switch back to master branch
-git checkout master
+# # Switch back to master branch
+# git checkout master
