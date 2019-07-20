@@ -7,7 +7,7 @@ cache:
 
 stages:
   - name: deploy
-    if: branch = master
+    # if: branch = master
 jobs:
   include:
     # Deploy the thing to Chrome Web Store automatically
