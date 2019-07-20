@@ -3,6 +3,9 @@
 # Fail out on first error
 set -e
 
+# Print commands as they run
+set +v
+
 # Get the latest master commit
 COMMIT=$(git rev-parse --short HEAD)
 
