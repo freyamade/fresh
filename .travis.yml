@@ -10,7 +10,7 @@ stages:
     if: branch = master
 jobs:
   include:
-    # Deploy the thing to Chrome Web Store automatically
+    # Deploy to GitHub Pages automatically
     - stage: deploy
       script: bash deploy.sh
 
