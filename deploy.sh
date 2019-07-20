@@ -6,7 +6,7 @@ set -e
 # Checkout gh-pages and pull master into it
 git checkout gh-pages
 git fetch origin
-git pull origin master
+git rebase origin master
 
 # Before running the build, take the latest commit and insert it into the code
 COMMIT=$(git rev-parse --short HEAD)
