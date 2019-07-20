@@ -9,8 +9,13 @@ set +v
 # Get the latest master commit
 COMMIT=$(git rev-parse --short HEAD)
 
-# Checkout gh-pages and pull master into it
+# Update the remote URL with the access token needed to push
 git remote set-url origin "https://freyamade:${GH_TOKEN}@github.com/freyamade/fresh.git"
+
+# Fix git fetch
+git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+
+# Checkout gh-pages and pull master into it
 git fetch --all
 git branch --all
 git checkout --track origin/gh-pages
