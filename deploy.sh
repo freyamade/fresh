@@ -9,7 +9,7 @@ COMMIT=$(git rev-parse --short HEAD)
 # Checkout gh-pages and pull master into it
 git remote set-url origin "https://freyamade:${GH_TOKEN}@github.com/freyamade/fresh.git"
 git fetch origin
-git checkout gh-pages
+git checkout -- track origin/gh-pages
 git pull origin master
 
 # Before running the build, take the latest commit and insert it into the code
