@@ -7,6 +7,7 @@ set -e
 COMMIT=$(git rev-parse --short HEAD)
 
 # Checkout gh-pages and pull master into it
+git remote set-url origin "https://freyamade:${GH_TOKEN}@github.com/freyamade/fresh.git"
 git fetch origin
 git checkout gh-pages
 git pull origin master
@@ -23,9 +24,6 @@ git checkout -- src/index.ts
 # Add the necessary files for the gh-pages branch and commit them
 git add --all
 git commit -m "Deploying version $COMMIT to gh-pages"
-
-# Set the remote to use a token to push
-git remote set-url origin "https://freyamade:${GH_TOKEN}@github.com/freyamade/fresh.git"
 git push origin gh-pages
 
 # Switch back to master branch
