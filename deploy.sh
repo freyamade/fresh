@@ -9,6 +9,13 @@ set +v
 # Get the latest master commit
 VERSION=$(date +'%Y.%m.%d')
 
+# Fix git fetch
+git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+
+# Checkout proper master
+git fetch origin
+git checkout master
+
 # Update the remote URL with the access token needed to push
 git remote set-url origin "https://freyamade:${GH_TOKEN}@github.com/freyamade/freyamade.github.io.git"
 
