@@ -36,7 +36,7 @@ function execute(state: EmulatorState, args: string[]): any {
     result.output = result.output.set(
       'content',
       result.output.content.split('\n').map((name: string) => {
-        name = name.trim()
+        name = name.trim().replace('fs:', 'ls:')
         if (name.substr(-1) === '/') {
           return `<span class="blue">${name}</span>`
         }
