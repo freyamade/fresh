@@ -1,5 +1,5 @@
 {
-  "name": "freyamade.github.io",
+  "name": "fresh",
   "version": "1.0.0",
   "description": "fresh - freyamade a shell for her website and it's pretty cool",
   "private": true,
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/freyamade/freyamade.github.io.git"
+    "url": "git+https://github.com/freyamade/fresh.git"
   },
   "keywords": [
     "xterm"
@@ -19,9 +19,9 @@
   "author": "freyamade",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/freyamade/freyamade.github.io/issues"
+    "url": "https://github.com/freyamade/fresh/issues"
   },
-  "homepage": "https://github.com/freyamade/freyamade.github.io#readme",
+  "homepage": "https://github.com/freyamade/fresh#readme",
   "dependencies": {
     "javascript-terminal": "^1.0.3"
   },
