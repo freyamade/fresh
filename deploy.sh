@@ -26,6 +26,7 @@ git clone "https://freyamade:${GH_TOKEN}@github.com/freyamade/freyamade.github.i
 # Copy the necessary files into the public directory
 cp -r static ../public
 cp *.html ../public
+cp fonts/* ../public/fonts
 
 # Commit the changes in the public repo and push it
 cd ../public
