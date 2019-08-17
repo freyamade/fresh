@@ -13,6 +13,7 @@ VERSION=$(date +'%Y.%m.%d')
 
 # Before running the build, take the latest commit and insert it into the code
 sed -i "s/{VERSION}/$VERSION/" src/index.ts
+sed -i "s/?v={VERSION}/?v=$VERSION/" index.html
 
 # Build the static files on this branch first
 NODE_ENV=production npm run build
