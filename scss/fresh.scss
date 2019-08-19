@@ -125,3 +125,8 @@ a {
     }
   }
 }
+
+// Hide the label so it's only available to screen readers
+label {
+  display: none;
+}
