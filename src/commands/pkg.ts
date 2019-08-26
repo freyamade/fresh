@@ -53,14 +53,28 @@ function execute(state: EmulatorState, args: string[]): any {
   // Print out the table
   for (let index = 0; index < packages.length; index++) {
     const pkgName = packages[index]
+    const pkgDetails = PKGList[pkgName]
 
     // Check if the package name matches the arg, if so install.
     if (pkgName === filter) {
+      if (pkgDetails.installed) {
+        return {
+          output: OutputFactory.makeErrorOutput({
+            source: 'pkg',
+            type: `Package "${pkgName}" is already installed.`,
+          }),
+        }
+      }
+      pkgDetails.installed = true
       return install(pkgName)
     }
 
-    const pkgSummary = PKGList[pkgName]
-    messageBody.push(`<tr><td>${pkgName}</td><td>${pkgSummary}</td></tr>`)
+    if (pkgDetails.installed) {
+      messageBody.push(`<tr><td>${pkgName}</td><td>${pkgDetails.summary} (installed)</td></tr>`)
+    }
+    else {
+      messageBody.push(`<tr><td>${pkgName}</td><td>${pkgDetails.summary}</td></tr>`)
+    }
   }
   const output = `<table class="summary-table">
     <tr><th colspan="2">package repo contents;</th></tr>

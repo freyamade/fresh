@@ -1,3 +1,3 @@
 {
-    "test": "pkg testing"
+    "test": {"summary": "pkg testing", "installed": false}
 }
