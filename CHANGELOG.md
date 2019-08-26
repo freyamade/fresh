@@ -1,6 +1,11 @@
 # CHANGELOG
 Details of changes and the dates on which they occurred.
 
+## 26.08.2019
+- `pkg` command implemented.
+    - The `pkg` command allows for installation of extra packages to add extra functionality to the website.
+    - There aren't any useful packages in the system yet, but the feature is there now and that's the main thing.
+
 ## 19.07.2019
 - Fully redeveloped the website using a [different library](https://github.com/rohanchandra/javascript-terminal) instead of XtermJS
     - XtermJS was a library meant to connect to a bash shell or something underneath, wasn't really designed for the use case.
