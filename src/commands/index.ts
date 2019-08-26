@@ -26,3 +26,10 @@ export const Commands = CommandMapping.create({
   'pwd':      PWD,
   'whoami':   WhoAmI,
 })
+
+// Add a commands interface to the window.
+// This will allow for installation of further commands by adding to this map later.
+declare global {
+  interface Window { commands: CommandMapping; }
+}
+window.commands = Commands
