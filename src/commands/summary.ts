@@ -21,7 +21,7 @@ function execute(state: EmulatorState, args: string[]): any {
     const message = `<tr><td>${name}</td><td>${details.get('summary')}</td></tr>`
     messageBody.push(message)
   })
-  output = `<table class="summary-table">
+  const output = `<table class="summary-table">
     <tr><th colspan="2"><span class="magenta">freyama.de</span> currently supports the following commands;</th></tr>
     ${messageBody.sort().join('')}
     <tr><th colspan="2">Run <span class="yellow">'help command'</span> for more information on the specified command.</th></tr>
