@@ -3,6 +3,7 @@
 
 import { EmulatorState, OutputFactory } from 'javascript-terminal'
 import PKGList from '../pkg/pkg.json'
+import { VERSION } from '../version'
 
 // Define necessary constants
 const summary: string = 'Manages extra packages, allows for listing and installation of extra features.'
@@ -85,7 +86,7 @@ function execute(state: EmulatorState, args: string[]): any {
 
 function install(pkgName: string): any {
   const tag = document.createElement('script')
-  tag.setAttribute('src', `/static/js/pkg/${pkgName}.js`)
+  tag.setAttribute('src', `/static/js/pkg/${pkgName}.js?v=${VERSION}`)
   document.body.appendChild(tag)
 
   // Give a message stating the installation was successful

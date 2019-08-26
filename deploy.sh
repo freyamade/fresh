@@ -12,7 +12,7 @@ VERSION=$(date +'%Y.%m.%d')
 # Builds will now be done from master in fresh to master in the pages repo
 
 # Before running the build, take the latest commit and insert it into the code
-sed -i "s/{VERSION}/$VERSION/" src/index.ts
+sed -i "s/{VERSION}/$VERSION/" src/version.ts
 sed -i "s/?v={VERSION}/?v=$VERSION/" index.html
 
 # Build the static files on this branch first
