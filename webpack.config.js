@@ -2,11 +2,14 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    fresh: './src/index.ts',
+    'pkg/test': './src/pkg/test.ts',
+  },
   output: {
     path: path.resolve(__dirname, './static/js'),
     publicPath: '/static/js/',
-    filename: 'fresh.js'
+    filename: '[name].js'
   },
   module: {
     rules: [

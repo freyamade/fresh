@@ -111,6 +111,9 @@ export class Fresh {
    * Execute the given command and display the output by rendering the outputs in the wrapper and clearing the prompt
    */
   private execute() {
+    // Update the CommandMapping in the state in case we have installed any external packages
+    this.state = this.state.setCommandMapping(window.commands)
+
     // Retrieve the command and clear the prompt
     const command = this.input
     this.input = ''

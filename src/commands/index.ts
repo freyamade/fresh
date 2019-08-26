@@ -8,6 +8,7 @@ import { Clear } from './clear'
 import { Help } from './help'
 import { History } from './history'
 import { LS } from './ls'
+import { PKG } from './pkg'
 import { PrintEnv } from './print_env'
 import { PWD } from './pwd'
 import { Summary } from './summary'
@@ -22,7 +23,15 @@ export const Commands = CommandMapping.create({
   'help':     Help,
   'history':  History,
   'ls':       LS,
+  'pkg':      PKG,
   'printenv': PrintEnv,
   'pwd':      PWD,
   'whoami':   WhoAmI,
 })
+
+// Add a commands interface to the window.
+// This will allow for installation of further commands by adding to this map later.
+declare global {
+  interface Window { commands: CommandMapping; }
+}
+window.commands = Commands
