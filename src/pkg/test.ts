@@ -1,7 +1,10 @@
 import { Map, fromJS } from 'immutable'
 
 // Define necessary constants
-const summary: string = 'pkg testing.'
+const message: string = `<p>Package installation works! \\o/.</p>
+<br />
+<p>Now if I could just figure out what kind of packages I can provide...</p>`
+const summary: string = 'Test package for testing package installation.'
 
 const help: string = `<p class="green">test - ${summary}</p>
 <br />
@@ -13,7 +16,7 @@ const optDef = {}
 // Define the function
 function execute(state: any, args: string[]): any {
   // Just return the details string
-  return {output: {type: 'TEXT_OUTPUT', content: summary}}
+  return {output: {type: 'TEXT_OUTPUT', content: message}}
 }
 
 // Create the function definition.
