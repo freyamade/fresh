@@ -13,16 +13,8 @@ const help: string = `<p class="green">? - ${summary}</p>
 
 const optDef = {}
 
-// Cache the output for a given run, as no new commands can be added by a user
-let output: string | null = null
-
 // Define the function
 function execute(state: EmulatorState, args: string[]): any {
-  // Check if we have a cached output
-  if (output !== null) {
-    return { output: OutputFactory.makeTextOutput(output) }
-  }
-
   // Iterate through the command mapping to find all the commands in the system, and print out their summary messages
   const messageBody: string[] = []
   state.getCommandMapping().forEach((details, name) => {
