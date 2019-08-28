@@ -56,6 +56,7 @@ function execute(state: EmulatorState, args: string[]): any {
   // Create and return a div that the async function can use to put the canvas into.
   const divId = uuidv4()
   const div = `<div id="${divId}">Game of Life</div>`
+  // TODO - Find some way to maintain canvas instances between runs in the terminal
   gameOfLife(+args[0], +args[1], divId) }
   return {
     output: OutputFactory.makeTextOutput(div)
