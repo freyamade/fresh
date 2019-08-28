@@ -1,3 +1,4 @@
+import { EmulatorState, OutputFactory } from 'javascript-terminal'
 import { Map, fromJS } from 'immutable'
 
 // Define necessary constants
@@ -14,9 +15,9 @@ const help: string = `<p class="green">test - ${summary}</p>
 const optDef = {}
 
 // Define the function
-function execute(state: any, args: string[]): any {
+function execute(state: EmulatorState, args: string[]): any {
   // Just return the details string
-  return {output: {type: 'TEXT_OUTPUT', content: message}}
+  return {output: OutputFactory.makeTextOutput(message)}
 }
 
 // Create the function definition.
