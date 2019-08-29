@@ -22,6 +22,9 @@ export class Fresh {
   private outputContainer: HTMLElement
   private promptContainer: HTMLElement
 
+  // Keep track of how many outputs we have already rendered
+  private outputsRendered: number = 0
+
   constructor() {
     // Create the terminal and the state
     this.terminal = new Emulator()
@@ -118,14 +121,15 @@ export class Fresh {
     const command = this.input
     this.input = ''
 
-    // Also clear the output container
-    this.outputContainer.innerHTML = ''
-
     // Execute the command and update the state value
     this.state = this.terminal.execute(this.state, command, [this.history])
 
-    // Render each item in the outputs array, using map because for some reason it's the only thing that works
-    this.state.getOutputs().map(output => this.render(output))
+    // Render each *new* item in the outputs array
+    const outputs = this.state.getOutputs()
+    outputs.skip(this.outputsRendered).map(output => this.render(output))
+
+    // Update the number of outputsRendered
+    this.outputsRendered = outputs.count()
 
     // Update the prompt to the new cwd
     this.setPrompt()
