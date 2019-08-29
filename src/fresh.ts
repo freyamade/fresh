@@ -124,12 +124,20 @@ export class Fresh {
     // Execute the command and update the state value
     this.state = this.terminal.execute(this.state, command, [this.history])
 
-    // Render each *new* item in the outputs array
+    // Rendering - Selectively render only the outputs we need to
     const outputs = this.state.getOutputs()
+    const numOutputs = outputs.count()
+    if (numOutputs < this.outputsRendered) {
+      // Clear the output container as we have lost some outputs (probably from clear)
+      this.outputContainer.innerHTML = ''
+      this.outputsRendered = 0
+    }
+    
+    // Render each *new* item in the outputs array
     outputs.skip(this.outputsRendered).map(output => this.render(output))
 
     // Update the number of outputsRendered
-    this.outputsRendered = outputs.count()
+    this.outputsRendered = numOutputs
 
     // Update the prompt to the new cwd
     this.setPrompt()
