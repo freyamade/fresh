@@ -21,6 +21,10 @@ NODE_ENV=production npm run build
 # -------------------------------------------------------------------------------
 # Deployment steps
 
+# Configure git
+git config --global user.email "ci@freyama.de"
+git config --global user.name "CircleCI"
+
 # Clone the private repo next to this one
 git clone "https://freyamade:${GH_TOKEN}@github.com/freyamade/freyamade.github.io.git" ../public
 
