@@ -15,9 +15,9 @@ jobs:
 
       # Workspace the built files
       - persist_to_workspace:
-        root: src
-        paths:
-          - pkg/game-of-life/rust/pkg/*
+          root: src
+          paths:
+            - pkg/game-of-life/rust/pkg/*
 
   deploy:
     docker:
