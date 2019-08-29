@@ -15,6 +15,8 @@ const help: string = `<p class="green">life - ${summary}</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">life width height</span></p>
 <br />
 <p>Renders a width by height cell canvas and plays Game of Life in it.</p>
+<p>This canvas represents a world that will wrap at the edges, allowing for infinite patterns.</p>
+<p>Each cell currently has a 50% chance of being alive in the initial state.</p>
 <p>Currently, width and height values must each be between 1 and 32 inclusive, to avoid overkill.</p>
 <p>Cells are 5px squares, white cells are alive, dead cells are the same colour as the webpage background.</p>
 <p>NOTE: Only one Game of Life will run at a time.</p>`
