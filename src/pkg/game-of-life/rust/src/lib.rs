@@ -98,12 +98,12 @@ impl Universe {
 impl Universe {
 
     // Constructor
-    pub fn new(width: u32, height: u32) -> Universe {
+    pub fn new(width: u32, height: u32, randomness: f64) -> Universe {
         let size = (width * height) as usize;
         let mut cells = FixedBitSet::with_capacity(size);
 
         for i in 0..size {
-            cells.set(i, js_sys::Math::random() >= 0.5);
+            cells.set(i, js_sys::Math::random() >= 1.0 - randomness);
         }
 
         let cell_size: u32 = 5;
