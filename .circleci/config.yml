@@ -37,7 +37,8 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
 
-      - run: ls /tmp/workspace
+      # Copy the workspace files back to the pkg dir
+      - run: cp /tmp/workspace/pkg/game-of-life/rust/pkg src/pkg/game-of-life/rust
 
       # Download and cache dependencies
       - restore_cache:
@@ -46,6 +47,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      # Install node modules if needed
       - run: npm install
 
       - save_cache:
@@ -53,8 +55,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # # run tests!
-      # - run: yarn test
+      # Build JS files
+      - run: NODE_ENV=production npm run build
+
+      # TODO - Deploy
 
 workflows:
   version: 2
