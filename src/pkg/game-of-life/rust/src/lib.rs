@@ -109,7 +109,7 @@ impl Universe {
         let cell_size: u32 = 5;
         let alive_colour: JsValue = JsValue::from_str("#eeeee9");
         let dead_colour: JsValue = JsValue::from_str("#18191c");
-        let grid_colour: JsValue = JsValue::from_str("#42454d");
+        let grid_colour: JsValue = JsValue::from_str("#2d2f34");
 
         return Universe {
             width,
