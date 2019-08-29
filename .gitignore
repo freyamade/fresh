@@ -8,8 +8,6 @@
 node_modules
 
 # built files
-static/js/*.js
-static/js/*.map
-static/js/pkg/*.js
-static/js/pkg/*.map
-static/css/*.css
+static/**/*
+src/pkg/**/rust/pkg/*
+src/pkg/**/rust/target/*

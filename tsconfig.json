@@ -6,12 +6,15 @@
         "noImplicitReturns": true,
         // I can't figure out type definitions for the library...
         "noImplicitAny": false,
-        "module": "es2015",
+        "module": "esNext",
         "moduleResolution": "node",
-        "target": "es5",
+        "target": "es2015",
         "resolveJsonModule": true,
         "esModuleInterop": true
     },
+    "lib": [
+        "ES2015"
+    ],
     "include": [
         "./src/**/*"
     ]

@@ -4,7 +4,7 @@ var webpack = require('webpack')
 module.exports = {
   entry: {
     fresh: './src/index.ts',
-    'pkg/test': './src/pkg/test.ts',
+    'pkg/game-of-life': './src/pkg/game-of-life/game-of-life.pkg.ts',
   },
   output: {
     path: path.resolve(__dirname, './static/js'),

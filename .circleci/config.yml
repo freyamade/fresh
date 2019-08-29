@@ -1,0 +1,95 @@
+version: 2
+jobs:
+  build_wasm:
+    docker:
+      - image: circleci/rust:latest-node-browsers
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      # Install wasm-pack
+      - run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      # Build the game-of-life wasm package
+      - run: cd src/pkg/game-of-life/rust && wasm-pack build --release --out-name index
+
+      # Workspace the built files
+      - persist_to_workspace:
+          root: src
+          paths:
+            - pkg/game-of-life/rust/pkg/*
+
+  metadata:
+    docker:
+      - image: circleci/ruby:latest-node-browsers
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Build metadata
+      - run: ruby pkg.rb
+
+      # Workspace the built files
+      - persist_to_workspace:
+          root: src
+          paths:
+            - pkg/pkg.json
+
+  deploy:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:11.15.0
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: /tmp/workspace
+
+      # Copy the workspace files back to the pkg dir
+      - run: cp -r /tmp/workspace/pkg/game-of-life/rust/pkg src/pkg/game-of-life/rust
+      - run: cp /tmp/workspace/pkg/pkg.json src/pkg/pkg.json
+
+      # Download and cache dependencies
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-{{ checksum "package.json" }}
+      #       # fallback to using the latest cache if no exact match is found
+      #       - v1-dependencies-
+
+      # Install node modules if needed
+      - run: npm install
+
+      # - save_cache:
+      #     paths:
+      #       - node_modules
+      #     key: v1-dependencies-{{ checksum "package.json" }}
+
+      # Build and deploy using our existing build script
+      - run: bash deploy.sh
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build_wasm:
+          filters:
+            branches:
+              only:
+                - master
+      - metadata:
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - build_wasm
+            - metadata
+          filters:
+            branches:
+              only:
+                - master

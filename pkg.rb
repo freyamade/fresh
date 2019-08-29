@@ -1,12 +1,13 @@
 require "json"
 
 # Get all the pkg files
-pkgs = Dir["src/pkg/*.ts"]
+pkgs = Dir["src/pkg/**/*.pkg.ts"]
 
 # Loop through and build up a map of names to the JSON format required by fresh
 output = {}
 pkgs.each do |path|
-  pkg_name = File.basename path, ".ts"
+  pkg_name = File.basename path, ".pkg.ts"
+  puts pkg_name
   summary_line = File.open(path).grep(/const summary: string/)[0]
   summary = /'(.*)'/.match(summary_line)[1]
   output[pkg_name] = {"summary": summary, "installed": false}
