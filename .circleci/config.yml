@@ -28,7 +28,7 @@ jobs:
       - checkout
 
       # Build metadata
-      - run: cd src/pkg/game-of-life/rust && wasm-pack build --release --out-name index
+      - run: ruby pkg.rb
 
       # Workspace the built files
       - persist_to_workspace:
