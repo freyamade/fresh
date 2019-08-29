@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build-wasm:
+  build_wasm:
     docker:
       - image: circleci/rust:latest-node-browsers
     working_directory: ~/repo
@@ -58,10 +58,9 @@ jobs:
 
 workflows:
   version: 2
-
-  btd:
+  build_and_deploy:
     jobs:
-      - build-wasm
+      - build_wasm
       - deploy:
-        requires:
-          build-wasm
+          requires:
+            - build_wasm
