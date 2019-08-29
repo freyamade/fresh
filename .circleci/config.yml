@@ -38,7 +38,7 @@ jobs:
           at: /tmp/workspace
 
       # Copy the workspace files back to the pkg dir
-      - run: cp /tmp/workspace/pkg/game-of-life/rust/pkg src/pkg/game-of-life/rust
+      - run: cp -r /tmp/workspace/pkg/game-of-life/rust/pkg src/pkg/game-of-life/rust
 
       # Download and cache dependencies
       - restore_cache:
