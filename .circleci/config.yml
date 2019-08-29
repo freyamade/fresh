@@ -68,18 +68,28 @@ jobs:
       #       - node_modules
       #     key: v1-dependencies-{{ checksum "package.json" }}
 
-      # Build JS files
-      - run: NODE_ENV=production npm run build
-
-      # TODO - Deploy
+      # Build and deploy using our existing build script
+      - run: bash deploy.sh
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - build_wasm
-      - metadata
+      - build_wasm:
+          filters:
+            branches:
+              only:
+                - master
+      - metadata:
+          filters:
+            branches:
+              only:
+                - master
       - deploy:
           requires:
             - build_wasm
             - metadata
+          filters:
+            branches:
+              only:
+                - master
