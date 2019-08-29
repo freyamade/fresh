@@ -16,7 +16,8 @@ const help: string = `<p class="green">life - ${summary}</p>
 <br />
 <p>Renders a width by height cell canvas and plays Game of Life in it.</p>
 <p>Currently, width and height values must each be between 1 and 32 inclusive, to avoid overkill.</p>
-<p>Cells are 5px squares, white cells are alive, dead cells are the same colour as the webpage background.</p>`
+<p>Cells are 5px squares, white cells are alive, dead cells are the same colour as the webpage background.</p>
+<p>NOTE: Only one Game of Life will run at a time.</p>`
 
 const optDef = {}
 
