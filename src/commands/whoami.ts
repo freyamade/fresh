@@ -5,6 +5,11 @@ import { EmulatorState, OutputFactory } from 'javascript-terminal'
 
 // Define necessary constants
 const details: string = `<p><span class="magenta">freya madeline broderick</span></p>
+<br />
+<p>I am currently working as the senior developer in charge of CloudCIX's Cloud platform.</p>
+<p>I am a full stack developer, and I dabble quite a bit in the ops side of things as well.</p>
+<p>I am extremely passionate towards the creation of software and I strive for perfection in everything I do, in and out of work.</p>
+<br />
 <p><span class="green">&nbsp;&nbsp;&nbsp;&nbsp;email&nbsp;&nbsp;&nbsp;- <span class="underline">hello@freyama.de</span></span></p>
 <p><span class="blue">&nbsp;&nbsp;&nbsp;&nbsp;github&nbsp;&nbsp;- <a href="https://github.com/freyamade">https://github.com/freyamade</a></span></p>
 <p><span class="cyan">&nbsp;&nbsp;&nbsp;&nbsp;keybase&nbsp;- <a href="https://keybase.io/freyamade">https://keybase.io/freyamade</a></span></p>`
