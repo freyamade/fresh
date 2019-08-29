@@ -6,9 +6,6 @@ set -e
 # Print commands as they run
 set +v
 
-# Generate the pkg.json file for this build
-ruby pkg.rb
-
 # Get the latest master commit
 VERSION=$(date +'%Y.%m.%d')
 
