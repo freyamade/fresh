@@ -1,13 +1,28 @@
-# freyama.de
-Now powered by `fresh`, my own little terminal clone.
+# fresh
+Terminal clone that powers [my website](https://freyama.de).
 
-There's still quite a lot to do with the interactive version, but I'm really enjoying working on this website.
+Built using [javascript-terminal](https://github.com/rohanchandra/javascript-terminal).
 
-This is very much a WIP, but it's coming along quite quickly.
+Supports a variety of basic linux commands, as well as additional package installation.
 
-## Plans
-- Probably my biggest plan for this website is to install a drizzle REPL into it, when I get drizzle to the stage of having a WASM playground.
+Has a fully functional emulated file system.
 
-## TODOs
-- `*` expansion
-- More commands
+## Supported Linux Commands
+- `cat`
+- `cd`
+- `clear`
+- `history`
+- `ls`
+- `printenv`
+- `pwd`
+- `whoami`
+
+## Extra Commands
+- `?` - Prints out a summary of the command list for the website.
+- `help` - Get help about the website in general, or a specific command.
+- `pkg`- List and install extra packages.
+
+## Goals and TODOS
+- Eventually add a basic `drizzle` interpreter written in WASM, once `drizzle` gets to that point.
+- `*` expansion for paths (unsure as to how I'll do this as this is a library issue)
+- (Maybe) make a `/bin` folder where commands will go when installed, just for flavour.
