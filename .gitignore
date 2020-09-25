@@ -11,3 +11,6 @@ node_modules
 static/**/*
 src/pkg/**/rust/pkg/*
 src/pkg/**/rust/target/*
+
+# media
+media/*
