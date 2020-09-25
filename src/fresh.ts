@@ -132,7 +132,7 @@ export class Fresh {
       this.outputContainer.innerHTML = ''
       this.outputsRendered = 0
     }
-    
+
     // Render each *new* item in the outputs array
     outputs.skip(this.outputsRendered).map(output => this.render(output))
 
