@@ -4,6 +4,7 @@ import { CommandMapping, OutputFactory } from 'javascript-terminal'
 // local
 import { Cat } from './cat'
 import { CD } from './cd'
+import { CV } from './cv'
 import { Clear } from './clear'
 import { Help } from './help'
 import { History } from './history'
@@ -19,6 +20,7 @@ export const Commands = CommandMapping.create({
   '?':        Summary,
   'cat':      Cat,
   'cd':       CD,
+  'cv':       CV,
   'clear':    Clear,
   'help':     Help,
   'history':  History,
@@ -32,6 +34,6 @@ export const Commands = CommandMapping.create({
 // Add a commands interface to the window.
 // This will allow for installation of further commands by adding to this map later.
 declare global {
-  interface Window { commands: CommandMapping; }
+  interface Window { commands: CommandMapping }
 }
 window.commands = Commands

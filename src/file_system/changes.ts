@@ -1,7 +1,9 @@
 export const Changes = `<p># <span class="yellow underline">Latest Changes</span></p>
-<p>## <span class="cyan underline">29.08.2019</span><p>
-<p><span class="green">-</span> "game-of-life" pkg added.</p>
-<p><span class="green">&nbsp;&nbsp;-</span> "game-of-life" contains a single command, "life", which runs a Game of Life simulation.</p>
-<p><span class="green">&nbsp;&nbsp;-</span> This Game of Life is written in Rust and built using Web Assembly.</p>
-<p><span class="green">-</span> "test" pkg removed.</p>
-<p><span class="green">-</span> Terminal rendering improved by removing repeated work.</p>`
+<p>## <span class="cyan underline">25.09.2020</span><p>
+<p><span class="green">-</span> npm fixes.</p>
+<p><span class="green">-</span> various changes to the site to match new CV;</p>
+<p><span class="green">&nbsp;&nbsp;-</span> added experience dir.</p>
+<p><span class="green">&nbsp;&nbsp;-</span> removed the fact that I'm no longer working in CIX.</p>
+<p><span class="green">&nbsp;&nbsp;-</span> added more details to "whoami".</p>
+<p><span class="green">-</span> added a "cv" command;</p>
+<p><span class="green">&nbsp;&nbsp;-</span> opens my CV as a pdf in a new window.</p>`

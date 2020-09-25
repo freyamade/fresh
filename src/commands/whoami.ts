@@ -6,11 +6,13 @@ import { EmulatorState, OutputFactory } from 'javascript-terminal'
 // Define necessary constants
 const details: string = `<p><span class="magenta">freya madeline broderick</span></p>
 <br />
-<p>I am currently working as the senior developer in charge of CloudCIX's Cloud platform.</p>
 <p>I am a full stack developer, and I dabble quite a bit in the ops side of things as well.</p>
-<p>I am extremely passionate towards the creation of software and I strive for perfection in everything I do, in and out of work.</p>
+<p>I am extremely passionate, both in programming and in other aspects of my life.</p>
+<p>I'm experienced in Python, Crystal and TypeScript, as well as Docker, and both the design and construction of REST APIs.</p>
+<p>I also have a strong interest in Ansible, Kubernetes, and Ops.</p>
+<p>I hold a first class honours BSc degree in Computer Science from University College Cork (UCC)</p>
 <br />
-<p><span class="green">email&nbsp;&nbsp;&nbsp;- <span class="underline">hello@freyama.de</span></span></p>
+<p><span class="green">email&nbsp;&nbsp;&nbsp;- <span class="underline">frybrdrck@gmail.com</span></span></p>
 <p><span class="blue">github&nbsp;&nbsp;- <a href="https://github.com/freyamade">https://github.com/freyamade</a></span></p>
 <p><span class="cyan">keybase&nbsp;- <a href="https://keybase.io/freyamade">https://keybase.io/freyamade</a></span></p>`
 const summary: string = 'Get information about the girl behind the website.'
