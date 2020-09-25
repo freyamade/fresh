@@ -2,6 +2,7 @@
 import { FileSystem as FS } from 'javascript-terminal'
 // local
 import { CloudCIX } from './experience/cix'
+import { Netsoc } from './experience/netsoc'
 import { Crcophony } from './projects/crcophony'
 import { Drizzle } from './projects/drizzle'
 import { Fresh } from './projects/fresh'
@@ -17,6 +18,7 @@ export const FileSystem = FS.create({
   '/freyama.de/learning_plans': {content: LearningPlans},
   '/freyama.de/experience': {},
   '/freyama.de/experience/cloudcix': {content: CloudCIX},
+  '/freyama.de/experience/netsoc': {content: Netsoc},
   '/freyama.de/projects': {},
   '/freyama.de/projects/crcophony': {content: Crcophony},
   '/freyama.de/projects/drizzle': {content: Drizzle},
