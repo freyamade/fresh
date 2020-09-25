@@ -15,9 +15,10 @@ const help: string = `<p class="yellow">help - ${summary}</p>
 const optDef = {}
 
 const siteHelp = `<p><span class="magenta">freyama.de</span> - The homepage of Freya Madeline Broderick.</p>
-  <p>Built to resemble a terminal, it is fully interactive and contains all of the usual things a personal website would contain, plus maybe some easter eggs!</p>
-  <p>For a list of available commands, run <span class="yellow">'?'</span>.</p>
-  <p><span class="green">GitHub - <a href="https://github.com/freyamade/fresh">https://github.com/freyamade/fresh</a></span></p>`
+<br />
+<p>Built to resemble a terminal, it is fully interactive and contains all of the usual things a personal website would contain, plus maybe some easter eggs!</p>
+<p>For a list of available commands, run <span class="yellow">'?'</span>.</p>
+<p><span class="green">GitHub - <a href="https://github.com/freyamade/fresh">https://github.com/freyamade/fresh</a></span></p>`
 
 // Define the function
 function execute(state: EmulatorState, args: string[]): any {
