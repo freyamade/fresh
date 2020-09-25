@@ -1,6 +1,15 @@
 # CHANGELOG
 Details of changes and the dates on which they occurred.
 
+## 25.09.2020
+- npm fixes
+- various changes to the site to match new CV
+    - added experience dir
+    - removed the fact that I'm no longer working in CIX
+    - added more details to `whoami`
+- added a `cv` command
+    - opens my CV as a pdf in a new window
+
 ## 26.08.2019
 - `pkg` command implemented.
     - The `pkg` command allows for installation of extra packages to add extra functionality to the website.
