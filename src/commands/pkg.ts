@@ -20,9 +20,6 @@ const help: string = `<p class="green">pkg - ${summary}</p>
 
 const optDef = {}
 
-// Track a flag for whether or not the list has been filtered
-let filtered = false
-
 // Define the function
 function execute(state: EmulatorState, args: string[]): any {
   // Generate a table of the available packages, filtered by a supplied string from the User
@@ -38,31 +35,30 @@ function execute(state: EmulatorState, args: string[]): any {
   const messageBody: string[] = []
   let packages = Object.keys(PKGList)
 
+  // Check that there are packages in the directory first
+  if (packages.length === 0) {
+    return {
+      output: OutputFactory.makeErrorOutput({
+        source: 'pkg',
+        type: `There are no packages currently in the directory.`,
+      }),
+    }
+  }
+
   // Filter by a passed arg, if any
   let filter: string = ''
   if (args.length === 1) {
     filter = args[0]
     packages = packages.filter(pkgName => { return pkgName.indexOf(filter) !== -1 })
-    filtered = true
   }
 
   if (packages.length === 0) {
     // The output depends on whether or not the command was filtered
-    if (filtered) {
-       return {
-        output: OutputFactory.makeErrorOutput({
-          source: 'pkg',
-          type: `No packages found that match the given filter.`,
-        }),
-      }
-    }
-    else {
-      return {
-        output: OutputFactory.makeErrorOutput({
-          source: 'pkg',
-          type: `No packages found.`,
-        }),
-      }
+    return {
+      output: OutputFactory.makeErrorOutput({
+        source: 'pkg',
+        type: `No packages found that match the given filter.`,
+      }),
     }
   }
 
