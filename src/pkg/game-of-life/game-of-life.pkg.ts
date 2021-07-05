@@ -120,7 +120,7 @@ async function gameOfLife(width: number, height: number, randomness: number, div
     if (animationInterval !== null) {
       clearInterval(animationInterval)
     }
-    animationInterval = setInterval(() => { loop(universe, ctx) }, 1000/6)
+    animationInterval = window.setInterval(() => { loop(universe, ctx) }, 1000/6)
 
     // Scroll to the bottom again after adding the canvas
     document.body.scrollTo(0, document.body.scrollHeight)
