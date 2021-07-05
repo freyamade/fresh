@@ -27,7 +27,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
         with:
-          ruby-version: 3.0.1
+          ruby-version: 3.0.0
 
       - name: Build pkg.json
         run: ruby pkg.rb
