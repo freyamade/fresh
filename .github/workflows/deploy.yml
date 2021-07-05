@@ -17,11 +17,11 @@ jobs:
       - name: Install wasm-pack
         uses: jetli/wasm-pack-action@v0.3.0
         with:
-          version: 'latest'
+          version: '0.8.1'
 
       - name: Build the game-of-life package
         working-directory: src/pkg/game-of-life/rust
-        run: wasm-pack build --release --out-name index
+        run: wasm-pack build --release --out-name index --target bundler .
 
       # Next, compile the pkg json file to update the package info
       - name: Install Ruby
