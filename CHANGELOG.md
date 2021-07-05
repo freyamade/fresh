@@ -1,6 +1,11 @@
 # CHANGELOG
 Details of changes and the dates on which they occurred.
 
+## 05.07.2021
+- Dependabot alert fixes
+- Updated libraries to latest versions
+- Updated details about current employment
+
 ## 25.09.2020
 - npm fixes
 - various changes to the site to match new CV
