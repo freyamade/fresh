@@ -99,6 +99,9 @@ impl Universe {
 
     // Constructor
     pub fn new(width: u32, height: u32, randomness: f64) -> Universe {
+        // Set our panic hook for more info
+        console_error_panic_hook::set_once();
+
         let size = (width * height) as usize;
         let mut cells = FixedBitSet::with_capacity(size);
 
