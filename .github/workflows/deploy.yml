@@ -1,0 +1,44 @@
+name: Deploy site
+
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # First step; build the wasm
+      - name: Install wasm-pack
+        uses: jetli/wasm-pack-action@v0.3.0
+        with:
+          version: 'latest'
+
+      - name: Build the game-of-life package
+        working-directory: src/pkg/game-of-life/rust
+        run: wasm-pack build --release --out-name index
+
+      # Next, compile the pkg json file to update the package info
+      - name: Install Ruby
+        uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
+        with:
+          ruby-version: 3.0.1
+
+      - name: Build pkg.json
+        run: ruby pkg.rb
+
+      # Lastly, build the production js and deploy it to the other github repo
+      - name: Install node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - run: npm ci
+
+      - name: Build and deploy the site
+        run: bash deploy.sh

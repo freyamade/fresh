@@ -99,7 +99,6 @@ function execute(state: EmulatorState, args: string[]): any {
 
 // The actual function that will handle the game of life command
 async function gameOfLife(width: number, height: number, randomness: number, divId: string) {
-  console.log(randomness)
   // This function relies on the fact that the executor generates a div to put either or canvas or error into.
   try {
     const gameMod = await import('./rust/pkg/index')
@@ -120,13 +119,14 @@ async function gameOfLife(width: number, height: number, randomness: number, div
     if (animationInterval !== null) {
       clearInterval(animationInterval)
     }
-    animationInterval = setInterval(() => { loop(universe, ctx) }, 1000/6)
+    animationInterval = window.setInterval(() => { loop(universe, ctx) }, 1000/6)
 
     // Scroll to the bottom again after adding the canvas
     document.body.scrollTo(0, document.body.scrollHeight)
   }
   catch (e) {
     document.getElementById(divId)!!.innerHTML = `<p class="red">Error when loading Game of Life: ${e}</p>`
+    throw e
   }
 }
 

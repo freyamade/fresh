@@ -23,10 +23,10 @@ NODE_ENV=production npm run build
 
 # Configure git
 git config --global user.email "ci@freyama.de"
-git config --global user.name "CircleCI"
+git config --global user.name "Github Actions"
 
 # Clone the private repo next to this one
-git clone "https://freyamade:${GH_TOKEN}@github.com/freyamade/freyamade.github.io.git" ../public
+git clone "https://freyamade:${{ secrets.GH_TOKEN }}@github.com/freyamade/freyamade.github.io.git" ../public
 
 # Copy the necessary files into the public directory
 cp -r static ../public

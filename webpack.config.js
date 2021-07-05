@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
+  mode: 'production',
   entry: {
     fresh: './src/index.ts',
     'pkg/game-of-life': './src/pkg/game-of-life/game-of-life.pkg.ts',
@@ -40,11 +41,14 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: 'eval-source-map',
+  experiments: {
+    syncWebAssembly: true,
+  },
 }
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = 'source-map'
   module.exports.optimization = {minimize: true}
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
