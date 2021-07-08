@@ -16,7 +16,7 @@ const details: string = `<p><span class="magenta">freya madeline broderick</span
 <p><span class="blue">github&nbsp;&nbsp;- <a href="https://github.com/freyamade">https://github.com/freyamade</a></span></p>
 <p><span class="cyan">keybase&nbsp;- <a href="https://keybase.io/freyamade">https://keybase.io/freyamade</a></span></p>
 <br />
-<p>Current employment: <span class="cyan">Senior Developer @ CloudCIX Ltd</span></p>`
+<p>Current employment: <span class="cyan">CTO @ CloudCIX Ltd</span></p>`
 const summary: string = 'Get information about the girl behind the website.'
 
 const help: string = `<p class="green">whoami - ${summary}</p>
