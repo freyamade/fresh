@@ -19,7 +19,7 @@ const optDef = {}
 function execute(state: EmulatorState, args: string[]): any {
   // Open the CV in a new window, and then print some output that looks technical... >.>
   let output = "Fetching freyamade.cv... please wait."
-  window.setTimeout(() => { window.open('/media/cv.pdf') }, 2000)
+  window.setTimeout(() => { window.open('/a/cv.pdf') }, 2000)
   return { output: OutputFactory.makeTextOutput(output) }
 }
 

@@ -4,4 +4,4 @@ export const Netsoc = `<p># <span class="yellow underline">UCC Netsoc</span> - <
 <p><span class="green">-</span> Made various user-facing improvements, including adding the ability for students to choose their preferred shell for logging into the servers.</p>
 <p><span class="green">-</span> Gave several techtalks throughout my two years of being a part of the society.</p>
 <br />
-<p><span class="green">Tech Talk Slides - <a href="https://freyamade.netsoc.co">https://freyamade.netsoc.co</a></span>`
+<p><span class="green">Tech Talk Slides - <a href="https://freyama.de/some-techtalks/">https://freyama.de/some-techtalks/</a></span>`
