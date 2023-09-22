@@ -10,7 +10,7 @@ import { Crcophony } from './projects/crcophony'
 import { Drizzle } from './projects/drizzle'
 import { Fresh } from './projects/fresh'
 import { GithubUserLanguages } from './projects/ghl'
-import { SavageAim } from './projects/savageaim'
+import { SavageAim } from './projects/savage-aim'
 import { LearningPlans } from './learning'
 
 // Create a FileSystem for the terminal
