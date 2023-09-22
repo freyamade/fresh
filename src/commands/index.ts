@@ -12,6 +12,7 @@ import { LS } from './ls'
 import { PKG } from './pkg'
 import { PrintEnv } from './print_env'
 import { PWD } from './pwd'
+import { Sitemap } from './sitemap'
 import { Summary } from './summary'
 import { WhoAmI } from './whoami'
 
@@ -28,6 +29,7 @@ export const Commands = CommandMapping.create({
   'pkg':      PKG,
   'printenv': PrintEnv,
   'pwd':      PWD,
+  'sitemap':  Sitemap,
   'whoami':   WhoAmI,
 })
 

@@ -6,17 +6,13 @@ import { EmulatorState, OutputFactory } from 'javascript-terminal'
 // Define necessary constants
 const details: string = `<p><span class="magenta">freya madeline broderick</span></p>
 <br />
-<p>I am a full stack developer, and I dabble quite a bit in the ops side of things as well.</p>
-<p>I am extremely passionate, both in programming and in other aspects of my life.</p>
-<p>I'm experienced in Python, Crystal and TypeScript, as well as Docker, and both the design and construction of REST APIs.</p>
-<p>I also have a strong interest in Ansible, Kubernetes, and Ops.</p>
-<p>I hold a first class honours BSc degree in Computer Science from University College Cork (UCC)</p>
+<p>full stack developer, with a particular liking of Django and VueJS</p>
+<p>experienced in Python, Crystal, TypeScript</p>
+<p>passionate about learning and gaining experience with new technology / programming languages</p>
 <br />
-<p><span class="green">email&nbsp;&nbsp;&nbsp;- <span class="underline">frybrdrck@gmail.com</span></span></p>
 <p><span class="blue">github&nbsp;&nbsp;- <a href="https://github.com/freyamade">https://github.com/freyamade</a></span></p>
-<p><span class="cyan">keybase&nbsp;- <a href="https://keybase.io/freyamade">https://keybase.io/freyamade</a></span></p>
 <br />
-<p>Current employment: <span class="cyan">CTO @ CloudCIX Ltd</span></p>`
+<p>Current employment: <span class="cyan">Mid Level Software Engineer @ honu.ai</span></p>`
 const summary: string = 'Get information about the girl behind the website.'
 
 const help: string = `<p class="green">whoami - ${summary}</p>

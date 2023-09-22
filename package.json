@@ -7,6 +7,7 @@
     "build": "npm run build:js && npm run build:css",
     "build:css": "node-sass scss/ -o static/css --output-style compressed",
     "build:js": "webpack",
+    "watch:css": "node-sass -w scss/ -o static/css --output-style compressed",
     "watch:js": "webpack --watch"
   },
   "repository": {

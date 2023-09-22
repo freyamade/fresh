@@ -38,7 +38,7 @@ export class Fresh {
     // Fetch the necessary elements from the DOM
     this.inputElement = document.getElementById('input')! as HTMLInputElement
     this.outputContainer = document.getElementById('output-wrapper')!
-    this.promptContainer = document.getElementById('prompt')!
+    this.promptContainer = document.getElementById('input-prompt')!
 
     // Set up event listeners for the class
     this.setupListeners()
@@ -86,7 +86,7 @@ export class Fresh {
    */
   private getPrompt(cwd: string): string {
     cwd = cwd.replace(HOME_PATH, '~')
-    return `${cwd}&nbsp;>&nbsp;`
+    return `<span class="prompt">${cwd}&nbsp;>&nbsp;</span>`
   }
 
   /**
