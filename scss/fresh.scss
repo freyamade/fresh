@@ -8,14 +8,15 @@
 }
 
 // Define our colour palette
-$black: #18191c;
-$red: #ff7e70;
-$green: #a9ff7a;
-$yellow: #fff475;
-$blue: #75a5ff;
-$magenta: #ff7aa9;
-$cyan: #75ffcf;
-$white: #eeeee9;
+$black: #061124;
+$black-alt: #040d1b;
+$red: #FF7070;
+$green: #6BFF6B;
+$yellow: #FFFF85;
+$blue: #47A3FF;
+$magenta: #FF7AFF;
+$cyan: #9ff;
+$white: #E1E9F0;
 // Define the palette as a map to help clean up this source code
 $palette: (
   'black': $black,
@@ -77,9 +78,9 @@ a {
 }
 
 #terminal {
-  height: calc(100% - 4px);
-  width: calc(100% - 10px);
-  padding: 2px 5px;
+  height: calc(100% - 1em);
+  width: calc(100% - 1em);
+  padding: 0.5em;
 
   font-family: $font-family;
   font-size: $font-size;
@@ -124,4 +125,10 @@ a {
       color: $white;
     }
   }
+}
+
+.prompt {
+  background-color: $black-alt;
+  // font-weight: bold;
+  padding-left: 0.25em;
 }
