@@ -21,6 +21,7 @@ export class Fresh {
   private inputElement: HTMLInputElement
   private outputContainer: HTMLElement
   private promptContainer: HTMLElement
+  private suggestionsContainer: HTMLElement
 
   // Keep track of how many outputs we have already rendered
   private outputsRendered: number = 0
@@ -39,6 +40,7 @@ export class Fresh {
     this.inputElement = document.getElementById('input')! as HTMLInputElement
     this.outputContainer = document.getElementById('output-wrapper')!
     this.promptContainer = document.getElementById('input-prompt')!
+    this.suggestionsContainer = document.getElementById('suggestions')!
 
     // Set up event listeners for the class
     this.setupListeners()
@@ -56,6 +58,9 @@ export class Fresh {
     // Create a keypress listener on the input element for certain keys
     // Enter - Run command, Tab - Autocomplete, Up - History up, Down - History down
     this.inputElement.addEventListener('keydown', e => {
+      // Regardless of what gets pressed, we should clear the current suggestions
+      this.clearSuggestions()
+
       switch (e.key) {
         case 'Enter':
           // Attempt to run the supplied command
@@ -151,7 +156,12 @@ export class Fresh {
    */
   private tabComplete() {
     // TODO - At a later stage, set up suggestions `this.terminal.suggest(this.state, this.input): string[]`
-    this.input = this.terminal.autocomplete(this.state, this.input)
+    const suggestions = this.terminal.suggest(this.state, this.input)
+    if (suggestions.length == 1) {
+      this.input = this.terminal.autocomplete(this.state, this.input)
+      return
+    }
+    this.addSuggestions(suggestions)
   }
 
   /**
@@ -170,5 +180,19 @@ export class Fresh {
       div.innerHTML = output.content
     }
     this.outputContainer.append(div)
+  }
+
+  /**
+   * Add suggestions to the suggestions wrapper
+   */
+  private addSuggestions(suggestions: string[]) {
+    this.suggestionsContainer.innerHTML = suggestions.join('    ')
+  }
+
+  /**
+   * Clear the suggestions wrapper
+   */
+  private clearSuggestions() {
+    this.suggestionsContainer.innerHTML = ''
   }
 }
