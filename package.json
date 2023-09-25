@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/freyamade/fresh#readme",
   "dependencies": {
+    "chart.js": "^3.4.0",
     "javascript-terminal": "^1.1.1"
   },
   "devDependencies": {
