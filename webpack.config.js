@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     fresh: './src/index.ts',
     'pkg/game-of-life': './src/pkg/game-of-life/game-of-life.pkg.ts',
+    'pkg/github-user-languages': './src/pkg/github-user-languages/github-user-languages.pkg.ts',
   },
   output: {
     path: path.resolve(__dirname, './static/js'),
