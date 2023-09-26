@@ -1,5 +1,6 @@
 import { EmulatorState, OutputFactory, OptionParser } from 'javascript-terminal'
 import { Map, fromJS } from 'immutable'
+import { uuidv4 } from '../utils'
 
 // Define necessary constants
 const MIN_SIZE = 1
@@ -128,14 +129,6 @@ async function gameOfLife(width: number, height: number, randomness: number, div
     document.getElementById(divId)!!.innerHTML = `<p class="red">Error when loading Game of Life: ${e}</p>`
     throw e
   }
-}
-
-// Helpers
-function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
 }
 
 function loop(universe: any, ctx: CanvasRenderingContext2D) {

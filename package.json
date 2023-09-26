@@ -24,9 +24,11 @@
   },
   "homepage": "https://github.com/freyamade/fresh#readme",
   "dependencies": {
+    "chart.js": "^3.4.0",
     "javascript-terminal": "^1.1.1"
   },
   "devDependencies": {
+    "github-user-languages": "github:freyamade/github-user-languages",
     "node-sass": "^7.0.0",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.5",
