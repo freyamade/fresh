@@ -4,18 +4,18 @@
 import { ArcElement, Chart, Legend, LineElement, PieController, Tooltip } from 'chart.js'
 import { FreshGHULData, GHULError, IColorData, IRepoData } from './fresh_ghul_data'
 
+const WIDTH = 400
+
 export class FreshGHUL {
   private canvas! : HTMLCanvasElement
   private container : HTMLDivElement
   private data : FreshGHULData
   private showLegend : boolean
-  private username : string
 
   constructor(username: string, container: HTMLDivElement, isOrg: boolean, showLegend: boolean) {
     // Register the parts of Chart.js I need
     Chart.register(PieController, Tooltip, Legend, ArcElement, LineElement)
     console.log('starting fghul with', username, isOrg, showLegend)
-    this.username = username
     this.data = new FreshGHULData(username, isOrg)
     this.container = container
     this.showLegend = showLegend
@@ -52,32 +52,23 @@ export class FreshGHUL {
     }
   }
 
-  private createCanvas(width: number) {
-    // Round width down to the nearest 50
-    width = Math.floor(width / 50) * 50
+  private createCanvas() {
     // Create the canvas to put the chart in
     const canvas = document.createElement('canvas')
     // Before creating the Charts.js thing ensure that we set the
     // width and height to be the computed width of the containing div
     canvas.id = 'github-user-languages-language-chart'
-    canvas.width = width
-    canvas.height = width
+    canvas.width = WIDTH
+    canvas.height = WIDTH
     // Save the canvas
     return canvas
   }
 
   private build(colorData: IColorData, repoData: IRepoData) {
-    // Get the width and height of the container and use it to build the canvas
-    const width = +(window.getComputedStyle(this.container).width.split('px')[0])
-    this.canvas = this.createCanvas(width)
+    this.canvas = this.createCanvas()
     this.container.innerHTML = ''
     this.container.appendChild(this.canvas)
 
-    // Get whether or not we should draw the legend from the sync storage and draw the chart
-    this.draw(colorData, repoData)
-  }
-
-  private draw(colorData: IColorData, repoData: IRepoData) {
     // Create the pie chart and populate it with the repo data
     const counts: number[] = []
     const colors: string[] = []

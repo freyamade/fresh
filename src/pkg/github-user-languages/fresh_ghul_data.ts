@@ -76,7 +76,7 @@ export class FreshGHULData {
     // Stumbled across this little error tonight
     if (response.status !== 200 ) {
       console.error(response)
-      throw new Error(
+      throw new GHULError(
         `Incorrect status received from GitHub API. Expected 200, received; ${response.status}. ` +
         'See console for more details.',
       )

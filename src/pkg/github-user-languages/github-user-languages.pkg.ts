@@ -19,7 +19,7 @@ const help: string = `<p class="green">ghul - ${summary}</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">-o</span>, <span class="blue">--org</span></p>
 <p>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  Flag stating that the given username is an organisation.
+  Flag stating that the given username is an organisation. Request may work without but better to be safe than sorry!
 </p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="blue">-l</span>, <span class="blue">--legend</span></p>
 <p>
@@ -47,7 +47,7 @@ function execute(state: EmulatorState, args: string[]): any {
 
   // Create and return a div that the async function can use to put the canvas into.
   const divId = uuidv4()
-  const div = `<div id="${divId}" style="height:400px;width:400px;">Github User Languages loading...</div>`
+  const div = `<div id="${divId}" style="max-width:400px;max-height:500px">Github User Languages loading...</div>`
   // Run the function to fetch the data in a second, then return the div so it can be present
   window.setTimeout(() => render(argv[0], divId, options.org, options.legend))
   return {
