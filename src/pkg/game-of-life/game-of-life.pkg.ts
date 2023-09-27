@@ -142,6 +142,7 @@ const Life = {
   optDef: optDef,
   help: help,
   summary: summary,
+  extern: true,
 }
 
 // Add the command to the Window
