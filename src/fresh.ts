@@ -155,7 +155,6 @@ export class Fresh {
    * Handle tab completion by attempting to autocomplete the current input
    */
   private tabComplete() {
-    // TODO - At a later stage, set up suggestions `this.terminal.suggest(this.state, this.input): string[]`
     const suggestions = this.terminal.suggest(this.state, this.input)
     if (suggestions.length == 1) {
       this.input = this.terminal.autocomplete(this.state, this.input)
