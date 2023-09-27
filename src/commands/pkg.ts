@@ -11,12 +11,12 @@ const summary: string = 'Manages extra packages, allows for listing and installa
 const help: string = `<p class="green">pkg - ${summary}</p>
 <br />
 <p>Usage:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">pkg [package_name]</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow">pkg [filter]</span></p>
 <br />
-<p>If <span class="yellow">package_name</span> is omitted, the command will list packages.</p>
-<p>If <span class="yellow">package_name</span> is given, it will be used to search the list of packages.</p>
-<p>If the search finds more than one package, the filtered list will be returned.</p>
-<p>If the search matches the name of a package, it will be installed.</p>`
+<p>If <span class="yellow">filter</span> is omitted, the command will list all available packages.</p>
+<p>If <span class="yellow">filter</span> is given, it will be used to search the list.</p>
+<p>If the search finds exactly one package, that package will be installed.</p>
+<p>Otherwise, the list will be output with package names and descriptions.</p>`
 
 const optDef = {}
 
@@ -62,24 +62,26 @@ function execute(state: EmulatorState, args: string[]): any {
     }
   }
 
-  // Print out the table
+  // If there's only one package in the list, install it
+  if (packages.length === 1) {
+    const pkgName = packages[0];
+    const pkgDetails = PKGList[pkgName]
+    if (pkgDetails.installed) {
+      return {
+        output: OutputFactory.makeErrorOutput({
+          source: 'pkg',
+          type: `Package "${pkgName}" is already installed.`,
+        }),
+      }
+    }
+    pkgDetails.installed = true
+    return install(pkgName)
+  }
+
+  // Print out the table if multiple are returned
   for (let index = 0; index < packages.length; index++) {
     const pkgName = packages[index]
     const pkgDetails = PKGList[pkgName]
-
-    // Check if the package name matches the arg, if so install.
-    if (pkgName === filter) {
-      if (pkgDetails.installed) {
-        return {
-          output: OutputFactory.makeErrorOutput({
-            source: 'pkg',
-            type: `Package "${pkgName}" is already installed.`,
-          }),
-        }
-      }
-      pkgDetails.installed = true
-      return install(pkgName)
-    }
 
     if (pkgDetails.installed) {
       messageBody.push(`<tr><td>${pkgName}</td><td>${pkgDetails.summary} (installed)</td></tr>`)
