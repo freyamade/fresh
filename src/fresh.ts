@@ -155,10 +155,23 @@ export class Fresh {
    * Handle tab completion by attempting to autocomplete the current input
    */
   private tabComplete() {
-    const suggestions = this.terminal.suggest(this.state, this.input)
+    let suggestions = this.terminal.suggest(this.state, this.input)
     if (suggestions.length == 1) {
-      this.input = this.terminal.autocomplete(this.state, this.input)
-      return
+      // Check if they've pressed tab the same again
+      let input = this.terminal.autocomplete(this.state, this.input)
+      if (input === this.input) {
+        // If the autocomplete is the same as last time, try and add a '/' to the input and get suggestions again
+        input = input + '/'
+        suggestions = this.terminal.suggest(this.state, input)
+        if (suggestions.length > 0) {
+          this.input = input
+        }
+      }
+      else {
+        // If it's different, just set it and return
+        this.input = input
+        return
+      }
     }
     this.addSuggestions(suggestions)
   }
