@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["freyama.de"]
 edition = "2018"
 
+[package.metadata]
+wasm-opt = false
+
 [lib]
 crate-type = ["cdylib", "rlib"]
 
