@@ -7,6 +7,9 @@ edition = "2018"
 [package.metadata]
 wasm-opt = false
 
+[target.wasm32-unknown-unknown]
+rustflags = ["-Ctarget-cpu=mvp"]
+
 [lib]
 crate-type = ["cdylib", "rlib"]
 
