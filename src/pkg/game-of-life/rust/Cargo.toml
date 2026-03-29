@@ -10,7 +10,7 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 fixedbitset = "0.1.9"
 js-sys = "0.3"
-wasm-bindgen = "0.2.93"
+wasm-bindgen = "0.2.88"
 console_error_panic_hook = "0.1.6"
 
 [dependencies.web-sys]
