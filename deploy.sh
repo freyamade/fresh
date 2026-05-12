@@ -6,14 +6,15 @@ set -e
 # Print commands as they run
 set +v
 
-# Get the latest master commit
+# Get today's date
 VERSION=$(date +'%Y.%m.%d')
 
 # Builds will now be done from master in fresh to master in the pages repo
 
 # Before running the build, take the latest commit and insert it into the code
-sed -i "s/{VERSION}/$VERSION/" src/version.ts
-sed -i "s/?v={VERSION}/?v=$VERSION/" index.html
+sed -i "s/{VERSION}/$VERSION/" .env
+sed -i "s/{VERSION}/$VERSION/" src/file_system/freyama.de/.changelog.md
+
 
 # Build the static files on this branch first
 NODE_ENV=production npm run build

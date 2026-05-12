@@ -1,0 +1,44 @@
+@use './base.scss';
+
+pre code.hljs {
+  padding: 0;
+  font-family: base.$font-family;
+  font-size: base.$font-size;
+}
+
+.hljs-comment {
+  color: base.$black;
+}
+
+.hljs-variable {
+  color: base.$red;
+}
+
+.hljs-string {
+  color: base.$green;
+}
+
+.hljs-subst,
+.hljs-built_in,
+.hljs-type,
+.hljs-literal,
+.hljs-bullet,
+.hljs-number,
+.hljs-code {
+  color: base.$yellow;
+}
+
+.hljs-keyword,
+.hljs-emphasis {
+  color: base.$magenta;
+}
+
+.hljs-attr,
+.hljs-section,
+.hljs-link {
+  color: base.$blue;
+}
+
+.hljs-title {
+  color: base.$cyan;
+}

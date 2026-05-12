@@ -1,3 +1,0 @@
-[submodule "src/pkg/github-user-languages/src"]
-	path = src/pkg/github-user-languages/src
-	url = https://github.com/freyamade/github-user-languages.git

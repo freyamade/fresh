@@ -1,0 +1,36 @@
+// Define our font rules
+@font-face {
+  font-family: 'Monofur';
+  src:
+    url('@/fonts/monofur.woff2') format('woff2'),
+    url('@/fonts/monofur.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+$background: #181818;
+$prompt-bg: #363636;
+
+// Define our colour palette
+$black: #909090;
+$red: #ff7070;
+$green: #6bff6b;
+$yellow: #ffff85;
+$blue: #47a3ff;
+$magenta: #ff7aff;
+$cyan: #4bffff;
+$white: #e1e9f0;
+// Define the palette as a map to help clean up this source code
+$palette: (
+  'black': $black,
+  'red': $red,
+  'green': $green,
+  'yellow': $yellow,
+  'blue': $blue,
+  'magenta': $magenta,
+  'cyan': $cyan,
+  'white': $white,
+);
+// Other variables
+$font-family: 'Monofur', monospace;
+$font-size: 16px;

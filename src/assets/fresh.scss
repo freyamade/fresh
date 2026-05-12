@@ -1,0 +1,140 @@
+@use './base.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: base.$background;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+input {
+  background-color: base.$background;
+  color: base.$white;
+  border: 0;
+  outline: none;
+  flex-grow: 2;
+
+  font-family: base.$font-family;
+  font-size: base.$font-size;
+}
+
+a {
+  // Try to make the links as visible and different as possible
+  text-decoration: none;
+  border-bottom: 1px dotted base.$white;
+  display: inline-block;
+  color: inherit;
+
+  // Add coloured, dotted underlines to differentiate the links from regular underlined text.
+  // Add the colour palette
+  @each $name, $colour in base.$palette {
+    // Allow for two different ways; the link inside a coloured span, and the link with a colour class
+    .#{$name} & {
+      border-color: #{$colour};
+    }
+    &.#{$name} {
+      border-color: #{$colour};
+    }
+  }
+}
+
+#app {
+  height: calc(100% - 1em);
+  width: calc(100% - 1em);
+  padding: 0.5em;
+
+  font-family: base.$font-family;
+  font-size: base.$font-size;
+  color: base.$white;
+
+  display: flex;
+  flex-direction: column;
+
+  // Spans for styling output text
+  .underline {
+    text-decoration: underline;
+  }
+
+  // Add the colour palette
+  @each $name, $colour in base.$palette {
+    & .#{$name} {
+      color: #{$colour};
+    }
+  }
+}
+
+.input-wrapper,
+.output-wrapper {
+  display: flex;
+}
+
+.columned-table {
+  // Table that right aligns the first column and left aligns the second with a hyphen between them
+  th {
+    font-weight: inherit;
+    text-align: left;
+  }
+
+  td:first-child {
+    text-align: right;
+
+    &::before {
+      content: '\00a0\00a0';
+    }
+    &::after {
+      content: '\00a0-\00a0';
+      color: base.$white;
+    }
+  }
+}
+
+.prompt {
+  background-color: base.$prompt-bg;
+  // font-weight: bold;
+  // padding-left: 0.25em;
+
+  & .prompt-cap {
+    background-color: base.$background;
+    color: base.$prompt-bg;
+  }
+}
+
+#suggestions {
+  margin-left: 2.5em;
+
+  & span:not(:first-child) {
+    margin-left: 0.5em;
+  }
+}
+
+.output-container {
+  min-height: 1em;
+
+  & > pre {
+    font-family: base.$font-family;
+    font-size: base.$font-size;
+    white-space: pre-wrap;
+  }
+
+  & .ls .long span:not(:first-child) {
+    margin-left: 0.75em;
+  }
+}
+
+.tab {
+  margin-left: 2em;
+}
+.double-tab {
+  margin-left: 4em;
+}
+.sitemap-indentation {
+  color: base.$background;
+}

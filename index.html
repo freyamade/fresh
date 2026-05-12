@@ -1,13 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
+
+<!doctype html>
 <html lang="en">
   <head>
     <title>fresh - home terminal of freya madeline broderick</title>
-    <link rel="stylesheet" href="/static/css/fresh.css" />
-    <meta charset="utf8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="author" content="freyamade" />
-    <meta name="description" content="Homepage of Freya Madeline Broderick, full-stack web developer, devops engineer, composer, lover of Dungeons and Dragons and developing software" />
+    <meta
+      name="description"
+      content="Homepage of Freya Madeline Broderick, full-stack web developer, devops engineer, composer, lover of Dungeons and Dragons and developing software"
+    />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" type="image/png" href="/favicon.png" />
     <meta property="og:title" content="freyamade" />
@@ -25,26 +40,16 @@
     <base target="_blank" />
   </head>
   <body>
-    <div id="terminal">
-      <div id="info">
-        <p><span class="magenta">freyama.de</span> - <span class="blue" id="version"></span></p>
-        <p>Run <span class="yellow">'?'</span> for a list of available commands, or <span class="yellow">'help'</span> for a brief introduction.</p>
-        <br />
-      </div>
-
+    <noscript>
       <div id="no-js">
         <p class="yellow">WARNING</p>
         <p>Please enable javascript to use this page.</p>
-        <p>It requires javascript to be enabled in order to run the terminal that makes up the site proper.</p>
+        <p>
+          It requires javascript to be enabled in order to run the terminal that makes up the site
+          proper.
+        </p>
       </div>
-
-      <div id="output-wrapper"></div>
-
-      <div class="input-wrapper">
-        <span class="prompt" id="input-prompt">~&nbsp;>&nbsp;</span><input id="input" type="text" autofocus autocomplete="off" aria-label="Command To Run" />
-      </div>
-      <div id="suggestions" class="yellow"></div>
-    </div>
-    <script src="/static/js/fresh.js?v={VERSION}"></script>
+    </noscript>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

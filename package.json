@@ -1,39 +1,56 @@
 {
-  "name": "fresh",
-  "version": "1.0.0",
-  "description": "fresh - freyamade a shell for her website and it's pretty cool",
+  "name": "freshv2",
+  "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "npm run build:js && npm run build:css",
-    "build:css": "node-sass scss/ -o static/css --output-style compressed",
-    "build:js": "webpack",
-    "watch:css": "node-sass -w scss/ -o static/css --output-style compressed",
-    "watch:js": "webpack --watch"
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "test": "vitest",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build",
+    "lint": "run-s lint:*",
+    "lint:oxlint": "oxlint . --fix",
+    "lint:eslint": "eslint . --fix --cache",
+    "format": "prettier --write --experimental-cli src/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/freyamade/fresh.git"
-  },
-  "keywords": [
-    "xterm"
-  ],
-  "author": "freyamade",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/freyamade/fresh/issues"
-  },
-  "homepage": "https://github.com/freyamade/fresh#readme",
   "dependencies": {
-    "chart.js": "^3.4.0",
-    "javascript-terminal": "^1.1.1"
+    "@chainner/node-path": "github:chaiNNer-org/node-path",
+    "@highlightjs/vue-plugin": "^2.1.0",
+    "option-parser": "^1.0.2",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.32"
   },
   "devDependencies": {
-    "github-user-languages": "github:freyamade/github-user-languages",
-    "node-sass": "^7.0.0",
-    "ts-loader": "^9.2.3",
-    "typescript": "^4.3.5",
-    "util": "^0.12.4",
-    "webpack": "^5.42.0",
-    "webpack-cli": "^4.7.2"
+    "@tsconfig/node24": "^24.0.4",
+    "@types/jsdom": "^28.0.1",
+    "@types/node": "^24.12.2",
+    "@vitejs/plugin-vue": "^6.0.6",
+    "@vitejs/plugin-vue-jsx": "^5.1.5",
+    "@vitest/browser-webdriverio": "^4.1.5",
+    "@vitest/eslint-plugin": "^1.6.16",
+    "@vue/eslint-config-typescript": "^14.7.0",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.9.1",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-oxlint": "~1.60.0",
+    "eslint-plugin-vue": "~10.8.0",
+    "jiti": "^2.6.1",
+    "jsdom": "^29.0.2",
+    "npm-run-all2": "^8.0.4",
+    "oxlint": "~1.60.0",
+    "prettier": "3.8.3",
+    "sass": "^1.99.0",
+    "typescript": "~6.0.0",
+    "vite": "^8.0.8",
+    "vite-plugin-vue-devtools": "^8.1.1",
+    "vitest": "^4.1.4",
+    "vitest-browser-vue": "^2.1.0",
+    "vue-tsc": "^3.2.6"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
   }
 }

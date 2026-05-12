@@ -1,21 +1,14 @@
 {
-    "compilerOptions": {
-        "outDir": "./built/",
-        "sourceMap": true,
-        "strict": true,
-        "noImplicitReturns": true,
-        // I can't figure out type definitions for the library...
-        "noImplicitAny": false,
-        "module": "esNext",
-        "moduleResolution": "node",
-        "target": "es2015",
-        "resolveJsonModule": true,
-        "esModuleInterop": true
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
     },
-    "lib": [
-        "ES2015"
-    ],
-    "include": [
-        "./src/**/*"
-    ]
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
+    }
+  ]
 }
