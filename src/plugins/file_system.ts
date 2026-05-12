@@ -1,4 +1,4 @@
-import { normalize, join, isAbsolute } from '@chainner/node-path'
+import { normalize, join, isAbsolute } from '@chainner/node-path/posix'
 import type { BaseProgram } from '@/base_program'
 import { isExecutable, type INode } from '@/interfaces/inode'
 import { FreshError } from '@/errors'

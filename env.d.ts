@@ -12,7 +12,7 @@ declare module 'option-parser' {
   export = OptionParser
 }
 
-declare module '@chainner/node-path' {
+declare module '@chainner/node-path/posix' {
   export function normalize(path: string): string
   export function join(path1: string, path2: string): string
   export function isAbsolute(path: string): boolean
