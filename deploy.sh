@@ -30,9 +30,7 @@ git config --global user.name "Github Actions"
 git clone "https://freyamade:${GH_TOKEN}@github.com/freyamade/freyamade.github.io.git" ../public
 
 # Copy the necessary files into the public directory
-cp -r static ../public
-cp *.html ../public
-cp -r fonts ../public
+cp -r dist/* ../public
 
 # Commit the changes in the public repo and push it
 cd ../public
