@@ -139,7 +139,8 @@ onMounted(() => {
 
   <div class="input-wrapper">
     <span class="prompt" id="input-prompt" v-if="currentProgram?.prompt != null">
-      &nbsp;{{ currentProgram.prompt }}&nbsp;<span class="prompt-cap">&nbsp;</span>
+      <span class="prompt-path">&nbsp;{{ currentProgram.prompt }}&nbsp;</span>
+      <span class="prompt-cap">&nbsp;</span>
     </span>
     <input
       ref="commandInput"

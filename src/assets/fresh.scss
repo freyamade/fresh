@@ -97,9 +97,12 @@ a {
 }
 
 .prompt {
-  background-color: base.$prompt-bg;
   // font-weight: bold;
   // padding-left: 0.25em;
+
+  & .prompt-path {
+    background-color: base.$prompt-bg;
+  }
 
   & .prompt-cap {
     background-color: base.$background;
