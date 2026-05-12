@@ -128,8 +128,9 @@ onMounted(() => {
     <template v-for="(output, i) in outputs" v-bind:key="`output-${i}`">
       <div :class="{ red: output.type === OutputType.error }" class="output-container">
         <span class="prompt" v-if="output.prompt != null">
-          &nbsp;{{ output.prompt }}&nbsp;<span class="prompt-cap">&nbsp;</span></span
-        >
+          <span class="prompt-path">&nbsp;{{ output.prompt }}&nbsp;</span>
+          <span class="prompt-cap">&nbsp;</span>
+        </span>
         <component v-if="output.type === OutputType.jsx" :is="output.content"></component>
         <span v-else-if="output.type !== OutputType.asIs">{{ output.content }}</span>
         <pre v-else>{{ output.content }}</pre>
