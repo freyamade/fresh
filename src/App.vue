@@ -7,10 +7,9 @@ const props = defineProps(['testInputs'])
 const stdinRef = useTemplateRef('standardInput')
 
 onMounted(async () => {
-  const stdinComponent: typeof stdin = stdinRef.value
   for (const input of props.testInputs || []) {
     // If we pass prop inputs, we should call the handleCommand function of stdin
-    await stdinComponent.executeCommand(input)
+    await stdinRef.value?.executeCommand(input)
   }
 })
 </script>
