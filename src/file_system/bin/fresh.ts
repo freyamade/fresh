@@ -32,6 +32,7 @@ export default class Fresh extends BaseProgram {
   }
 
   async executeCommand(argv: string[], isCurrent: boolean): Promise<void> {
+    if (argv.length === 1 && argv[0] === '') return
     const { writeOutput } = useOutputsStore()
 
     const command = argv[0]!

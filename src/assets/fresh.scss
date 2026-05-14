@@ -102,11 +102,15 @@ a {
 
   & .prompt-path {
     background-color: base.$prompt-bg;
+    height: 100%;
+    display: inline-block;
   }
 
   & .prompt-cap {
     background-color: base.$background;
     color: base.$prompt-bg;
+    height: 100%;
+    display: inline-block;
   }
 }
 

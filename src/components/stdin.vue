@@ -62,8 +62,6 @@ function handleKeydown(event: KeyboardEvent): void {
 }
 
 async function executeCommand(command: string) {
-  if (command === '') return
-
   // Add the newly run command to the history and the screen
   appendHistory(command)
   outputsStore.writeOutput({
@@ -74,7 +72,10 @@ async function executeCommand(command: string) {
 
   // Pass the argument to the currently running program after expanding out the environent variables
   const expandedInput = expandVariables(command)
-  await currentProgram.value?.executeCommand(expandedInput.split(' '), true)
+
+  // Split out comments
+  const commentlessInput = expandedInput.split('#')[0]!.trim()
+  await currentProgram.value?.executeCommand(commentlessInput.split(' '), true)
 }
 
 function focusInput() {

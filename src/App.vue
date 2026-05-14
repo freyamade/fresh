@@ -6,11 +6,11 @@ import { onMounted, useTemplateRef } from 'vue'
 const props = defineProps(['testInputs'])
 const stdinRef = useTemplateRef('standardInput')
 
-onMounted(() => {
+onMounted(async () => {
   const stdinComponent: typeof stdin = stdinRef.value
   for (const input of props.testInputs || []) {
     // If we pass prop inputs, we should call the handleCommand function of stdin
-    stdinComponent.executeCommand(input)
+    await stdinComponent.executeCommand(input)
   }
 })
 </script>
