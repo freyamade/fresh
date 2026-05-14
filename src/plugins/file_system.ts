@@ -79,7 +79,7 @@ class FileSystem {
     this.CWD = this.getNode(this.HOME_PATH)!
   }
 
-  get shellPrompt(): string {
+  get currentDirForPrompt(): string {
     return this.CWD.path.replace(this.HOME_PATH, '~')
   }
 
@@ -174,6 +174,7 @@ class FileSystem {
   } {
     /* Split input on spaces to look at the relevant chunk of text;
      *     If the chunk starts with a /, assume it is a path and fill it as such
+     *     If it instead starts with a $, assume it is an env var
      *     Otherwise, if its the first chunk, assume it's a command name
      *     Otherwise, assume it's a relative path
      */
@@ -182,12 +183,12 @@ class FileSystem {
     // Look at the relevant chunk according to our rules
     let suggestions: string[] = []
     const relevantChunk = inputChunks[inputChunks.length - 1]!
-    if (inputChunks.length === 1 && !relevantChunk.startsWith('/')) {
-      const binNode = this.getNode('/bin')!
-      suggestions = Object.values(binNode.children).map((node) => node.title.replace('.ts', ''))
-    } else if (relevantChunk.startsWith('$')) {
+    if (relevantChunk.startsWith('$')) {
       const { getVarsForCompletions } = useEnvStore()
       suggestions = getVarsForCompletions()
+    } else if (inputChunks.length === 1 && !relevantChunk.startsWith('/')) {
+      const binNode = this.getNode('/bin')!
+      suggestions = Object.values(binNode.children).map((node) => node.title.replace('.ts', ''))
     } else {
       suggestions = this.suggestPaths(relevantChunk)
     }

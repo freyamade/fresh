@@ -47,11 +47,11 @@ export default class HelpProgram extends BaseProgram {
     ],
   }
 
-  get prompt(): string | null {
+  get prompt(): null {
     return null
   }
 
-  async handleInput(argv: string[], isCurrent: boolean): Promise<void> {
+  async executeCommand(argv: string[], isCurrent: boolean): Promise<void> {
     const { writeOutput } = useOutputsStore()
     // If argv is empty, print out the website help text vnode
     if (argv.length === 1)

@@ -10,5 +10,5 @@ export enum OutputType {
 export interface Output {
   type: OutputType
   content: string | VNode | null
-  prompt: string | null
+  prompt: VNode | null
 }

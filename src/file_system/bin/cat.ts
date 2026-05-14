@@ -29,7 +29,7 @@ export default class Cat extends BaseProgram {
     },
   ]
 
-  get prompt(): string | null {
+  get prompt(): null {
     return null
   }
 
@@ -38,7 +38,7 @@ export default class Cat extends BaseProgram {
    *   2. Called from non-current context and passed argv -> try to read the file(s) as defined by the input
    *   3. Called from current context -> return the argv
    */
-  async handleInput(argv: string[], isCurrent: boolean): Promise<void> {
+  async executeCommand(argv: string[], isCurrent: boolean): Promise<void> {
     const { writeOutput } = useOutputsStore()
     const parser = this.parser
     argv = parser.parse(argv)

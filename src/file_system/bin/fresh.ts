@@ -4,6 +4,9 @@ import { useCurrentProgramStore } from '@/stores/current_program'
 import { useOutputsStore } from '@/stores/outputs'
 import useFileSystem from '@/plugins/file_system'
 import { FreshError } from '@/errors'
+import { h, type VNode } from 'vue'
+import type { HandledKeypressEvent } from '@/interfaces/events'
+import { useHistoryStore } from '@/stores/history'
 
 export default class Fresh extends BaseProgram {
   name = 'fresh'
@@ -17,12 +20,18 @@ export default class Fresh extends BaseProgram {
     ],
   }
 
-  get prompt(): string | null {
+  get prompt(): VNode {
     const fileSystem = useFileSystem()
-    return fileSystem.shellPrompt
+    return h('span', [
+      h('span', {
+        class: 'prompt-path',
+        innerHTML: `&nbsp;${fileSystem.currentDirForPrompt}&nbsp;`,
+      }),
+      h('span', { class: 'prompt-cap', innerHTML: '&nbsp;' }),
+    ])
   }
 
-  async handleInput(argv: string[], isCurrent: boolean): Promise<void> {
+  async executeCommand(argv: string[], isCurrent: boolean): Promise<void> {
     const { writeOutput } = useOutputsStore()
 
     const command = argv[0]!
@@ -33,7 +42,7 @@ export default class Fresh extends BaseProgram {
         const { pushProgram } = useCurrentProgramStore()
         pushProgram(program)
       } else {
-        await program.handleInput(argv, false)
+        await program.executeCommand(argv, false)
       }
     } catch (e) {
       if (e instanceof FreshError) {
@@ -48,7 +57,50 @@ export default class Fresh extends BaseProgram {
     }
   }
 
-  keyboardInterrupt(): void {
-    // Shell does nothing for keyboard interrupt
+  handleKeypress(
+    event: KeyboardEvent,
+    currentInput: string,
+    currentSuggestions: string[],
+  ): HandledKeypressEvent {
+    // Handle stuff like Tab, ArrowUp/Down
+    if (event.key === 'Tab') {
+      event.preventDefault()
+      return this.handleTabCompletion(currentInput, currentSuggestions)
+    }
+    if (event.key.startsWith('Arrow')) {
+      const { historyBack, historyForward } = useHistoryStore()
+      let getter: () => string | null = () => null
+      if (event.key === 'ArrowUp') {
+        getter = historyBack
+        event.preventDefault()
+      } else if (event.key === 'ArrowDown') {
+        getter = historyForward
+        event.preventDefault()
+      }
+
+      const historyInput = getter()
+      if (historyInput != null) {
+        return { input: historyInput }
+      }
+    }
+    return {}
+  }
+
+  private handleTabCompletion(
+    currentInput: string,
+    currentSuggestions: string[],
+  ): HandledKeypressEvent {
+    const fileSystem = useFileSystem()
+
+    const { all, filtered, autocomplete } = fileSystem.suggestCompletions(currentInput)
+
+    if (autocomplete != null) {
+      return { input: autocomplete }
+    } else if (filtered.length === 0) {
+      // If filtered suggestions are empty, show all of them instead
+      return { suggestions: all }
+    } else {
+      return { suggestions: filtered }
+    }
   }
 }

@@ -30,7 +30,7 @@ export default class LS extends BaseProgram {
     { flag: 'l', longFlag: null, helpText: 'use a long listing format', internalName: 'long' },
   ]
 
-  get prompt(): string | null {
+  get prompt(): null {
     return null
   }
 
@@ -133,7 +133,7 @@ export default class LS extends BaseProgram {
     })
   }
 
-  async handleInput(argv: string[], isCurrent: boolean): Promise<void> {
+  async executeCommand(argv: string[], isCurrent: boolean): Promise<void> {
     const { writeOutput } = useOutputsStore()
     const fileSystem = useFileSystem()
     const parser = this.parser

@@ -23,11 +23,11 @@ export default class History extends BaseProgram {
     },
   ]
 
-  get prompt(): string | null {
+  get prompt(): null {
     return null
   }
 
-  async handleInput(argv: string[], isCurrent: boolean): Promise<void> {
+  async executeCommand(argv: string[], isCurrent: boolean): Promise<void> {
     const { clear, commandHistory } = useHistoryStore()
     const { writeOutput } = useOutputsStore()
     const parser = this.parser
