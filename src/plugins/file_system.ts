@@ -186,7 +186,10 @@ class FileSystem {
     if (relevantChunk.startsWith('$')) {
       const { getVarsForCompletions } = useEnvStore()
       suggestions = getVarsForCompletions()
-    } else if (inputChunks.length === 1 && !relevantChunk.startsWith('/')) {
+    } else if (
+      inputChunks.length === 1 &&
+      !(relevantChunk.startsWith('/') || relevantChunk.startsWith('..'))
+    ) {
       const binNode = this.getNode('/bin')!
       suggestions = Object.values(binNode.children).map((node) => node.title.replace('.ts', ''))
     } else {
@@ -216,9 +219,10 @@ class FileSystem {
     const startAt = absPath ? this.ROOT_NODE : this.CWD
     const node = this.findLatestNodeInPath(startingPath, startAt)
 
-    // Edge case; if search path is exactly the same as the current node (specifically without the /) and current node is a dir, then return the current search path with a /
+    // Edge case; if search path is exactly the same as the current node (specifically without the /) (or ..) and current node is a dir, then return the current search path with a /
     const pathChunks = startingPath.split('/')
-    if (pathChunks[pathChunks.length - 1]! === node.title && node.isDir) {
+    const specialCases = [node.title, '..']
+    if (specialCases.includes(pathChunks[pathChunks.length - 1]!) && node.isDir) {
       return [`${startingPath}/`]
     }
     // Otherwise return the titles of all children, joined with the current search path
@@ -234,7 +238,12 @@ class FileSystem {
     // Traverse a path to find the latest real node in it, starting from either root or cwd based on the path's relativity
     const nodeList = path.split('/').filter((nodeName) => nodeName !== '')
     for (const nodeName of nodeList) {
-      if (Object.hasOwn(startAt.children, nodeName)) {
+      // Handle special paths
+      if (nodeName === '.') {
+        continue
+      } else if (nodeName === '..') {
+        startAt = startAt.parent
+      } else if (Object.hasOwn(startAt.children, nodeName)) {
         startAt = startAt.children[nodeName]!
       } else {
         break
