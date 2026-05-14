@@ -20,6 +20,7 @@ sed -i "s/{VERSION}/$VERSION/" src/file_system/freyama.de/.changelog.md
 NODE_ENV=production npm run build
 # Then run the preview job, and wget the noJs file as raw html
 npm run preview &
+sleep 5
 wget -O dist/noJs.html --tries=6 --waitretry=10 http://127.0.0.1:8080/noJs.html
 
 # -------------------------------------------------------------------------------
