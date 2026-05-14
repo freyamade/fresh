@@ -16,4 +16,12 @@ export default defineConfig({
   optimizeDeps: {
     include: ['@/file_system/bin/*.ts'],
   },
+  build: {
+    rolldownOptions: {
+      input: {
+        main: './index.html',
+        noJs: './noJs.html',
+      },
+    },
+  },
 })
