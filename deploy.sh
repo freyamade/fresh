@@ -19,7 +19,8 @@ sed -i "s/{VERSION}/$VERSION/" src/file_system/freyama.de/.changelog.md
 # Build the static files on this branch first
 NODE_ENV=production npm run build
 # Then run the preview job, and wget the noJs file as raw html
-npm run preview & wget -O dist/noJs.html --tries=6 --waitretry=10 http://localhost:8080/noJs.html
+pm2 start npm -- run preview
+wget -O dist/noJs.html --tries=6 --waitretry=10 http://127.0.0.1:8080/noJs.html
 
 # -------------------------------------------------------------------------------
 # Deployment steps
