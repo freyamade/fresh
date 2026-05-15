@@ -32,7 +32,7 @@ jobs:
       - name: Install lightpanda headless browser (and other requirements)
         run: |
           apt update -y
-          apt install -y curl jq sha256sum git
+          apt install -y curl jq coreutils git
           curl -fsSL https://pkg.lightpanda.io/install.sh | bash
 
       - name: Build and deploy the site
