@@ -8,9 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      max-parallel: 5
+    container: ubuntu
 
     steps:
       - uses: actions/checkout@v2
@@ -31,10 +29,10 @@ jobs:
           node-version: 22
       - run: npm ci
 
-      - name: Install lightpanda headless browser
+      - name: Install lightpanda headless browser (and other requirements)
         run: |
           apt update -y
-          apt install -y curl jq sha256sum
+          apt install -y curl jq sha256sum git
           curl -fsSL https://pkg.lightpanda.io/install.sh | bash
 
       - name: Build and deploy the site
