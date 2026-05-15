@@ -20,6 +20,4 @@ onMounted(async () => {
   <stdin ref="standardInput" />
 </template>
 
-<style>
-@import '@/assets/fresh.scss';
-</style>
+<style></style>

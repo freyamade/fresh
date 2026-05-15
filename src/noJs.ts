@@ -1,3 +1,5 @@
+import '@/assets/fresh.scss'
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
@@ -22,14 +24,13 @@ const app = createApp(App, {
     '',
     'ls -la',
     '',
-    'ls projects',
+    'ls projects  # all of my main/big projects',
     'cat projects/fresh.md  # info about the website you are currently looking at!',
     '',
     'ls work_experience',
-    'cat work_experience/01_honu.md',
+    'cat work_experience/01_honu.md  # my latest work experience',
     '',
     'ls /bin  # the programs on the site, all load from here!',
-    'cat /bin/cat.ts  # like the code that lets you print things!',
   ],
 })
 
