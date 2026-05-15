@@ -22,7 +22,7 @@ NODE_ENV=production npm run build
 # Get the rendered html for the noJs and dump it into the file
 npm run preview &
 sleep 5
-$HOME/.local/bin/lightpanda fetch --dump html --wait-ms 10000 --http-timeout 0 http://localhost:8080/noJs.html > dist/noJs.html
+$HOME/.local/bin/lightpanda fetch --dump html --wait-ms 10000 --http-timeout 0 http://localhost:8080/noJs.html # > dist/noJs.html
 
 # -------------------------------------------------------------------------------
 # Deployment steps
