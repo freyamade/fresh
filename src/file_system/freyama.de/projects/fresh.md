@@ -9,3 +9,8 @@
     - For syntax highlighting files using `cat` for some easier reading
 - Works like a real terminal, with a custom-built file system module.
 - Uses vite glob importing to read files, and commands are correctly contained within the `/bin` directory, and are loaded on demand when running the command for the first time.
+
+## noJs
+If you don't want to use javascript, you can still see the outputs of some commands at https://freyama.de/noJs.html
+
+This output is generated at build time via running the commands and pre-rendering using [Lightpanda](https://lightpanda.io) so the information is always up to date with the full terminal experience!
