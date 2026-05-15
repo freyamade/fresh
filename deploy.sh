@@ -22,7 +22,7 @@ NODE_ENV=production npm run build
 # Get the rendered html for the noJs and dump it into the file
 npm run preview &
 sleep 5
-./lightpanda fetch --dump html --strip-mode js --wait-until done http://127.0.0.1:8080/noJs.html >> dist/noJs.html
+$HOME/.local/bin/lightpanda fetch --dump html --strip-mode js --wait-until done http://127.0.0.1:8080/noJs.html >> dist/noJs.html
 
 # -------------------------------------------------------------------------------
 # Deployment steps

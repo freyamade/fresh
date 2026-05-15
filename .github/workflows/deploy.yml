@@ -34,7 +34,6 @@ jobs:
           apt update -y
           apt install -y curl jq coreutils git
           LIGHTPANDA_DIR=`pwd` curl -fsSL https://pkg.lightpanda.io/install.sh | bash
-          chmod +x ./lightpanda
 
       - name: Build and deploy the site
         run: bash deploy.sh
