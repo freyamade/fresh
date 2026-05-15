@@ -21,11 +21,10 @@ npm run build
 
 # Get the rendered html for the noJs and dump it into the file
 npm run preview &
-sleep 10
-$HOME/.local/bin/lightpanda fetch --dump html --wait-ms 10000 --http-timeout 0 --strip-mode js http://localhost:12345/noJs.html | grep -v modulepreload
-echo
-$HOME/.local/bin/lightpanda fetch --dump html --wait-ms 10000 --http-timeout 0 --strip-mode js http://localhost:12345/noJs.html | grep -v modulepreload > dist/noJs.html
-cat dist/noJs.html
+sleep 5
+$HOME/.local/bin/lightpanda fetch --dump html --wait-ms 10000 --http-timeout 0 --strip-mode js http://localhost:12345/noJs.html | grep -v modulepreload > /tmp/noJs.html
+cat /tmp/noJs.html
+mv /tmp/noJs.html dist/noJs.html
 
 # -------------------------------------------------------------------------------
 # Deployment steps
