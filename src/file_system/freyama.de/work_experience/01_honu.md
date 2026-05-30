@@ -1,11 +1,13 @@
 # Honu.ai
-## Senior Software Engineer / Tech Lead
+## Lead Backend Developer
 ### September 2023 - March 2026
+- Architected a zero-trust credentials proxy system allowing AI agents to securely interact with third-party APIs (e.g., Google Analytics) without exposing raw credentials.
+
+- Primary backend owner for the Decision Infrastructure, balancing high-security requirements with seamless agent integration across GCP services.
+
 - Managed the building and rollout of microservices in Python, using FastAPI, onto Google Cloud Platform services like Cloud Run, or Compute Engine, using Terraform and Terragrunt.
 
 - Helped develop, and managed, a contextual programming system for the sharing of Business Context information, which was the underlying system of the Honu Decision Infrastructure, to power decision making in context for AI Agents.
-
-- Created a User-owned credentials proxy system for the allowance of AI Agents built by Honu/other Users to access Rest APIs for services such as Google Analytics for the User, without directly being given credentials by placing a proxy object into the Business Context system for Agents to use.
 
 - Developed a Data Proxy system where Agents could create Data Stores in our system, using Bigquery initially but was extensible for any backend in future, and have them accessible by any other Agents in the User’s Contextual Model.
 

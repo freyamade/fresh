@@ -12,8 +12,7 @@ VERSION=$(date +'%Y.%m.%d')
 # Builds will now be done from master in fresh to master in the pages repo
 
 # Before running the build, take the latest commit and insert it into the code
-sed -i "s/{VERSION}/$VERSION/" .env
-sed -i "s/{VERSION}/$VERSION/" src/file_system/freyama.de/.changelog.md
+sed -i "s/{VERSION}/$VERSION/" .env src/file_system/freyama.de/.changelog.md
 
 
 # Build the static files on this branch first

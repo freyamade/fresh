@@ -1,5 +1,5 @@
 # CloudCIX Ltd
-## Chief Cloud Architect / CTO
+## Chief Cloud Architect / CTO (Software)
 ### June 2017 - December 2019, July 2021 - July 2022
 - Migrated internal git hosting from Phabricator to GitLab, set up CI/CD using GitLab to streamline the development process for the entire team.
 
