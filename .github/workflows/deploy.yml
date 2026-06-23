@@ -9,6 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: ubuntu
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v2
@@ -58,4 +60,4 @@ jobs:
         with:
           src: dist
           version: '${{ env.VERSION }}'
-          token: '${{ secrets.GH_TOKEN }}'
+          token: '${{ secrets.GITHUB_TOKEN }}'
