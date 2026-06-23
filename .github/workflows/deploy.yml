@@ -9,8 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: ubuntu
-    permissions:
-      contents: write
 
     steps:
       - uses: actions/checkout@v2
