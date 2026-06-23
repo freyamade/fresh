@@ -13,9 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Store version info in the environment
-        run: echo "VERSION=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
-
       # Build any WASM packages we have to build
       # - name: Install wasm-pack
       #   uses: jetli/wasm-pack-action@v0.3.0
@@ -38,23 +35,7 @@ jobs:
           apt install -y curl jq coreutils git
           curl -fsSL https://pkg.lightpanda.io/install.sh | bash
 
-      - name: Build the main site files
-        run: |
-          # Before running the build, insert the today's date as the version
-          sed -i "s/{VERSION}/$VERSION/" .env src/file_system/freyama.de/.changelog.md
-
-          # Build the static files on this branch first
-          npm run build
-
-          # Get the rendered html for the noJs and dump it into the file
-          npm run preview &
-          sleep 5
-          $HOME/.local/bin/lightpanda fetch --dump html --wait-ms 10000 --http-timeout 0 --strip-mode js http://localhost:12345/noJs.html | grep -v modulepreload > /tmp/noJs.html
-          cat /tmp/noJs.html
-          mv /tmp/noJs.html dist/noJs.html
-
-      - name: Deploy the built files
-        uses: freyamade/deploy-to-fresh@v1.0.0
-        with:
-          src: dist
-          version: '{{ env.VERSION }}'
+      - name: Build and deploy the site
+        run: bash deploy.sh
+        env:
+          GH_TOKEN: '${{ secrets.GH_TOKEN }}'

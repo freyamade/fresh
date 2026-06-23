@@ -6,6 +6,25 @@ set -e
 # Print commands as they run
 set +v
 
+# Get today's date
+VERSION=$(date +'%Y.%m.%d')
+
+# Builds will now be done from master in fresh to master in the pages repo
+
+# Before running the build, take the latest commit and insert it into the code
+sed -i "s/{VERSION}/$VERSION/" .env src/file_system/freyama.de/.changelog.md
+
+
+# Build the static files on this branch first
+npm run build
+
+# Get the rendered html for the noJs and dump it into the file
+npm run preview &
+sleep 5
+$HOME/.local/bin/lightpanda fetch --dump html --wait-ms 10000 --http-timeout 0 --strip-mode js http://localhost:12345/noJs.html | grep -v modulepreload > /tmp/noJs.html
+cat /tmp/noJs.html
+mv /tmp/noJs.html dist/noJs.html
+
 # -------------------------------------------------------------------------------
 # Deployment steps
 
