@@ -54,7 +54,7 @@ jobs:
           mv /tmp/noJs.html dist/noJs.html
 
       - name: Deploy the built files
-        uses: freyamade/deploy-to-fresh@v1.0.0
+        uses: freyamade/deploy-to-fresh@v1.0.1
         with:
           src: dist
           version: '{{ env.VERSION }}'
