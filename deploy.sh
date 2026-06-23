@@ -42,4 +42,4 @@ cp -r dist/* ../public
 cd ../public
 git add --all
 git commit -m "Deploying $VERSION"
-git push origin master
+git push origin main
